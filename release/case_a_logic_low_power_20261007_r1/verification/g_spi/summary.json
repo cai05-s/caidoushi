@@ -1,0 +1,67 @@
+{
+  "build": "C:\\Users\\27348\\.codex_tmp\\logic_low_power_20261007_g_spi",
+  "changed": [
+    "src/user_source/hdl_source/player_settings_flash.v",
+    "src/user_source/hdl_source/w25q64_preflight_reader.v",
+    "src/user_source/hdl_source/w25q64_record_store.v"
+  ],
+  "gate": {
+    "lut": 12981,
+    "reg": 7260,
+    "bram": 32,
+    "bram32k": 0,
+    "dsp": 9,
+    "pad": 49,
+    "pll": 2,
+    "gclk": 2
+  },
+  "routed": {
+    "lut": 13562,
+    "reg": 7294,
+    "bram": 32,
+    "bram32k": 0,
+    "dsp": 9,
+    "pad": 49,
+    "pll": 2,
+    "gclk": 2
+  },
+  "delta": {
+    "lut": -88,
+    "reg": -41,
+    "bram": 0,
+    "bram32k": 0,
+    "dsp": 0,
+    "pad": 0,
+    "pll": 0,
+    "gclk": 0
+  },
+  "setup": -5.565,
+  "hold": 0.014,
+  "tns": -338.804,
+  "self_groups": {
+    "sd_card_clk -> sd_card_clk": {
+      "setup": -1.483,
+      "hold": 0.014
+    },
+    "video_clk -> video_clk": {
+      "setup": 9.376,
+      "hold": 0.038
+    },
+    "clk -> clk": {
+      "setup": 4.51,
+      "hold": 0.153
+    },
+    "ext_mem_clk -> ext_mem_clk": {
+      "setup": 0.03,
+      "hold": 0.095
+    },
+    "hdmi_5x_clk -> hdmi_5x_clk": {
+      "setup": 3.449,
+      "hold": 0.223
+    }
+  },
+  "new_setup_violation_groups": [],
+  "new_hold_violation_groups": [],
+  "new_warning_lines": [],
+  "bit_sha256": "40be8ef147cff68802ef946fceb3b11e4a15283ba12a5987f86f7668f42c555f"
+}

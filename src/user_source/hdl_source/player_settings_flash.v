@@ -37,6 +37,15 @@ module player_settings_flash #(
     // CHECK_INIT/CHECK_BITS/CHECK_DONE. Reuse that stable record in place.
     wire [255:0] record=store_read_data;
     wire pf_cs,pf_clk,pf_mosi,pf_wp,pf_hold,st_cs,st_clk,st_mosi,st_wp,st_hold;
+    // The identity/read-only phase and journal phase own one byte engine.
+    // Both existing owners use CLK_DIV=5; standalone wrappers keep their own.
+    wire pf_byte_start, st_byte_start, shared_byte_busy, shared_byte_done;
+    wire [7:0] pf_byte_tx, st_byte_tx, shared_byte_rx;
+    wire shared_sclk, shared_mosi;
+    assign pf_clk=shared_sclk;
+    assign st_clk=shared_sclk;
+    assign pf_mosi=shared_mosi;
+    assign st_mosi=shared_mosi;
     // 记录在整个CRC计算期间保持不变，按255..32的顺序读取，省去224位移位副本。
     wire [7:0] crc_bit_index = bits_left + 8'd31;
     wire crc_input_bit = (state == SAVE_BITS) ? write_record[crc_bit_index] :
@@ -81,19 +90,31 @@ module player_settings_flash #(
         end
     endfunction
 
-    w25q64_preflight_reader #(.SPI_CLK_DIV(5),.STARTUP_CYCLES(1000000)) u_identity(
-        .clk(clk),.rst_n(rst_n && !boot_abort),.start(pf_start),.flash_miso(flash_miso),
-        .flash_cs_n(pf_cs),.flash_sclk(pf_clk),.flash_mosi(pf_mosi),.flash_wp_n(pf_wp),.flash_hold_n(pf_hold),
+    w25q64_preflight_reader_control #(.SPI_CLK_DIV(5),.STARTUP_CYCLES(1000000)) u_identity(
+        .clk(clk),.rst_n(rst_n && !boot_abort),.start(pf_start),
+        .flash_cs_n(pf_cs),.flash_wp_n(pf_wp),.flash_hold_n(pf_hold),
         .busy(),.done(pf_done),.accepted(pf_accepted),.error(pf_error),.error_code(pf_code),
-        .jedec_id(jedec_id),.status1(),.status2(),.status3());
-    w25q64_record_store #(.RECORD_BYTES(32),.COMMIT_LAST(1),.CLK_DIV(5),
+        .jedec_id(jedec_id),.status1(),.status2(),.status3(),
+        .engine_start(pf_byte_start),.engine_tx(pf_byte_tx),
+        .engine_busy(shared_byte_busy),.engine_done(shared_byte_done),.engine_rx(shared_byte_rx));
+    w25q64_record_store_control #(.RECORD_BYTES(32),.COMMIT_LAST(1),.CLK_DIV(5),
         .ALLOWED_BASE(24'h7f0000),.ALLOWED_LIMIT(24'h800000)) u_store(
         .clk(clk),.rst_n(rst_n && !pf_owner && !boot_abort),.start(store_start),
         .op_write(store_write),.address(store_address),.write_data(write_record),
         .busy(),.done(store_done),.error(store_error),.error_code(store_code),
         .read_data(store_read_data),.request_dropped(),
-        .spi_cs_n(st_cs),.spi_sclk(st_clk),.spi_mosi(st_mosi),.spi_miso(flash_miso),
-        .spi_wp_n(st_wp),.spi_hold_n(st_hold));
+        .spi_cs_n(st_cs),
+        .spi_wp_n(st_wp),.spi_hold_n(st_hold),
+        .engine_start(st_byte_start),.engine_tx(st_byte_tx),
+        .engine_busy(shared_byte_busy),.engine_done(shared_byte_done),.engine_rx(shared_byte_rx));
+
+    spi_byte_engine #(.CLK_DIV(5)) u_shared_byte_engine (
+        .clk(clk),.rst_n(rst_n && !boot_abort),
+        .start(pf_owner ? pf_byte_start : st_byte_start),
+        .tx_byte(pf_owner ? pf_byte_tx : st_byte_tx),.miso(flash_miso),
+        .busy(shared_byte_busy),.done(shared_byte_done),.rx_byte(shared_byte_rx),
+        .sclk(shared_sclk),.mosi(shared_mosi)
+    );
 
     always @(posedge clk or negedge rst_n) begin
         if(!rst_n) begin

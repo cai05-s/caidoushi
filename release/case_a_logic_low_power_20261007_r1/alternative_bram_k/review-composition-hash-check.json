@@ -1,0 +1,31 @@
+{
+  "k_resource_combo": {
+    "status": "PASS",
+    "files_verified": 5,
+    "component_evidence_hashes_verified": 14,
+    "merged_files_independently_reconstructed": {
+      "src/user_source/hdl_source/player_settings_flash.v": "12bd009d62e6348db45a4b680a291d773ab71c4037ae6bfc39e2d9f7547bf9b7"
+    },
+    "manifest_sha256": "21ace99644819f05d1695d3d6602c402b255c4e021cffb1871d33d96005198da",
+    "composition_proof_sha256": "dee5fba2d025657e652da1c37f5ad077d1e2a18ba641c60ab4631e74bbc0d9a2",
+    "elaboration_errors_as_recorded": 0,
+    "rtl_simulation_run": false,
+    "td_run": false,
+    "board_tested": false
+  },
+  "l_power_combo": {
+    "status": "PASS",
+    "files_verified": 8,
+    "component_evidence_hashes_verified": 22,
+    "merged_files_independently_reconstructed": {
+      "src/user_source/hdl_source/player_settings_flash.v": "12bd009d62e6348db45a4b680a291d773ab71c4037ae6bfc39e2d9f7547bf9b7",
+      "src/user_source/hdl_source/SD/bmp_read.v": "16ff9993c08982a510a3a23ebccda0c8350d44a5d829a0c12815ba115c465519"
+    },
+    "manifest_sha256": "7fbadb9bf5707daa4b7e1ccb9d915fc39fb7f5e2a6e27d6d6860679912b1f24e",
+    "composition_proof_sha256": "4cb14ac1ac3bf9e096e43394683d1036293a29ba898257e1beebd896050bc39d",
+    "elaboration_errors_as_recorded": 0,
+    "rtl_simulation_run": false,
+    "td_run": false,
+    "board_tested": false
+  }
+}

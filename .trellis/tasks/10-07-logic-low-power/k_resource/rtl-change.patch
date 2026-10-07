@@ -1,0 +1,479 @@
+--- baseline/src/user_source/hdl_source/SD/bmp_read.v
++++ candidate/src/user_source/hdl_source/SD/bmp_read.v
+@@ -38,12 +38,12 @@
+         ST_STEP_X = 6, ST_STEP_Y = 7, ST_ACK_HIGH = 8, ST_ACK_LOW = 9,
+         ST_ROW = 10, ST_ROW_OFFSET = 11, ST_FETCH = 12,
+         ST_BYTE_WAIT = 13, ST_BYTE_DATA = 14, ST_PIXEL = 15,
+-        ST_PIXEL_DATA = 16, ST_SEND = 17, ST_DRAIN = 18, ST_ROW_ADD = 19;
++        ST_PIXEL_DATA = 16, ST_SEND = 17, ST_DRAIN = 18, ST_ROW_ADD = 19, ST_SAMPLE = 20;
+     localparam [7:0] ERR_NONE = 8'h00, ERR_SIGNATURE = 8'h31,
+         ERR_DIMENSIONS = 8'h32, ERR_PLANES = 8'h33, ERR_BPP = 8'h34,
+         ERR_COMPRESSION = 8'h35, ERR_OFFSET = 8'h36,
+         ERR_LENGTH = 8'h37, ERR_IO = 8'h38, ERR_DIB = 8'h39;
+-    localparam integer LINE_ADDR_BITS = (MAX_DIM > 1) ? $clog2(MAX_DIM) : 1;
++    localparam integer LINE_ADDR_BITS = (FRAME_WIDTH > 1) ? $clog2(FRAME_WIDTH) : 1;
+ 
+     reg [4:0] state, sector_return_state;
+     reg [9:0] sector_count;
+@@ -75,6 +75,9 @@
+ 
+     reg line_valid;
+     reg [15:0] cached_row, capture_x;
++    reg [LINE_ADDR_BITS-1:0] sample_x;
++    wire [15:0] next_sample_source = source_x + x_step +
++                                      ((x_error_sum >= {1'b0, fit_width}) ? 16'd1 : 16'd0);
+     reg [1:0] channel;
+     reg [7:0] blue_hold, green_hold;
+     reg [8:0] sector_read_address;
+@@ -82,7 +85,8 @@
+     reg [23:0] line_read_data;
+     // 同步读写，不清零存储阵列，允许 TD 推断为片上块 RAM。
+     reg [7:0] sector_memory [0:511] /* fehdl force_ram=1, ram_style="bram" */;
+-    reg [23:0] line_memory [0:MAX_DIM-1] /* fehdl force_ram=1, ram_style="bram" */;
++    // Cache the fitted output samples, including repeated enlargement samples.
++    reg [23:0] line_memory [0:FRAME_WIDTH-1] /* fehdl force_ram=1, ram_style="bram" */;
+ 
+     reg [1:0] ack_sync;
+     reg div_start;
+@@ -166,8 +170,8 @@
+             sector_memory[sector_count[8:0]] <= sd_sec_read_data;
+         if (state == ST_BYTE_WAIT)
+             sector_read_data <= sector_memory[sector_read_address];
+-        if (state == ST_BYTE_DATA && channel == 2'd2)
+-            line_memory[capture_x[LINE_ADDR_BITS-1:0]] <= {sector_read_data, green_hold, blue_hold};
++        if (state == ST_SAMPLE)
++            line_memory[sample_x] <= {sector_read_data, green_hold, blue_hold};
+         if (state == ST_PIXEL && pixel_in_image)
+             line_read_data <= line_memory[source_x[LINE_ADDR_BITS-1:0]];
+     end
+@@ -227,7 +231,7 @@
+             fit_width <= FRAME_WIDTH; fit_height <= FRAME_HEIGHT; x_offset <= 0; y_offset <= 0;
+             out_x <= 0; out_y <= 0; source_x <= 0; source_y <= 0; file_row <= 0;
+             x_step <= 0; y_step <= 0; x_remainder <= 0; y_remainder <= 0; x_error <= 0; y_error <= 0;
+-            line_valid <= 0; cached_row <= 0; capture_x <= 0; channel <= 0;
++            line_valid <= 0; cached_row <= 0; capture_x <= 0; sample_x <= 0; channel <= 0;
+             blue_hold <= 0; green_hold <= 0; sector_read_address <= 0;
+             div_start <= 0; div_operation <= 0; div_numerator <= 0; div_denominator <= 1;
+         end else begin
+@@ -352,7 +356,7 @@
+                 end
+                 ST_ROW_ADD: begin
+                     fetch_pos <= pixel_offset + row_byte_offset;
+-                    capture_x <= 0; channel <= 0; state <= ST_FETCH;
++                    capture_x <= 0; sample_x <= 0; channel <= 0; state <= ST_FETCH;
+                 end
+                 ST_FETCH: begin
+                     if (!sector_cached || cached_sector != wanted_sector) begin
+@@ -371,11 +375,32 @@
+                         1: begin green_hold <= sector_read_data; channel <= 2; end
+                         default: begin
+                             channel <= 0;
+-                            if (capture_x == image_width - 1'b1) begin
++                            if (capture_x == source_x) begin
++                                state <= ST_SAMPLE;
++                            end else if (capture_x == image_width - 1'b1) begin
+                                 line_valid <= 1; cached_row <= source_y; state <= ST_PIXEL;
++                                source_x <= 0; x_error <= 0;
+                             end else capture_x <= capture_x + 1'b1;
+                         end
+                     endcase
++                end
++                ST_SAMPLE: begin
++                    // sector_read_data and the B/G holds stay unchanged here.
++                    // Emit every output sample for this input pixel before fetching
++                    // the next byte; this handles enlargement without dropping repeats.
++                    sample_x <= sample_x + 1'b1;
++                    source_x <= next_sample_source;
++                    if (x_error_sum >= {1'b0, fit_width})
++                        x_error <= x_error_sum - {1'b0, fit_width};
++                    else x_error <= x_error_sum[15:0];
++                    if (sample_x == fit_width - 1'b1 || x_step != 16'd0 || x_error_sum >= {1'b0, fit_width}) begin
++                        if (capture_x == image_width - 1'b1) begin
++                            line_valid <= 1; cached_row <= source_y; state <= ST_PIXEL;
++                            source_x <= 0; x_error <= 0;
++                        end else begin
++                            capture_x <= capture_x + 1'b1; state <= ST_FETCH;
++                        end
++                    end
+                 end
+                 ST_PIXEL: begin
+                     if (pixel_in_image) state <= ST_PIXEL_DATA;
+@@ -386,15 +411,8 @@
+                 end
+                 ST_SEND: if (bmp_data_ready) begin
+                     bmp_data_wr_en <= 0;
+-                    // 等价于 floor(local_x * source_width / fit_width)，无逐像素除法器。
+-                    if (pixel_in_image) begin
+-                        if (x_error_sum >= {1'b0, fit_width}) begin
+-                            source_x <= source_x + x_step + 1'b1;
+-                            x_error <= x_error_sum - {1'b0, fit_width};
+-                        end else begin
+-                            source_x <= source_x + x_step; x_error <= x_error_sum[15:0];
+-                        end
+-                    end
++                    // The line cache already contains floor-mapped output samples.
++                    if (pixel_in_image) source_x <= source_x + 1'b1;
+                     if (out_x == FRAME_WIDTH - 1) begin
+                         out_x <= 0;
+                         if (row_in_image) begin
+--- baseline/src/user_source/hdl_source/SD/sd_fat32_wav.v
++++ candidate/src/user_source/hdl_source/SD/sd_fat32_wav.v
+@@ -391,6 +391,10 @@
+                     endcase
+                     mbr_index <= mbr_index + 1'b1;
+                 end
++                // Last MBR entry completes at byte509. Precompute its full
++                // 33-bit bound before the original S_BOOT_CHECK decision.
++                if (boot_index == 9'd510)
++                    partition_end <= {1'b0,partition_lba} + {1'b0,partition_size};
+                 if (boot_index == 9'd511) state <= S_BOOT_CHECK;
+                 else begin boot_index <= boot_index + 1'b1; state <= S_BYTE_ADDR; end
+             end
+@@ -401,7 +405,7 @@
+                     state <= S_GEOM0;
+                 else if (first_boot && partition_found && partition_lba != 0 &&
+                          partition_size != 0 &&
+-                         ({1'b0,partition_lba}+{1'b0,partition_size}) <= 33'h100000000) begin
++                         partition_end <= 33'h100000000) begin
+                     first_boot <= 0; volume_lba <= partition_lba;
+                     req_addr <= partition_lba; io_return <= S_BOOT_BEGIN;
+                     state <= S_IO_REQ;
+--- baseline/src/user_source/hdl_source/player_settings_flash.v
++++ candidate/src/user_source/hdl_source/player_settings_flash.v
+@@ -26,6 +26,7 @@
+     reg [255:0] write_record;
+     reg read_failed;
+     reg [15:0] crc;
++    reg [7:0] crc_byte;
+     reg [7:0] bits_left;
+     reg pf_start,store_start,store_write;
+     reg [23:0] store_address;
+@@ -37,10 +38,19 @@
+     // CHECK_INIT/CHECK_BITS/CHECK_DONE. Reuse that stable record in place.
+     wire [255:0] record=store_read_data;
+     wire pf_cs,pf_clk,pf_mosi,pf_wp,pf_hold,st_cs,st_clk,st_mosi,st_wp,st_hold;
+-    // 记录在整个CRC计算期间保持不变，按255..32的顺序读取，省去224位移位副本。
+-    wire [7:0] crc_bit_index = bits_left + 8'd31;
+-    wire crc_input_bit = (state == SAVE_BITS) ? write_record[crc_bit_index] :
+-        (!read_failed && record[crc_bit_index]);
++    // The identity/read-only phase and journal phase own one byte engine.
++    // Both existing owners use CLK_DIV=5; standalone wrappers keep their own.
++    wire pf_byte_start, st_byte_start, shared_byte_busy, shared_byte_done;
++    wire [7:0] pf_byte_tx, st_byte_tx, shared_byte_rx;
++    wire shared_sclk, shared_mosi;
++    assign pf_clk=shared_sclk;
++    assign st_clk=shared_sclk;
++    assign pf_mosi=shared_mosi;
++    assign st_mosi=shared_mosi;
++    // Stage one byte while preserving all 224 MSB-first CRC cycles.
++    // At the last bit of a byte, bits_left[7:3]+3 selects the next byte.
++    wire [4:0] crc_next_byte_index = bits_left[7:3] + 5'd3;
++    wire crc_input_bit = crc_byte[7];
+     wire [15:0] crc_step={crc[14:0],1'b0} ^ ((crc[15]^crc_input_bit)?16'h1021:16'h0000);
+     wire [31:0] record_sequence={record[135:128],record[143:136],record[151:144],record[159:152]};
+     wire [17:0] record_settings={3'd0,record[160],record[169:168],record[178:176],
+@@ -81,19 +91,31 @@
+         end
+     endfunction
+ 
+-    w25q64_preflight_reader #(.SPI_CLK_DIV(5),.STARTUP_CYCLES(1000000)) u_identity(
+-        .clk(clk),.rst_n(rst_n && !boot_abort),.start(pf_start),.flash_miso(flash_miso),
+-        .flash_cs_n(pf_cs),.flash_sclk(pf_clk),.flash_mosi(pf_mosi),.flash_wp_n(pf_wp),.flash_hold_n(pf_hold),
++    w25q64_preflight_reader_control #(.SPI_CLK_DIV(5),.STARTUP_CYCLES(1000000)) u_identity(
++        .clk(clk),.rst_n(rst_n && !boot_abort),.start(pf_start),
++        .flash_cs_n(pf_cs),.flash_wp_n(pf_wp),.flash_hold_n(pf_hold),
+         .busy(),.done(pf_done),.accepted(pf_accepted),.error(pf_error),.error_code(pf_code),
+-        .jedec_id(jedec_id),.status1(),.status2(),.status3());
+-    w25q64_record_store #(.RECORD_BYTES(32),.COMMIT_LAST(1),.CLK_DIV(5),
++        .jedec_id(jedec_id),.status1(),.status2(),.status3(),
++        .engine_start(pf_byte_start),.engine_tx(pf_byte_tx),
++        .engine_busy(shared_byte_busy),.engine_done(shared_byte_done),.engine_rx(shared_byte_rx));
++    w25q64_record_store_control #(.RECORD_BYTES(32),.COMMIT_LAST(1),.CLK_DIV(5),
+         .ALLOWED_BASE(24'h7f0000),.ALLOWED_LIMIT(24'h800000)) u_store(
+         .clk(clk),.rst_n(rst_n && !pf_owner && !boot_abort),.start(store_start),
+         .op_write(store_write),.address(store_address),.write_data(write_record),
+         .busy(),.done(store_done),.error(store_error),.error_code(store_code),
+         .read_data(store_read_data),.request_dropped(),
+-        .spi_cs_n(st_cs),.spi_sclk(st_clk),.spi_mosi(st_mosi),.spi_miso(flash_miso),
+-        .spi_wp_n(st_wp),.spi_hold_n(st_hold));
++        .spi_cs_n(st_cs),
++        .spi_wp_n(st_wp),.spi_hold_n(st_hold),
++        .engine_start(st_byte_start),.engine_tx(st_byte_tx),
++        .engine_busy(shared_byte_busy),.engine_done(shared_byte_done),.engine_rx(shared_byte_rx));
++
++    spi_byte_engine #(.CLK_DIV(5)) u_shared_byte_engine (
++        .clk(clk),.rst_n(rst_n && !boot_abort),
++        .start(pf_owner ? pf_byte_start : st_byte_start),
++        .tx_byte(pf_owner ? pf_byte_tx : st_byte_tx),.miso(flash_miso),
++        .busy(shared_byte_busy),.done(shared_byte_done),.rx_byte(shared_byte_rx),
++        .sclk(shared_sclk),.mosi(shared_mosi)
++    );
+ 
+     always @(posedge clk or negedge rst_n) begin
+         if(!rst_n) begin
+@@ -101,7 +123,7 @@
+             slot<=0;active_slot<=0;newest_slot<=0;any_valid<=0;invalid_nonblank<=0;
+             newest_sequence<=0;active_sequence<=0;save_sequence<=0;
+             newest_settings<=DEFAULTS;save_settings_q<=DEFAULTS;
+-            read_failed<=0;write_record<=0;crc<=16'hffff;bits_left<=0;
++            read_failed<=0;write_record<=0;crc<=16'hffff;crc_byte<=0;bits_left<=0;
+             pf_start<=0;store_start<=0;store_write<=0;store_address<=24'h7f0000;
+             load_done<=0;load_valid<=0;loaded_settings<=DEFAULTS;
+             save_done<=0;save_ok<=0;error_code<=0;
+@@ -123,9 +145,15 @@
+                     if(store_error) error_code<=8'h71;
+                     state<=CHECK_INIT;
+                 end
+-                CHECK_INIT:begin crc<=16'hffff;bits_left<=224;state<=CHECK_BITS;end
++                CHECK_INIT:begin
++                    crc<=16'hffff;bits_left<=224;state<=CHECK_BITS;
++                    crc_byte<=read_failed?8'd0:record[255:248];
++                end
+                 CHECK_BITS:begin
+                     crc<=crc_step;bits_left<=bits_left-1'b1;
++                    if(bits_left[2:0]==3'd1 && bits_left!=8'd1)
++                        crc_byte<=read_failed?8'd0:record[{crc_next_byte_index,3'b000} +: 8];
++                    else crc_byte<={crc_byte[6:0],1'b0};
+                     if(bits_left==1) state<=CHECK_DONE;
+                 end
+                 CHECK_DONE:begin
+@@ -160,9 +188,15 @@
+                         write_record<=make_record(save_settings,active_sequence+1'b1);state<=SAVE_INIT;
+                     end
+                 end
+-                SAVE_INIT:begin crc<=16'hffff;bits_left<=224;state<=SAVE_BITS;end
++                SAVE_INIT:begin
++                    crc<=16'hffff;bits_left<=224;state<=SAVE_BITS;
++                    crc_byte<=write_record[255:248];
++                end
+                 SAVE_BITS:begin
+                     crc<=crc_step;bits_left<=bits_left-1'b1;
++                    if(bits_left[2:0]==3'd1 && bits_left!=8'd1)
++                        crc_byte<=write_record[{crc_next_byte_index,3'b000} +: 8];
++                    else crc_byte<={crc_byte[6:0],1'b0};
+                     if(bits_left==1) state<=SAVE_CRC;
+                 end
+                 SAVE_CRC:begin write_record[31:16]<={crc[7:0],crc[15:8]};state<=SAVE_START;end
+--- baseline/src/user_source/hdl_source/w25q64_preflight_reader.v
++++ candidate/src/user_source/hdl_source/w25q64_preflight_reader.v
+@@ -13,9 +13,72 @@
+     input  wire        rst_n,
+     input  wire        start,
+     input  wire        flash_miso,
+-    output reg         flash_cs_n,
++    output wire         flash_cs_n,
+     output wire        flash_sclk,
+     output wire        flash_mosi,
++    output wire        flash_wp_n,
++    output wire        flash_hold_n,
++    output wire         busy,
++    output wire         done,
++    output wire         accepted,
++    output wire         error,
++    output wire  [3:0]  error_code,
++    output wire  [23:0] jedec_id,
++    output wire  [7:0]  status1,
++    output wire  [7:0]  status2,
++    output wire  [7:0]  status3
++);
++    // Standalone wrapper retains the original ports, parameters and SPI engine.
++    wire engine_start, engine_busy, engine_done;
++    wire [7:0] engine_tx, engine_rx;
++    w25q64_preflight_reader_control #(
++        .SPI_CLK_DIV(SPI_CLK_DIV),
++        .STARTUP_CYCLES(STARTUP_CYCLES),
++        .WAKE_CYCLES(WAKE_CYCLES),
++        .CS_HIGH_CYCLES(CS_HIGH_CYCLES),
++        .EXPECTED_JEDEC_ID(EXPECTED_JEDEC_ID)
++    ) u_control (
++        .clk(clk),
++        .rst_n(rst_n),
++        .start(start),
++        .flash_cs_n(flash_cs_n),
++        .flash_wp_n(flash_wp_n),
++        .flash_hold_n(flash_hold_n),
++        .busy(busy),
++        .done(done),
++        .accepted(accepted),
++        .error(error),
++        .error_code(error_code),
++        .jedec_id(jedec_id),
++        .status1(status1),
++        .status2(status2),
++        .status3(status3),
++        .engine_start(engine_start),
++        .engine_tx(engine_tx),
++        .engine_busy(engine_busy),
++        .engine_done(engine_done),
++        .engine_rx(engine_rx)
++    );
++    spi_byte_engine #(.CLK_DIV(SPI_CLK_DIV)) u_spi_byte_engine (
++        .clk(clk), .rst_n(rst_n), .start(engine_start), .tx_byte(engine_tx),
++        .miso(flash_miso), .busy(engine_busy), .done(engine_done),
++        .rx_byte(engine_rx), .sclk(flash_sclk), .mosi(flash_mosi)
++    );
++endmodule
++
++// Read-only identity and protection gate used before the write-capable owner
++// receives the physical SPI pins.
++module w25q64_preflight_reader_control #(
++    parameter integer SPI_CLK_DIV = 4,
++    parameter integer STARTUP_CYCLES = 1024,
++    parameter integer WAKE_CYCLES = 200,
++    parameter integer CS_HIGH_CYCLES = 3,
++    parameter [23:0] EXPECTED_JEDEC_ID = 24'hef4017
++) (
++    input  wire        clk,
++    input  wire        rst_n,
++    input  wire        start,
++    output reg         flash_cs_n,
+     output wire        flash_wp_n,
+     output wire        flash_hold_n,
+     output reg         busy,
+@@ -26,7 +89,12 @@
+     output reg  [23:0] jedec_id,
+     output reg  [7:0]  status1,
+     output reg  [7:0]  status2,
+-    output reg  [7:0]  status3
++    output reg  [7:0]  status3,
++    output wire        engine_start,
++    output wire [7:0]  engine_tx,
++    input wire         engine_busy,
++    input wire         engine_done,
++    input wire [7:0]   engine_rx
+ );
+     localparam [4:0] ST_IDLE         = 5'd0;
+     localparam [4:0] ST_STARTUP      = 5'd1;
+@@ -72,11 +140,11 @@
+         end
+     end
+ 
+-    spi_byte_engine #(.CLK_DIV(SPI_CLK_DIV)) u_spi_byte_engine (
+-        .clk(clk), .rst_n(rst_n), .start(spi_start), .tx_byte(spi_tx_byte),
+-        .miso(flash_miso), .busy(spi_busy), .done(spi_done),
+-        .rx_byte(spi_rx_byte), .sclk(flash_sclk), .mosi(flash_mosi)
+-    );
++    assign engine_start = spi_start;
++    assign engine_tx = spi_tx_byte;
++    assign spi_busy = engine_busy;
++    assign spi_done = engine_done;
++    assign spi_rx_byte = engine_rx;
+ 
+     function [7:0] status_command;
+         input [1:0] index;
+--- baseline/src/user_source/hdl_source/w25q64_record_store.v
++++ candidate/src/user_source/hdl_source/w25q64_record_store.v
+@@ -1,6 +1,78 @@
+ `timescale 1ns/1ps
+ 
+ module w25q64_record_store #(
++    parameter integer RECORD_BYTES = 12,
++    parameter integer COMMIT_LAST = 0,
++    parameter integer CLK_DIV = 2,
++    parameter integer CS_HIGH_CYCLES = 3,
++    parameter integer POLL_INTERVAL_CYCLES = 5000,
++    parameter [31:0] ERASE_TIMEOUT_CYCLES = 32'd250000000,
++    parameter [31:0] PROGRAM_TIMEOUT_CYCLES = 32'd5000000,
++    parameter [23:0] ALLOWED_BASE = 24'h001000,
++    parameter [23:0] ALLOWED_LIMIT = 24'h003000
++) (
++    input  wire        clk,
++    input  wire        rst_n,
++    input  wire        start,
++    input  wire        op_write,
++    input  wire [23:0] address,
++    input  wire [RECORD_BYTES*8-1:0] write_data,
++    output wire         busy,
++    output wire         done,
++    output wire         error,
++    output wire  [3:0]  error_code,
++    output wire  [RECORD_BYTES*8-1:0] read_data,
++    output wire         request_dropped,
++    output wire         spi_cs_n,
++    output wire        spi_sclk,
++    output wire        spi_mosi,
++    input  wire        spi_miso,
++    output wire        spi_wp_n,
++    output wire        spi_hold_n
++);
++    // Standalone wrapper retains the original ports, parameters and SPI engine.
++    wire engine_start, engine_busy, engine_done;
++    wire [7:0] engine_tx, engine_rx;
++    w25q64_record_store_control #(
++        .RECORD_BYTES(RECORD_BYTES),
++        .COMMIT_LAST(COMMIT_LAST),
++        .CLK_DIV(CLK_DIV),
++        .CS_HIGH_CYCLES(CS_HIGH_CYCLES),
++        .POLL_INTERVAL_CYCLES(POLL_INTERVAL_CYCLES),
++        .ERASE_TIMEOUT_CYCLES(ERASE_TIMEOUT_CYCLES),
++        .PROGRAM_TIMEOUT_CYCLES(PROGRAM_TIMEOUT_CYCLES),
++        .ALLOWED_BASE(ALLOWED_BASE),
++        .ALLOWED_LIMIT(ALLOWED_LIMIT)
++    ) u_control (
++        .clk(clk),
++        .rst_n(rst_n),
++        .start(start),
++        .op_write(op_write),
++        .address(address),
++        .write_data(write_data),
++        .busy(busy),
++        .done(done),
++        .error(error),
++        .error_code(error_code),
++        .read_data(read_data),
++        .request_dropped(request_dropped),
++        .spi_cs_n(spi_cs_n),
++        .spi_wp_n(spi_wp_n),
++        .spi_hold_n(spi_hold_n),
++        .engine_start(engine_start),
++        .engine_tx(engine_tx),
++        .engine_busy(engine_busy),
++        .engine_done(engine_done),
++        .engine_rx(engine_rx)
++    );
++    spi_byte_engine #(.CLK_DIV(CLK_DIV)) u_byte_engine (
++        .clk(clk), .rst_n(rst_n), .start(engine_start), .tx_byte(engine_tx),
++        .miso(spi_miso), .busy(engine_busy), .done(engine_done),
++        .rx_byte(engine_rx), .sclk(spi_sclk), .mosi(spi_mosi)
++    );
++endmodule
++
++module w25q64_record_store_control #(
+     parameter integer RECORD_BYTES = 12,
+     parameter integer COMMIT_LAST = 0,
+     parameter integer CLK_DIV = 2,
+@@ -24,11 +96,13 @@
+     output reg  [RECORD_BYTES*8-1:0] read_data,
+     output reg         request_dropped,
+     output reg         spi_cs_n,
+-    output wire        spi_sclk,
+-    output wire        spi_mosi,
+-    input  wire        spi_miso,
+     output wire        spi_wp_n,
+-    output wire        spi_hold_n
++    output wire        spi_hold_n,
++    output wire        engine_start,
++    output wire [7:0]  engine_tx,
++    input wire         engine_busy,
++    input wire         engine_done,
++    input wire [7:0]   engine_rx
+ );
+     localparam [3:0] ERR_NONE          = 4'd0;
+     localparam [3:0] ERR_OUT_OF_RANGE  = 4'd1;
+@@ -131,11 +205,11 @@
+     assign address_allowed = (address >= ALLOWED_BASE) &&
+                              ({1'b0,address} + RECORD_BYTES - 1 < {1'b0,ALLOWED_LIMIT});
+ 
+-    spi_byte_engine #(.CLK_DIV(CLK_DIV)) u_byte_engine (
+-        .clk(clk), .rst_n(rst_n), .start(byte_start), .tx_byte(byte_tx),
+-        .miso(spi_miso), .busy(byte_busy), .done(byte_done),
+-        .rx_byte(byte_rx), .sclk(spi_sclk), .mosi(spi_mosi)
+-    );
++    assign engine_start = byte_start;
++    assign engine_tx = byte_tx;
++    assign byte_busy = engine_busy;
++    assign byte_done = engine_done;
++    assign byte_rx = engine_rx;
+ 
+     function [7:0] address_byte;
+         input [23:0] value;

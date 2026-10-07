@@ -1,0 +1,135 @@
+{
+  "parser": "11.0.0",
+  "api": "SyntaxTree.fromText with SourceManager (Unicode-safe)",
+  "elaboration_errors": 0,
+  "scoped_elaboration": {
+    "V1.0": {
+      "elaboration_errors": 0,
+      "source_sha256": {
+        "src/user_source/hdl_source/SD/sd_fat32_wav.v": "e240279e54b39f0919c3a2239360eb37997b4aee8f3b7c857ea79995958a24c0",
+        "src/user_source/hdl_source/w25q64_record_store.v": "41de374a9bbfcdee91bb45c89b9ad1b62abaf93843ec05a85ea15a7cd073214b",
+        "src/user_source/hdl_source/w25q64_preflight_reader.v": "42268808045584d4e3fc7572fbc3b5881431da161dfb0a2b30e70d2bba1fa9d5",
+        "src/user_source/hdl_source/hdmi_audio_route/pcm_media_tone.v": "6b1c3d5b357b9b6870b1150c0e60da68b7d1a26295f4016f06ea8e6f9ef0afdf",
+        "src/user_source/hdl_source/brightness_contrast_adjust.v": "42cba9d0058b9212d8b0d2ab89837bbd89dc3aba8a0c82ec46ad5dde5f796c24",
+        "src/user_source/hdl_source/video_fade_overlay.v": "2ada632513049a42bc6fe43ef1df9ab8de36da79081da89a36e8077ce3d723c3",
+        "src/user_source/hdl_source/player_settings_flash.v": "78d0f5caa1c53b7b22f1d7f739ce187d259e781f39d6b62cd8927fe25142f8dd",
+        "src/user_source/hdl_source/SD/bmp_read.v": "1c13c6c982800f5dae85f620c864a0378fd00059afa1995b9850d6a49c5d0588"
+      },
+      "diagnostic_categories": {
+        "DiagCode(CaseDefault)": 2,
+        "DiagCode(WidthExpand)": 2,
+        "DiagCode(ArithOpMismatch)": 20,
+        "DiagCode(SignConversion)": 7,
+        "DiagCode(WidthTruncate)": 13,
+        "DiagCode(SignCompare)": 14,
+        "DiagCode(EmptyOutputPortConn)": 6,
+        "DiagCode(UnconnectedInputPort)": 296,
+        "DiagCode(UnconnectedOutputPort)": 272
+      }
+    },
+    "l_power_combo": {
+      "elaboration_errors": 0,
+      "source_sha256": {
+        "src/user_source/hdl_source/SD/sd_fat32_wav.v": "d2af5a63e6ed8a095b75a5b45ca8662b8ab4d7e3a088ae3793239eb101661238",
+        "src/user_source/hdl_source/w25q64_record_store.v": "87cf4374c3984a690253dae6a6665deca9d0c12ed655f1e701dd7e1c041f92e1",
+        "src/user_source/hdl_source/w25q64_preflight_reader.v": "b335be71f66e2513f17ef1cb23307a93bf95bc714e532ac5a3d06e687ef533bc",
+        "src/user_source/hdl_source/hdmi_audio_route/pcm_media_tone.v": "a4ddc78a6b115f551b6205b1c0e39a2c8fa74705e89753eb8e823dcdf7ddfcf2",
+        "src/user_source/hdl_source/brightness_contrast_adjust.v": "520e0fa8c1b2c7b6de82a01d127073df422c1a32f51b6cad25bc661b9edf3b76",
+        "src/user_source/hdl_source/video_fade_overlay.v": "9fec083ea463db5bed1435e955dd7d27ebfea42b74a749494a8b52c271772464",
+        "src/user_source/hdl_source/player_settings_flash.v": "12bd009d62e6348db45a4b680a291d773ab71c4037ae6bfc39e2d9f7547bf9b7",
+        "src/user_source/hdl_source/SD/bmp_read.v": "16ff9993c08982a510a3a23ebccda0c8350d44a5d829a0c12815ba115c465519"
+      },
+      "diagnostic_categories": {
+        "DiagCode(CaseDefault)": 2,
+        "DiagCode(WidthExpand)": 2,
+        "DiagCode(ArithOpMismatch)": 20,
+        "DiagCode(SignConversion)": 7,
+        "DiagCode(WidthTruncate)": 13,
+        "DiagCode(SignCompare)": 14,
+        "DiagCode(EmptyOutputPortConn)": 6,
+        "DiagCode(UnconnectedInputPort)": 296,
+        "DiagCode(UnconnectedOutputPort)": 272
+      }
+    }
+  },
+  "unchanged_dependency": {
+    "src/user_source/hdl_source/spi_byte_engine.v": "7f4eb1fa86e01610451ec140ab5aaaa24052977b5df972c2f08b68dc8404e7ea"
+  },
+  "wrapper_sha256": "74915fd92095546111d35390c3c6bd50ceed68a6ce4e0c0659f6e6910a8e091a",
+  "shared_spi_instances_in_settings": 1,
+  "crc_byte_width": 8,
+  "scope": "All combined candidate modules and their unmodified SPI byte-engine dependency, including parameter wrappers; full top/TD is a separate main-agent check",
+  "bmp_ce_on_f2": {
+    "elaboration_diagnostics": {
+      "before": {
+        "DiagCode(ArithOpMismatch)": 4,
+        "DiagCode(SignCompare)": 4,
+        "DiagCode(WidthTruncate)": 2,
+        "DiagCode(UnconnectedInputPort)": 153,
+        "DiagCode(UnconnectedOutputPort)": 135
+      },
+      "after": {
+        "DiagCode(ArithOpMismatch)": 4,
+        "DiagCode(SignCompare)": 4,
+        "DiagCode(WidthTruncate)": 2,
+        "DiagCode(UnconnectedInputPort)": 153,
+        "DiagCode(UnconnectedOutputPort)": 135
+      }
+    },
+    "parameter_specializations_each": 9,
+    "header_registers": [
+      "aspect_h",
+      "aspect_w",
+      "dib_end",
+      "file_sector_count",
+      "header_error_q",
+      "header_pixel_bytes",
+      "header_stride",
+      "height_abs",
+      "next_scan_match",
+      "required_file_bytes"
+    ],
+    "geometry_registers": [
+      "image_x_end",
+      "image_y_end"
+    ],
+    "settled_edges_from_first_header_byte": {
+      "aspect_h": 27,
+      "aspect_w": 22,
+      "dib_end": 18,
+      "file_sector_count": 6,
+      "header_error_q": 34,
+      "header_pixel_bytes": 27,
+      "header_stride": 22,
+      "height_abs": 26,
+      "next_scan_match": 7,
+      "required_file_bytes": 28
+    },
+    "earliest_consumer_edge": 512,
+    "minimum_header_drain_margin_edges": 478,
+    "geometry_drain": "Final DIV_WAIT offset update -> ACK_HIGH boundary update -> ACK_LOW -> ROW consumption",
+    "exact_preservation": "All register RHS/reset arithmetic and all code outside added CE/pipeline guards",
+    "feasibility": "Raw operands already remain stable outside header/setup; useful dynamic-power gain is unproven and likely small. Added enables may increase LUT.",
+    "limitations": "Static dependency/algebra review and elaboration only; TD and physical power required before adoption."
+  },
+  "candidate": "l_power_combo",
+  "composition_exact": true,
+  "manifest_sha256": "7fbadb9bf5707daa4b7e1ccb9d915fc39fb7f5e2a6e27d6d6860679912b1f24e",
+  "composition_proof_sha256": "4cb14ac1ac3bf9e096e43394683d1036293a29ba898257e1beebd896050bc39d",
+  "live_source_before_after_sha256": {
+    "src/user_source/hdl_source/SD/sd_fat32_wav.v": "e240279e54b39f0919c3a2239360eb37997b4aee8f3b7c857ea79995958a24c0",
+    "src/user_source/hdl_source/w25q64_record_store.v": "41de374a9bbfcdee91bb45c89b9ad1b62abaf93843ec05a85ea15a7cd073214b",
+    "src/user_source/hdl_source/w25q64_preflight_reader.v": "42268808045584d4e3fc7572fbc3b5881431da161dfb0a2b30e70d2bba1fa9d5",
+    "src/user_source/hdl_source/hdmi_audio_route/pcm_media_tone.v": "6b1c3d5b357b9b6870b1150c0e60da68b7d1a26295f4016f06ea8e6f9ef0afdf",
+    "src/user_source/hdl_source/brightness_contrast_adjust.v": "42cba9d0058b9212d8b0d2ab89837bbd89dc3aba8a0c82ec46ad5dde5f796c24",
+    "src/user_source/hdl_source/video_fade_overlay.v": "2ada632513049a42bc6fe43ef1df9ab8de36da79081da89a36e8077ce3d723c3",
+    "src/user_source/hdl_source/player_settings_flash.v": "78d0f5caa1c53b7b22f1d7f739ce187d259e781f39d6b62cd8927fe25142f8dd",
+    "src/user_source/hdl_source/SD/bmp_read.v": "de234efc16343823158878b40887dc48199099f9703e5f5b6ee80e449743b5b8"
+  },
+  "live_source_unchanged_during_preparation": true,
+  "component_source_and_evidence_unchanged": true,
+  "rtl_simulation_run": false,
+  "td_run": false,
+  "board_tested": false,
+  "limits": "Exact composition and static elaboration do not prove full-design routed resources/timing, dynamic power, or physical operation."
+}

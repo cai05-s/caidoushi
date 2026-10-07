@@ -1,0 +1,280 @@
+--- baseline/src/user_source/hdl_source/player_settings_flash.v
++++ candidate/src/user_source/hdl_source/player_settings_flash.v
+@@ -37,6 +37,15 @@
+     // CHECK_INIT/CHECK_BITS/CHECK_DONE. Reuse that stable record in place.
+     wire [255:0] record=store_read_data;
+     wire pf_cs,pf_clk,pf_mosi,pf_wp,pf_hold,st_cs,st_clk,st_mosi,st_wp,st_hold;
++    // The identity/read-only phase and journal phase own one byte engine.
++    // Both existing owners use CLK_DIV=5; standalone wrappers keep their own.
++    wire pf_byte_start, st_byte_start, shared_byte_busy, shared_byte_done;
++    wire [7:0] pf_byte_tx, st_byte_tx, shared_byte_rx;
++    wire shared_sclk, shared_mosi;
++    assign pf_clk=shared_sclk;
++    assign st_clk=shared_sclk;
++    assign pf_mosi=shared_mosi;
++    assign st_mosi=shared_mosi;
+     // 记录在整个CRC计算期间保持不变，按255..32的顺序读取，省去224位移位副本。
+     wire [7:0] crc_bit_index = bits_left + 8'd31;
+     wire crc_input_bit = (state == SAVE_BITS) ? write_record[crc_bit_index] :
+@@ -81,19 +90,31 @@
+         end
+     endfunction
+ 
+-    w25q64_preflight_reader #(.SPI_CLK_DIV(5),.STARTUP_CYCLES(1000000)) u_identity(
+-        .clk(clk),.rst_n(rst_n && !boot_abort),.start(pf_start),.flash_miso(flash_miso),
+-        .flash_cs_n(pf_cs),.flash_sclk(pf_clk),.flash_mosi(pf_mosi),.flash_wp_n(pf_wp),.flash_hold_n(pf_hold),
++    w25q64_preflight_reader_control #(.SPI_CLK_DIV(5),.STARTUP_CYCLES(1000000)) u_identity(
++        .clk(clk),.rst_n(rst_n && !boot_abort),.start(pf_start),
++        .flash_cs_n(pf_cs),.flash_wp_n(pf_wp),.flash_hold_n(pf_hold),
+         .busy(),.done(pf_done),.accepted(pf_accepted),.error(pf_error),.error_code(pf_code),
+-        .jedec_id(jedec_id),.status1(),.status2(),.status3());
+-    w25q64_record_store #(.RECORD_BYTES(32),.COMMIT_LAST(1),.CLK_DIV(5),
++        .jedec_id(jedec_id),.status1(),.status2(),.status3(),
++        .engine_start(pf_byte_start),.engine_tx(pf_byte_tx),
++        .engine_busy(shared_byte_busy),.engine_done(shared_byte_done),.engine_rx(shared_byte_rx));
++    w25q64_record_store_control #(.RECORD_BYTES(32),.COMMIT_LAST(1),.CLK_DIV(5),
+         .ALLOWED_BASE(24'h7f0000),.ALLOWED_LIMIT(24'h800000)) u_store(
+         .clk(clk),.rst_n(rst_n && !pf_owner && !boot_abort),.start(store_start),
+         .op_write(store_write),.address(store_address),.write_data(write_record),
+         .busy(),.done(store_done),.error(store_error),.error_code(store_code),
+         .read_data(store_read_data),.request_dropped(),
+-        .spi_cs_n(st_cs),.spi_sclk(st_clk),.spi_mosi(st_mosi),.spi_miso(flash_miso),
+-        .spi_wp_n(st_wp),.spi_hold_n(st_hold));
++        .spi_cs_n(st_cs),
++        .spi_wp_n(st_wp),.spi_hold_n(st_hold),
++        .engine_start(st_byte_start),.engine_tx(st_byte_tx),
++        .engine_busy(shared_byte_busy),.engine_done(shared_byte_done),.engine_rx(shared_byte_rx));
++
++    spi_byte_engine #(.CLK_DIV(5)) u_shared_byte_engine (
++        .clk(clk),.rst_n(rst_n && !boot_abort),
++        .start(pf_owner ? pf_byte_start : st_byte_start),
++        .tx_byte(pf_owner ? pf_byte_tx : st_byte_tx),.miso(flash_miso),
++        .busy(shared_byte_busy),.done(shared_byte_done),.rx_byte(shared_byte_rx),
++        .sclk(shared_sclk),.mosi(shared_mosi)
++    );
+ 
+     always @(posedge clk or negedge rst_n) begin
+         if(!rst_n) begin
+--- baseline/src/user_source/hdl_source/w25q64_preflight_reader.v
++++ candidate/src/user_source/hdl_source/w25q64_preflight_reader.v
+@@ -13,9 +13,72 @@
+     input  wire        rst_n,
+     input  wire        start,
+     input  wire        flash_miso,
+-    output reg         flash_cs_n,
++    output wire         flash_cs_n,
+     output wire        flash_sclk,
+     output wire        flash_mosi,
++    output wire        flash_wp_n,
++    output wire        flash_hold_n,
++    output wire         busy,
++    output wire         done,
++    output wire         accepted,
++    output wire         error,
++    output wire  [3:0]  error_code,
++    output wire  [23:0] jedec_id,
++    output wire  [7:0]  status1,
++    output wire  [7:0]  status2,
++    output wire  [7:0]  status3
++);
++    // Standalone wrapper retains the original ports, parameters and SPI engine.
++    wire engine_start, engine_busy, engine_done;
++    wire [7:0] engine_tx, engine_rx;
++    w25q64_preflight_reader_control #(
++        .SPI_CLK_DIV(SPI_CLK_DIV),
++        .STARTUP_CYCLES(STARTUP_CYCLES),
++        .WAKE_CYCLES(WAKE_CYCLES),
++        .CS_HIGH_CYCLES(CS_HIGH_CYCLES),
++        .EXPECTED_JEDEC_ID(EXPECTED_JEDEC_ID)
++    ) u_control (
++        .clk(clk),
++        .rst_n(rst_n),
++        .start(start),
++        .flash_cs_n(flash_cs_n),
++        .flash_wp_n(flash_wp_n),
++        .flash_hold_n(flash_hold_n),
++        .busy(busy),
++        .done(done),
++        .accepted(accepted),
++        .error(error),
++        .error_code(error_code),
++        .jedec_id(jedec_id),
++        .status1(status1),
++        .status2(status2),
++        .status3(status3),
++        .engine_start(engine_start),
++        .engine_tx(engine_tx),
++        .engine_busy(engine_busy),
++        .engine_done(engine_done),
++        .engine_rx(engine_rx)
++    );
++    spi_byte_engine #(.CLK_DIV(SPI_CLK_DIV)) u_spi_byte_engine (
++        .clk(clk), .rst_n(rst_n), .start(engine_start), .tx_byte(engine_tx),
++        .miso(flash_miso), .busy(engine_busy), .done(engine_done),
++        .rx_byte(engine_rx), .sclk(flash_sclk), .mosi(flash_mosi)
++    );
++endmodule
++
++// Read-only identity and protection gate used before the write-capable owner
++// receives the physical SPI pins.
++module w25q64_preflight_reader_control #(
++    parameter integer SPI_CLK_DIV = 4,
++    parameter integer STARTUP_CYCLES = 1024,
++    parameter integer WAKE_CYCLES = 200,
++    parameter integer CS_HIGH_CYCLES = 3,
++    parameter [23:0] EXPECTED_JEDEC_ID = 24'hef4017
++) (
++    input  wire        clk,
++    input  wire        rst_n,
++    input  wire        start,
++    output reg         flash_cs_n,
+     output wire        flash_wp_n,
+     output wire        flash_hold_n,
+     output reg         busy,
+@@ -26,7 +89,12 @@
+     output reg  [23:0] jedec_id,
+     output reg  [7:0]  status1,
+     output reg  [7:0]  status2,
+-    output reg  [7:0]  status3
++    output reg  [7:0]  status3,
++    output wire        engine_start,
++    output wire [7:0]  engine_tx,
++    input wire         engine_busy,
++    input wire         engine_done,
++    input wire [7:0]   engine_rx
+ );
+     localparam [4:0] ST_IDLE         = 5'd0;
+     localparam [4:0] ST_STARTUP      = 5'd1;
+@@ -72,11 +140,11 @@
+         end
+     end
+ 
+-    spi_byte_engine #(.CLK_DIV(SPI_CLK_DIV)) u_spi_byte_engine (
+-        .clk(clk), .rst_n(rst_n), .start(spi_start), .tx_byte(spi_tx_byte),
+-        .miso(flash_miso), .busy(spi_busy), .done(spi_done),
+-        .rx_byte(spi_rx_byte), .sclk(flash_sclk), .mosi(flash_mosi)
+-    );
++    assign engine_start = spi_start;
++    assign engine_tx = spi_tx_byte;
++    assign spi_busy = engine_busy;
++    assign spi_done = engine_done;
++    assign spi_rx_byte = engine_rx;
+ 
+     function [7:0] status_command;
+         input [1:0] index;
+--- baseline/src/user_source/hdl_source/w25q64_record_store.v
++++ candidate/src/user_source/hdl_source/w25q64_record_store.v
+@@ -1,6 +1,78 @@
+ `timescale 1ns/1ps
+ 
+ module w25q64_record_store #(
++    parameter integer RECORD_BYTES = 12,
++    parameter integer COMMIT_LAST = 0,
++    parameter integer CLK_DIV = 2,
++    parameter integer CS_HIGH_CYCLES = 3,
++    parameter integer POLL_INTERVAL_CYCLES = 5000,
++    parameter [31:0] ERASE_TIMEOUT_CYCLES = 32'd250000000,
++    parameter [31:0] PROGRAM_TIMEOUT_CYCLES = 32'd5000000,
++    parameter [23:0] ALLOWED_BASE = 24'h001000,
++    parameter [23:0] ALLOWED_LIMIT = 24'h003000
++) (
++    input  wire        clk,
++    input  wire        rst_n,
++    input  wire        start,
++    input  wire        op_write,
++    input  wire [23:0] address,
++    input  wire [RECORD_BYTES*8-1:0] write_data,
++    output wire         busy,
++    output wire         done,
++    output wire         error,
++    output wire  [3:0]  error_code,
++    output wire  [RECORD_BYTES*8-1:0] read_data,
++    output wire         request_dropped,
++    output wire         spi_cs_n,
++    output wire        spi_sclk,
++    output wire        spi_mosi,
++    input  wire        spi_miso,
++    output wire        spi_wp_n,
++    output wire        spi_hold_n
++);
++    // Standalone wrapper retains the original ports, parameters and SPI engine.
++    wire engine_start, engine_busy, engine_done;
++    wire [7:0] engine_tx, engine_rx;
++    w25q64_record_store_control #(
++        .RECORD_BYTES(RECORD_BYTES),
++        .COMMIT_LAST(COMMIT_LAST),
++        .CLK_DIV(CLK_DIV),
++        .CS_HIGH_CYCLES(CS_HIGH_CYCLES),
++        .POLL_INTERVAL_CYCLES(POLL_INTERVAL_CYCLES),
++        .ERASE_TIMEOUT_CYCLES(ERASE_TIMEOUT_CYCLES),
++        .PROGRAM_TIMEOUT_CYCLES(PROGRAM_TIMEOUT_CYCLES),
++        .ALLOWED_BASE(ALLOWED_BASE),
++        .ALLOWED_LIMIT(ALLOWED_LIMIT)
++    ) u_control (
++        .clk(clk),
++        .rst_n(rst_n),
++        .start(start),
++        .op_write(op_write),
++        .address(address),
++        .write_data(write_data),
++        .busy(busy),
++        .done(done),
++        .error(error),
++        .error_code(error_code),
++        .read_data(read_data),
++        .request_dropped(request_dropped),
++        .spi_cs_n(spi_cs_n),
++        .spi_wp_n(spi_wp_n),
++        .spi_hold_n(spi_hold_n),
++        .engine_start(engine_start),
++        .engine_tx(engine_tx),
++        .engine_busy(engine_busy),
++        .engine_done(engine_done),
++        .engine_rx(engine_rx)
++    );
++    spi_byte_engine #(.CLK_DIV(CLK_DIV)) u_byte_engine (
++        .clk(clk), .rst_n(rst_n), .start(engine_start), .tx_byte(engine_tx),
++        .miso(spi_miso), .busy(engine_busy), .done(engine_done),
++        .rx_byte(engine_rx), .sclk(spi_sclk), .mosi(spi_mosi)
++    );
++endmodule
++
++module w25q64_record_store_control #(
+     parameter integer RECORD_BYTES = 12,
+     parameter integer COMMIT_LAST = 0,
+     parameter integer CLK_DIV = 2,
+@@ -24,11 +96,13 @@
+     output reg  [RECORD_BYTES*8-1:0] read_data,
+     output reg         request_dropped,
+     output reg         spi_cs_n,
+-    output wire        spi_sclk,
+-    output wire        spi_mosi,
+-    input  wire        spi_miso,
+     output wire        spi_wp_n,
+-    output wire        spi_hold_n
++    output wire        spi_hold_n,
++    output wire        engine_start,
++    output wire [7:0]  engine_tx,
++    input wire         engine_busy,
++    input wire         engine_done,
++    input wire [7:0]   engine_rx
+ );
+     localparam [3:0] ERR_NONE          = 4'd0;
+     localparam [3:0] ERR_OUT_OF_RANGE  = 4'd1;
+@@ -131,11 +205,11 @@
+     assign address_allowed = (address >= ALLOWED_BASE) &&
+                              ({1'b0,address} + RECORD_BYTES - 1 < {1'b0,ALLOWED_LIMIT});
+ 
+-    spi_byte_engine #(.CLK_DIV(CLK_DIV)) u_byte_engine (
+-        .clk(clk), .rst_n(rst_n), .start(byte_start), .tx_byte(byte_tx),
+-        .miso(spi_miso), .busy(byte_busy), .done(byte_done),
+-        .rx_byte(byte_rx), .sclk(spi_sclk), .mosi(spi_mosi)
+-    );
++    assign engine_start = byte_start;
++    assign engine_tx = byte_tx;
++    assign byte_busy = engine_busy;
++    assign byte_done = engine_done;
++    assign byte_rx = engine_rx;
+ 
+     function [7:0] address_byte;
+         input [23:0] value;

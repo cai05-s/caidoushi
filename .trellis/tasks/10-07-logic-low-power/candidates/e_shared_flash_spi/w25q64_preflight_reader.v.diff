@@ -1,0 +1,107 @@
+--- V1.0/src/user_source/hdl_source/w25q64_preflight_reader.v
++++ e_shared_flash_spi/src/user_source/hdl_source/w25q64_preflight_reader.v
+@@ -13,9 +13,72 @@
+     input  wire        rst_n,
+     input  wire        start,
+     input  wire        flash_miso,
+-    output reg         flash_cs_n,
++    output wire         flash_cs_n,
+     output wire        flash_sclk,
+     output wire        flash_mosi,
++    output wire        flash_wp_n,
++    output wire        flash_hold_n,
++    output wire         busy,
++    output wire         done,
++    output wire         accepted,
++    output wire         error,
++    output wire  [3:0]  error_code,
++    output wire  [23:0] jedec_id,
++    output wire  [7:0]  status1,
++    output wire  [7:0]  status2,
++    output wire  [7:0]  status3
++);
++    // Standalone wrapper retains the original ports, parameters and SPI engine.
++    wire engine_start, engine_busy, engine_done;
++    wire [7:0] engine_tx, engine_rx;
++    w25q64_preflight_reader_control #(
++        .SPI_CLK_DIV(SPI_CLK_DIV),
++        .STARTUP_CYCLES(STARTUP_CYCLES),
++        .WAKE_CYCLES(WAKE_CYCLES),
++        .CS_HIGH_CYCLES(CS_HIGH_CYCLES),
++        .EXPECTED_JEDEC_ID(EXPECTED_JEDEC_ID)
++    ) u_control (
++        .clk(clk),
++        .rst_n(rst_n),
++        .start(start),
++        .flash_cs_n(flash_cs_n),
++        .flash_wp_n(flash_wp_n),
++        .flash_hold_n(flash_hold_n),
++        .busy(busy),
++        .done(done),
++        .accepted(accepted),
++        .error(error),
++        .error_code(error_code),
++        .jedec_id(jedec_id),
++        .status1(status1),
++        .status2(status2),
++        .status3(status3),
++        .engine_start(engine_start),
++        .engine_tx(engine_tx),
++        .engine_busy(engine_busy),
++        .engine_done(engine_done),
++        .engine_rx(engine_rx)
++    );
++    spi_byte_engine #(.CLK_DIV(SPI_CLK_DIV)) u_spi_byte_engine (
++        .clk(clk), .rst_n(rst_n), .start(engine_start), .tx_byte(engine_tx),
++        .miso(flash_miso), .busy(engine_busy), .done(engine_done),
++        .rx_byte(engine_rx), .sclk(flash_sclk), .mosi(flash_mosi)
++    );
++endmodule
++
++// Read-only identity and protection gate used before the write-capable owner
++// receives the physical SPI pins.
++module w25q64_preflight_reader_control #(
++    parameter integer SPI_CLK_DIV = 4,
++    parameter integer STARTUP_CYCLES = 1024,
++    parameter integer WAKE_CYCLES = 200,
++    parameter integer CS_HIGH_CYCLES = 3,
++    parameter [23:0] EXPECTED_JEDEC_ID = 24'hef4017
++) (
++    input  wire        clk,
++    input  wire        rst_n,
++    input  wire        start,
++    output reg         flash_cs_n,
+     output wire        flash_wp_n,
+     output wire        flash_hold_n,
+     output reg         busy,
+@@ -26,7 +89,12 @@
+     output reg  [23:0] jedec_id,
+     output reg  [7:0]  status1,
+     output reg  [7:0]  status2,
+-    output reg  [7:0]  status3
++    output reg  [7:0]  status3,
++    output wire        engine_start,
++    output wire [7:0]  engine_tx,
++    input wire         engine_busy,
++    input wire         engine_done,
++    input wire [7:0]   engine_rx
+ );
+     localparam [4:0] ST_IDLE         = 5'd0;
+     localparam [4:0] ST_STARTUP      = 5'd1;
+@@ -72,11 +140,11 @@
+         end
+     end
+ 
+-    spi_byte_engine #(.CLK_DIV(SPI_CLK_DIV)) u_spi_byte_engine (
+-        .clk(clk), .rst_n(rst_n), .start(spi_start), .tx_byte(spi_tx_byte),
+-        .miso(flash_miso), .busy(spi_busy), .done(spi_done),
+-        .rx_byte(spi_rx_byte), .sclk(flash_sclk), .mosi(flash_mosi)
+-    );
++    assign engine_start = spi_start;
++    assign engine_tx = spi_tx_byte;
++    assign spi_busy = engine_busy;
++    assign spi_done = engine_done;
++    assign spi_rx_byte = engine_rx;
+ 
+     function [7:0] status_command;
+         input [1:0] index;

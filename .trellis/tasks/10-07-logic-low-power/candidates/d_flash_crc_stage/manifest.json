@@ -1,0 +1,11 @@
+{
+  "candidate": "d_flash_crc_stage",
+  "relative_source": "src/user_source/hdl_source/player_settings_flash.v",
+  "parent": "V1.0",
+  "parent_sha256": "78d0f5caa1c53b7b22f1d7f739ce187d259e781f39d6b62cd8927fe25142f8dd",
+  "candidate_sha256": "a199c3c1f51b30786782b26844f678f921705cf089e5729ca320c7b192a51e3a",
+  "line_ending_preserved": "CRLF",
+  "live_source_edited": false,
+  "td_run": false,
+  "rtl_simulation_run": false
+}

@@ -1,0 +1,1 @@
+40be8ef147cff68802ef946fceb3b11e4a15283ba12a5987f86f7668f42c555f  case_a_logic_low_power_20261007_r1.bit

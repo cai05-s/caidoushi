@@ -1,0 +1,11 @@
+{
+  "candidate": "a_rate_gcd",
+  "relative_source": "src/user_source/hdl_source/hdmi_audio_route/pcm_media_tone.v",
+  "parent": "V1.0",
+  "parent_sha256": "6b1c3d5b357b9b6870b1150c0e60da68b7d1a26295f4016f06ea8e6f9ef0afdf",
+  "candidate_sha256": "a4ddc78a6b115f551b6205b1c0e39a2c8fa74705e89753eb8e823dcdf7ddfcf2",
+  "line_ending_preserved": "LF",
+  "live_source_edited": false,
+  "td_run": false,
+  "rtl_simulation_run": false
+}

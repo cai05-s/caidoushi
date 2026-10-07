@@ -1,0 +1,53 @@
+--- V1.0/src/user_source/hdl_source/hdmi_audio_route/pcm_media_tone.v
++++ a_rate_gcd/src/user_source/hdl_source/hdmi_audio_route/pcm_media_tone.v
+@@ -28,7 +28,28 @@
+     output reg                overflow,
+     output wire               blip_active
+ );
+-    reg [24:0] rate_accumulator;
++    // Exact scaling of the fractional sample-rate accumulator. Unsupported
++    // parameter combinations retain the original 25-bit arithmetic behavior.
++    function integer rate_gcd;
++        input integer a, b;
++        integer remainder;
++        begin
++            while (b != 0) begin
++                remainder = a % b;
++                a = b;
++                b = remainder;
++            end
++            rate_gcd = a;
++        end
++    endfunction
++    localparam REDUCE_RATE = CLOCK_HZ > 0 && CLOCK_HZ <= 33554432 &&
++        SAMPLE_HZ > 0 && SAMPLE_HZ <= CLOCK_HZ;
++    localparam integer RATE_GCD = REDUCE_RATE ? rate_gcd(CLOCK_HZ, SAMPLE_HZ) : 1;
++    localparam integer RATE_CLOCK = CLOCK_HZ / RATE_GCD;
++    localparam integer RATE_SAMPLE = SAMPLE_HZ / RATE_GCD;
++    localparam integer RATE_BITS = REDUCE_RATE ?
++        (($clog2(RATE_CLOCK) > 0) ? $clog2(RATE_CLOCK) : 1) : 25;
++    reg [RATE_BITS-1:0] rate_accumulator;
+     reg [19:0] music_phase, alarm_phase;
+     reg [1:0] active_profile;
+     reg [1:0] image_melody_q;
+@@ -52,7 +73,7 @@
+     wire tone_active = music_enable || emergency_active || active_profile[1] ||
+                        music_profile[1] || (fifo_count != 0);
+     wire sample_pop = sample_valid && sample_ready;
+-    wire sample_tick = rate_accumulator >= CLOCK_HZ - SAMPLE_HZ;
++    wire sample_tick = rate_accumulator >= RATE_CLOCK - RATE_SAMPLE;
+     wire sample_tick_active = sample_tick && tone_active;
+     wire sample_push = sample_tick_active && (fifo_count != 8 || sample_pop);
+     assign sample_valid = fifo_count != 0;
+@@ -162,9 +183,9 @@
+         end else begin
+             if (tone_active) begin
+                 if (sample_tick)
+-                    rate_accumulator <= rate_accumulator + SAMPLE_HZ - CLOCK_HZ;
++                    rate_accumulator <= rate_accumulator + RATE_SAMPLE - RATE_CLOCK;
+                 else
+-                    rate_accumulator <= rate_accumulator + SAMPLE_HZ;
++                    rate_accumulator <= rate_accumulator + RATE_SAMPLE;
+             end
+ 
+             // Preserve the one-cycle frame event until a future FIFO sample

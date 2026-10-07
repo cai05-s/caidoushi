@@ -1,0 +1,44 @@
+{
+  "candidate": "f2_bmp_cache_step_predicate",
+  "parent": "f_bmp_output_cache",
+  "sources": [
+    {
+      "relative_source": "src/user_source/hdl_source/SD/bmp_read.v",
+      "parent_sha256": "8925a730d5ff3d85ede9541ad028da87be70a6dfd2ad3ca39462f42152ed5ce5",
+      "candidate_sha256": "65680d52570b47b80a13b05a3dfc33520dbb79677f14b6e7bb14396d74ae8faf",
+      "line_ending_preserved": "LF"
+    }
+  ],
+  "live_source_edited": false,
+  "rtl_simulation_run": false,
+  "td_run": false,
+  "board_tested": false,
+  "parser": "11.0.0",
+  "elaboration_errors": 0,
+  "evidence": {
+    "elaboration_diagnostics": {
+      "before": {
+        "DiagCode(ArithOpMismatch)": 4,
+        "DiagCode(SignCompare)": 4,
+        "DiagCode(WidthTruncate)": 2,
+        "DiagCode(UnconnectedInputPort)": 170,
+        "DiagCode(UnconnectedOutputPort)": 150
+      },
+      "after": {
+        "DiagCode(ArithOpMismatch)": 4,
+        "DiagCode(SignCompare)": 4,
+        "DiagCode(WidthTruncate)": 2,
+        "DiagCode(UnconnectedInputPort)": 170,
+        "DiagCode(UnconnectedOutputPort)": 150
+      }
+    },
+    "parameter_specializations_each": 10,
+    "default_final_sample_pairs": 2621440,
+    "recurrence_cases": 38067,
+    "predicate_positions": 10367394,
+    "supported_algebra_domain": "1 <= source_width,fit_width <= 65535; production source<=4096,fit<=640",
+    "exact_change": "Only ST_SAMPLE exit predicate; all data arithmetic, registers, states, RAM and widths identical to F",
+    "limitations": "Algebra/static elaboration only; parent F behavior proof retained and TD/physical checks remain separate."
+  },
+  "checker_sha256": "34393a777065b06f3a536bf9784cce97ce084d08eec9850a64dad4f8b1fea64a"
+}

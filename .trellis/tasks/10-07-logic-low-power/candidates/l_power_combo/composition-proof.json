@@ -1,0 +1,535 @@
+{
+  "src/user_source/hdl_source/SD/sd_fat32_wav.v": {
+    "method": "Exact byte copy",
+    "component": "c_wav_partition_bound",
+    "component_sha256": "d2af5a63e6ed8a095b75a5b45ca8662b8ab4d7e3a088ae3793239eb101661238",
+    "candidate_sha256": "d2af5a63e6ed8a095b75a5b45ca8662b8ab4d7e3a088ae3793239eb101661238"
+  },
+  "src/user_source/hdl_source/w25q64_record_store.v": {
+    "method": "Exact byte copy",
+    "component": "e_shared_flash_spi",
+    "component_sha256": "87cf4374c3984a690253dae6a6665deca9d0c12ed655f1e701dd7e1c041f92e1",
+    "candidate_sha256": "87cf4374c3984a690253dae6a6665deca9d0c12ed655f1e701dd7e1c041f92e1"
+  },
+  "src/user_source/hdl_source/w25q64_preflight_reader.v": {
+    "method": "Exact byte copy",
+    "component": "e_shared_flash_spi",
+    "component_sha256": "b335be71f66e2513f17ef1cb23307a93bf95bc714e532ac5a3d06e687ef533bc",
+    "candidate_sha256": "b335be71f66e2513f17ef1cb23307a93bf95bc714e532ac5a3d06e687ef533bc"
+  },
+  "src/user_source/hdl_source/hdmi_audio_route/pcm_media_tone.v": {
+    "method": "Exact byte copy",
+    "component": "a_rate_gcd",
+    "component_sha256": "a4ddc78a6b115f551b6205b1c0e39a2c8fa74705e89753eb8e823dcdf7ddfcf2",
+    "candidate_sha256": "a4ddc78a6b115f551b6205b1c0e39a2c8fa74705e89753eb8e823dcdf7ddfcf2"
+  },
+  "src/user_source/hdl_source/brightness_contrast_adjust.v": {
+    "method": "Exact byte copy",
+    "component": "d_video_operand_iso",
+    "component_sha256": "520e0fa8c1b2c7b6de82a01d127073df422c1a32f51b6cad25bc661b9edf3b76",
+    "candidate_sha256": "520e0fa8c1b2c7b6de82a01d127073df422c1a32f51b6cad25bc661b9edf3b76"
+  },
+  "src/user_source/hdl_source/video_fade_overlay.v": {
+    "method": "Exact byte copy",
+    "component": "d_video_operand_iso",
+    "component_sha256": "9fec083ea463db5bed1435e955dd7d27ebfea42b74a749494a8b52c271772464",
+    "candidate_sha256": "9fec083ea463db5bed1435e955dd7d27ebfea42b74a749494a8b52c271772464"
+  },
+  "src/user_source/hdl_source/player_settings_flash.v": {
+    "method": "Union of non-overlapping, exact normalized-text hunks relative to immutable V1.0; no manual HDL edits",
+    "baseline_sha256": "78d0f5caa1c53b7b22f1d7f739ce187d259e781f39d6b62cd8927fe25142f8dd",
+    "first_component": "e_shared_flash_spi",
+    "first_sha256": "1c17eba80fd562d9ba80f2bc0b2784afc6e22dc0583070ffc26a48f01d8d04c1",
+    "second_component": "d_flash_crc_stage",
+    "second_sha256": "a199c3c1f51b30786782b26844f678f921705cf089e5729ca320c7b192a51e3a",
+    "line_endings": "CRLF",
+    "normalized_output_sha256": "f90bd5a482d73cba38f7b88eea29575c5a590ab65d97281e662a14d0c1018659",
+    "candidate_sha256": "12bd009d62e6348db45a4b680a291d773ab71c4037ae6bfc39e2d9f7547bf9b7",
+    "conflicts": 0,
+    "component_reconstruction_exact": true,
+    "union_order_independent": true,
+    "hunks": [
+      {
+        "start": 39,
+        "end": 39,
+        "replacement": [
+          "    // The identity/read-only phase and journal phase own one byte engine.\n",
+          "    // Both existing owners use CLK_DIV=5; standalone wrappers keep their own.\n",
+          "    wire pf_byte_start, st_byte_start, shared_byte_busy, shared_byte_done;\n",
+          "    wire [7:0] pf_byte_tx, st_byte_tx, shared_byte_rx;\n",
+          "    wire shared_sclk, shared_mosi;\n",
+          "    assign pf_clk=shared_sclk;\n",
+          "    assign st_clk=shared_sclk;\n",
+          "    assign pf_mosi=shared_mosi;\n",
+          "    assign st_mosi=shared_mosi;\n"
+        ],
+        "owner": "e_shared_flash_spi",
+        "baseline_range_zero_based_half_open": [
+          39,
+          39
+        ],
+        "removed": []
+      },
+      {
+        "start": 83,
+        "end": 86,
+        "replacement": [
+          "    w25q64_preflight_reader_control #(.SPI_CLK_DIV(5),.STARTUP_CYCLES(1000000)) u_identity(\n",
+          "        .clk(clk),.rst_n(rst_n && !boot_abort),.start(pf_start),\n",
+          "        .flash_cs_n(pf_cs),.flash_wp_n(pf_wp),.flash_hold_n(pf_hold),\n"
+        ],
+        "owner": "e_shared_flash_spi",
+        "baseline_range_zero_based_half_open": [
+          83,
+          86
+        ],
+        "removed": [
+          "    w25q64_preflight_reader #(.SPI_CLK_DIV(5),.STARTUP_CYCLES(1000000)) u_identity(\n",
+          "        .clk(clk),.rst_n(rst_n && !boot_abort),.start(pf_start),.flash_miso(flash_miso),\n",
+          "        .flash_cs_n(pf_cs),.flash_sclk(pf_clk),.flash_mosi(pf_mosi),.flash_wp_n(pf_wp),.flash_hold_n(pf_hold),\n"
+        ]
+      },
+      {
+        "start": 87,
+        "end": 89,
+        "replacement": [
+          "        .jedec_id(jedec_id),.status1(),.status2(),.status3(),\n",
+          "        .engine_start(pf_byte_start),.engine_tx(pf_byte_tx),\n",
+          "        .engine_busy(shared_byte_busy),.engine_done(shared_byte_done),.engine_rx(shared_byte_rx));\n",
+          "    w25q64_record_store_control #(.RECORD_BYTES(32),.COMMIT_LAST(1),.CLK_DIV(5),\n"
+        ],
+        "owner": "e_shared_flash_spi",
+        "baseline_range_zero_based_half_open": [
+          87,
+          89
+        ],
+        "removed": [
+          "        .jedec_id(jedec_id),.status1(),.status2(),.status3());\n",
+          "    w25q64_record_store #(.RECORD_BYTES(32),.COMMIT_LAST(1),.CLK_DIV(5),\n"
+        ]
+      },
+      {
+        "start": 94,
+        "end": 96,
+        "replacement": [
+          "        .spi_cs_n(st_cs),\n",
+          "        .spi_wp_n(st_wp),.spi_hold_n(st_hold),\n",
+          "        .engine_start(st_byte_start),.engine_tx(st_byte_tx),\n",
+          "        .engine_busy(shared_byte_busy),.engine_done(shared_byte_done),.engine_rx(shared_byte_rx));\n",
+          "\n",
+          "    spi_byte_engine #(.CLK_DIV(5)) u_shared_byte_engine (\n",
+          "        .clk(clk),.rst_n(rst_n && !boot_abort),\n",
+          "        .start(pf_owner ? pf_byte_start : st_byte_start),\n",
+          "        .tx_byte(pf_owner ? pf_byte_tx : st_byte_tx),.miso(flash_miso),\n",
+          "        .busy(shared_byte_busy),.done(shared_byte_done),.rx_byte(shared_byte_rx),\n",
+          "        .sclk(shared_sclk),.mosi(shared_mosi)\n",
+          "    );\n"
+        ],
+        "owner": "e_shared_flash_spi",
+        "baseline_range_zero_based_half_open": [
+          94,
+          96
+        ],
+        "removed": [
+          "        .spi_cs_n(st_cs),.spi_sclk(st_clk),.spi_mosi(st_mosi),.spi_miso(flash_miso),\n",
+          "        .spi_wp_n(st_wp),.spi_hold_n(st_hold));\n"
+        ]
+      },
+      {
+        "start": 28,
+        "end": 28,
+        "replacement": [
+          "    reg [7:0] crc_byte;\n"
+        ],
+        "owner": "d_flash_crc_stage",
+        "baseline_range_zero_based_half_open": [
+          28,
+          28
+        ],
+        "removed": []
+      },
+      {
+        "start": 39,
+        "end": 43,
+        "replacement": [
+          "    // Stage one byte while preserving all 224 MSB-first CRC cycles.\n",
+          "    // At the last bit of a byte, bits_left[7:3]+3 selects the next byte.\n",
+          "    wire [4:0] crc_next_byte_index = bits_left[7:3] + 5'd3;\n",
+          "    wire crc_input_bit = crc_byte[7];\n"
+        ],
+        "owner": "d_flash_crc_stage",
+        "baseline_range_zero_based_half_open": [
+          39,
+          43
+        ],
+        "removed": [
+          "    // 记录在整个CRC计算期间保持不变，按255..32的顺序读取，省去224位移位副本。\n",
+          "    wire [7:0] crc_bit_index = bits_left + 8'd31;\n",
+          "    wire crc_input_bit = (state == SAVE_BITS) ? write_record[crc_bit_index] :\n",
+          "        (!read_failed && record[crc_bit_index]);\n"
+        ]
+      },
+      {
+        "start": 103,
+        "end": 104,
+        "replacement": [
+          "            read_failed<=0;write_record<=0;crc<=16'hffff;crc_byte<=0;bits_left<=0;\n"
+        ],
+        "owner": "d_flash_crc_stage",
+        "baseline_range_zero_based_half_open": [
+          103,
+          104
+        ],
+        "removed": [
+          "            read_failed<=0;write_record<=0;crc<=16'hffff;bits_left<=0;\n"
+        ]
+      },
+      {
+        "start": 125,
+        "end": 126,
+        "replacement": [
+          "                CHECK_INIT:begin\n",
+          "                    crc<=16'hffff;bits_left<=224;state<=CHECK_BITS;\n",
+          "                    crc_byte<=read_failed?8'd0:record[255:248];\n",
+          "                end\n"
+        ],
+        "owner": "d_flash_crc_stage",
+        "baseline_range_zero_based_half_open": [
+          125,
+          126
+        ],
+        "removed": [
+          "                CHECK_INIT:begin crc<=16'hffff;bits_left<=224;state<=CHECK_BITS;end\n"
+        ]
+      },
+      {
+        "start": 128,
+        "end": 128,
+        "replacement": [
+          "                    if(bits_left[2:0]==3'd1 && bits_left!=8'd1)\n",
+          "                        crc_byte<=read_failed?8'd0:record[{crc_next_byte_index,3'b000} +: 8];\n",
+          "                    else crc_byte<={crc_byte[6:0],1'b0};\n"
+        ],
+        "owner": "d_flash_crc_stage",
+        "baseline_range_zero_based_half_open": [
+          128,
+          128
+        ],
+        "removed": []
+      },
+      {
+        "start": 162,
+        "end": 163,
+        "replacement": [
+          "                SAVE_INIT:begin\n",
+          "                    crc<=16'hffff;bits_left<=224;state<=SAVE_BITS;\n",
+          "                    crc_byte<=write_record[255:248];\n",
+          "                end\n"
+        ],
+        "owner": "d_flash_crc_stage",
+        "baseline_range_zero_based_half_open": [
+          162,
+          163
+        ],
+        "removed": [
+          "                SAVE_INIT:begin crc<=16'hffff;bits_left<=224;state<=SAVE_BITS;end\n"
+        ]
+      },
+      {
+        "start": 165,
+        "end": 165,
+        "replacement": [
+          "                    if(bits_left[2:0]==3'd1 && bits_left!=8'd1)\n",
+          "                        crc_byte<=write_record[{crc_next_byte_index,3'b000} +: 8];\n",
+          "                    else crc_byte<={crc_byte[6:0],1'b0};\n"
+        ],
+        "owner": "d_flash_crc_stage",
+        "baseline_range_zero_based_half_open": [
+          165,
+          165
+        ],
+        "removed": []
+      }
+    ]
+  },
+  "src/user_source/hdl_source/SD/bmp_read.v": {
+    "method": "Union of non-overlapping, exact normalized-text hunks relative to immutable V1.0; no manual HDL edits",
+    "baseline_sha256": "1c13c6c982800f5dae85f620c864a0378fd00059afa1995b9850d6a49c5d0588",
+    "first_component": "f2_bmp_cache_step_predicate",
+    "first_sha256": "65680d52570b47b80a13b05a3dfc33520dbb79677f14b6e7bb14396d74ae8faf",
+    "second_component": "g_bmp_pipeline_ce",
+    "second_sha256": "de234efc16343823158878b40887dc48199099f9703e5f5b6ee80e449743b5b8",
+    "line_endings": "LF",
+    "normalized_output_sha256": "16ff9993c08982a510a3a23ebccda0c8350d44a5d829a0c12815ba115c465519",
+    "candidate_sha256": "16ff9993c08982a510a3a23ebccda0c8350d44a5d829a0c12815ba115c465519",
+    "conflicts": 0,
+    "component_reconstruction_exact": true,
+    "union_order_independent": true,
+    "hunks": [
+      {
+        "start": 40,
+        "end": 41,
+        "replacement": [
+          "        ST_PIXEL_DATA = 16, ST_SEND = 17, ST_DRAIN = 18, ST_ROW_ADD = 19, ST_SAMPLE = 20;\n"
+        ],
+        "owner": "f2_bmp_cache_step_predicate",
+        "baseline_range_zero_based_half_open": [
+          40,
+          41
+        ],
+        "removed": [
+          "        ST_PIXEL_DATA = 16, ST_SEND = 17, ST_DRAIN = 18, ST_ROW_ADD = 19;\n"
+        ]
+      },
+      {
+        "start": 45,
+        "end": 46,
+        "replacement": [
+          "    localparam integer LINE_ADDR_BITS = (FRAME_WIDTH > 1) ? $clog2(FRAME_WIDTH) : 1;\n"
+        ],
+        "owner": "f2_bmp_cache_step_predicate",
+        "baseline_range_zero_based_half_open": [
+          45,
+          46
+        ],
+        "removed": [
+          "    localparam integer LINE_ADDR_BITS = (MAX_DIM > 1) ? $clog2(MAX_DIM) : 1;\n"
+        ]
+      },
+      {
+        "start": 77,
+        "end": 77,
+        "replacement": [
+          "    reg [LINE_ADDR_BITS-1:0] sample_x;\n",
+          "    wire [15:0] next_sample_source = source_x + x_step +\n",
+          "                                      ((x_error_sum >= {1'b0, fit_width}) ? 16'd1 : 16'd0);\n"
+        ],
+        "owner": "f2_bmp_cache_step_predicate",
+        "baseline_range_zero_based_half_open": [
+          77,
+          77
+        ],
+        "removed": []
+      },
+      {
+        "start": 84,
+        "end": 85,
+        "replacement": [
+          "    // Cache the fitted output samples, including repeated enlargement samples.\n",
+          "    reg [23:0] line_memory [0:FRAME_WIDTH-1] /* fehdl force_ram=1, ram_style=\"bram\" */;\n"
+        ],
+        "owner": "f2_bmp_cache_step_predicate",
+        "baseline_range_zero_based_half_open": [
+          84,
+          85
+        ],
+        "removed": [
+          "    reg [23:0] line_memory [0:MAX_DIM-1] /* fehdl force_ram=1, ram_style=\"bram\" */;\n"
+        ]
+      },
+      {
+        "start": 168,
+        "end": 170,
+        "replacement": [
+          "        if (state == ST_SAMPLE)\n",
+          "            line_memory[sample_x] <= {sector_read_data, green_hold, blue_hold};\n"
+        ],
+        "owner": "f2_bmp_cache_step_predicate",
+        "baseline_range_zero_based_half_open": [
+          168,
+          170
+        ],
+        "removed": [
+          "        if (state == ST_BYTE_DATA && channel == 2'd2)\n",
+          "            line_memory[capture_x[LINE_ADDR_BITS-1:0]] <= {sector_read_data, green_hold, blue_hold};\n"
+        ]
+      },
+      {
+        "start": 229,
+        "end": 230,
+        "replacement": [
+          "            line_valid <= 0; cached_row <= 0; capture_x <= 0; sample_x <= 0; channel <= 0;\n"
+        ],
+        "owner": "f2_bmp_cache_step_predicate",
+        "baseline_range_zero_based_half_open": [
+          229,
+          230
+        ],
+        "removed": [
+          "            line_valid <= 0; cached_row <= 0; capture_x <= 0; channel <= 0;\n"
+        ]
+      },
+      {
+        "start": 354,
+        "end": 355,
+        "replacement": [
+          "                    capture_x <= 0; sample_x <= 0; channel <= 0; state <= ST_FETCH;\n"
+        ],
+        "owner": "f2_bmp_cache_step_predicate",
+        "baseline_range_zero_based_half_open": [
+          354,
+          355
+        ],
+        "removed": [
+          "                    capture_x <= 0; channel <= 0; state <= ST_FETCH;\n"
+        ]
+      },
+      {
+        "start": 373,
+        "end": 374,
+        "replacement": [
+          "                            if (capture_x == source_x) begin\n",
+          "                                state <= ST_SAMPLE;\n",
+          "                            end else if (capture_x == image_width - 1'b1) begin\n"
+        ],
+        "owner": "f2_bmp_cache_step_predicate",
+        "baseline_range_zero_based_half_open": [
+          373,
+          374
+        ],
+        "removed": [
+          "                            if (capture_x == image_width - 1'b1) begin\n"
+        ]
+      },
+      {
+        "start": 375,
+        "end": 375,
+        "replacement": [
+          "                                source_x <= 0; x_error <= 0;\n"
+        ],
+        "owner": "f2_bmp_cache_step_predicate",
+        "baseline_range_zero_based_half_open": [
+          375,
+          375
+        ],
+        "removed": []
+      },
+      {
+        "start": 378,
+        "end": 378,
+        "replacement": [
+          "                end\n",
+          "                ST_SAMPLE: begin\n",
+          "                    // sector_read_data and the B/G holds stay unchanged here.\n",
+          "                    // Emit every output sample for this input pixel before fetching\n",
+          "                    // the next byte; this handles enlargement without dropping repeats.\n",
+          "                    sample_x <= sample_x + 1'b1;\n",
+          "                    source_x <= next_sample_source;\n",
+          "                    if (x_error_sum >= {1'b0, fit_width})\n",
+          "                        x_error <= x_error_sum - {1'b0, fit_width};\n",
+          "                    else x_error <= x_error_sum[15:0];\n",
+          "                    if (sample_x == fit_width - 1'b1 || x_step != 16'd0 || x_error_sum >= {1'b0, fit_width}) begin\n",
+          "                        if (capture_x == image_width - 1'b1) begin\n",
+          "                            line_valid <= 1; cached_row <= source_y; state <= ST_PIXEL;\n",
+          "                            source_x <= 0; x_error <= 0;\n",
+          "                        end else begin\n",
+          "                            capture_x <= capture_x + 1'b1; state <= ST_FETCH;\n",
+          "                        end\n",
+          "                    end\n"
+        ],
+        "owner": "f2_bmp_cache_step_predicate",
+        "baseline_range_zero_based_half_open": [
+          378,
+          378
+        ],
+        "removed": []
+      },
+      {
+        "start": 388,
+        "end": 397,
+        "replacement": [
+          "                    // The line cache already contains floor-mapped output samples.\n",
+          "                    if (pixel_in_image) source_x <= source_x + 1'b1;\n"
+        ],
+        "owner": "f2_bmp_cache_step_predicate",
+        "baseline_range_zero_based_half_open": [
+          388,
+          397
+        ],
+        "removed": [
+          "                    // 等价于 floor(local_x * source_width / fit_width)，无逐像素除法器。\n",
+          "                    if (pixel_in_image) begin\n",
+          "                        if (x_error_sum >= {1'b0, fit_width}) begin\n",
+          "                            source_x <= source_x + x_step + 1'b1;\n",
+          "                            x_error <= x_error_sum - {1'b0, fit_width};\n",
+          "                        end else begin\n",
+          "                            source_x <= source_x + x_step; x_error <= x_error_sum[15:0];\n",
+          "                        end\n",
+          "                    end\n"
+        ]
+      },
+      {
+        "start": 97,
+        "end": 97,
+        "replacement": [
+          "    // Keep the entire header sector enabled, including the natural pipeline drain\n",
+          "    // after byte 33. Consumers run only after all 512 bytes have completed.\n",
+          "    wire header_pipeline_ce = state == ST_SECTOR && capture_header;\n",
+          "    // Final offsets are assigned on the last divider completion. ACK states\n",
+          "    // provide the boundary-adder drain before ST_ROW first consumes the bounds.\n",
+          "    wire geometry_pipeline_ce = state == ST_GEOMETRY || state == ST_DIV_WAIT ||\n",
+          "        state == ST_STEP_X || state == ST_STEP_Y ||\n",
+          "        state == ST_ACK_HIGH || state == ST_ACK_LOW;\n",
+          "\n"
+        ],
+        "owner": "g_bmp_pipeline_ce",
+        "baseline_range_zero_based_half_open": [
+          97,
+          97
+        ],
+        "removed": []
+      },
+      {
+        "start": 108,
+        "end": 125,
+        "replacement": [
+          "            if (header_pipeline_ce) begin\n",
+          "                height_abs <= height_raw[31] ? (~height_raw + 32'd1) : height_raw;\n",
+          "                header_stride <= (({16'd0, width_raw[15:0]} << 1) +\n",
+          "                                  {16'd0, width_raw[15:0]} + 32'd3) & 32'hfffffffc;\n",
+          "                header_pixel_bytes <= header_stride[15:0] * height_abs[15:0];\n",
+          "                required_file_bytes <= {1'b0, pixel_offset} + {1'b0, header_pixel_bytes};\n",
+          "                // 文件长度在头部第 5 字节完成；扇区收完前两级流水已稳定。\n",
+          "                // 拆开向上取整、地址累加与扫描边界比较，缩短 SD 侧组合路径。\n",
+          "                file_sector_count <= ({1'b0, file_len} + 33'd511) >> 9;\n",
+          "                next_scan_match <= {1'b0, scan_sector} + file_sector_count;\n",
+          "                // 头字段在前54字节完成，检查在512字节扇区结束后进行；\n",
+          "                // 几何参数在除法阶段稳定，像素阶段不再串联边界加法。\n",
+          "                dib_end <= {1'b0, dib_size} + 33'd14;\n",
+          "                header_error_q <= header_error;\n",
+          "                aspect_w <= width_raw[15:0] * FRAME_HEIGHT;\n",
+          "                aspect_h <= height_abs[15:0] * FRAME_WIDTH;\n",
+          "            end\n",
+          "            if (geometry_pipeline_ce) begin\n",
+          "                image_x_end <= {1'b0, x_offset} + {1'b0, fit_width};\n",
+          "                image_y_end <= {1'b0, y_offset} + {1'b0, fit_height};\n",
+          "            end\n"
+        ],
+        "owner": "g_bmp_pipeline_ce",
+        "baseline_range_zero_based_half_open": [
+          108,
+          125
+        ],
+        "removed": [
+          "            height_abs <= height_raw[31] ? (~height_raw + 32'd1) : height_raw;\n",
+          "            header_stride <= (({16'd0, width_raw[15:0]} << 1) +\n",
+          "                              {16'd0, width_raw[15:0]} + 32'd3) & 32'hfffffffc;\n",
+          "            header_pixel_bytes <= header_stride[15:0] * height_abs[15:0];\n",
+          "            required_file_bytes <= {1'b0, pixel_offset} + {1'b0, header_pixel_bytes};\n",
+          "            // 文件长度在头部第 5 字节完成；扇区收完前两级流水已稳定。\n",
+          "            // 拆开向上取整、地址累加与扫描边界比较，缩短 SD 侧组合路径。\n",
+          "            file_sector_count <= ({1'b0, file_len} + 33'd511) >> 9;\n",
+          "            next_scan_match <= {1'b0, scan_sector} + file_sector_count;\n",
+          "            // 头字段在前54字节完成，检查在512字节扇区结束后进行；\n",
+          "            // 几何参数在除法阶段稳定，像素阶段不再串联边界加法。\n",
+          "            dib_end <= {1'b0, dib_size} + 33'd14;\n",
+          "            header_error_q <= header_error;\n",
+          "            image_x_end <= {1'b0, x_offset} + {1'b0, fit_width};\n",
+          "            image_y_end <= {1'b0, y_offset} + {1'b0, fit_height};\n",
+          "            aspect_w <= width_raw[15:0] * FRAME_HEIGHT;\n",
+          "            aspect_h <= height_abs[15:0] * FRAME_WIDTH;\n"
+        ]
+      }
+    ]
+  }
+}

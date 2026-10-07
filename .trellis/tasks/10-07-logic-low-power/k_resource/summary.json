@@ -1,0 +1,71 @@
+{
+  "build": "C:\\Users\\27348\\.codex_tmp\\logic_low_power_20261007_k_resource_r2",
+  "changed": [
+    "src/user_source/hdl_source/SD/bmp_read.v",
+    "src/user_source/hdl_source/SD/sd_fat32_wav.v",
+    "src/user_source/hdl_source/player_settings_flash.v",
+    "src/user_source/hdl_source/w25q64_preflight_reader.v",
+    "src/user_source/hdl_source/w25q64_record_store.v"
+  ],
+  "gate": {
+    "lut": 13269,
+    "reg": 7282,
+    "bram": 24,
+    "bram32k": 0,
+    "dsp": 9,
+    "pad": 49,
+    "pll": 2,
+    "gclk": 2
+  },
+  "routed": {
+    "lut": 13846,
+    "reg": 7323,
+    "bram": 24,
+    "bram32k": 0,
+    "dsp": 9,
+    "pad": 49,
+    "pll": 2,
+    "gclk": 2
+  },
+  "delta": {
+    "lut": 196,
+    "reg": -12,
+    "bram": -8,
+    "bram32k": 0,
+    "dsp": 0,
+    "pad": 0,
+    "pll": 0,
+    "gclk": 0
+  },
+  "setup": -5.565,
+  "hold": 0.011,
+  "tns": -335.345,
+  "self_groups": {
+    "sd_card_clk -> sd_card_clk": {
+      "setup": -0.939,
+      "hold": 0.024
+    },
+    "video_clk -> video_clk": {
+      "setup": 7.365,
+      "hold": 0.011
+    },
+    "clk -> clk": {
+      "setup": 0.56,
+      "hold": 0.054
+    },
+    "ext_mem_clk -> ext_mem_clk": {
+      "setup": 0.756,
+      "hold": 0.027
+    },
+    "hdmi_5x_clk -> hdmi_5x_clk": {
+      "setup": 2.246,
+      "hold": 0.147
+    }
+  },
+  "new_setup_violation_groups": [],
+  "new_hold_violation_groups": [],
+  "new_warning_lines": [
+    "SYN-6562 WARNING: The init value of \"sd_card_bmp_m0/bmp_read_m0/ramread0_syn_4(../user_source/hdl_source/SD/bmp_read.v(172))\" will be ignored since gate eram_init is set to off"
+  ],
+  "bit_sha256": "db6decbeb929990d98b149f2935e0668b63dc074d4315b9b0ceb9c8078bb93ea"
+}

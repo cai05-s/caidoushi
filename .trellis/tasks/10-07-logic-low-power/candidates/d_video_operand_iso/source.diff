@@ -1,0 +1,213 @@
+--- V1.0/src/user_source/hdl_source/brightness_contrast_adjust.v
++++ d_video_operand_iso/src/user_source/hdl_source/brightness_contrast_adjust.v
+@@ -6,8 +6,8 @@
+ // 特性：
+ // 1. 最高亮度档(255)且标准对比度(128)时，硬件直通 bypass，原汁原味零精度损失
+ // 2. 带四舍五入舍入补偿(+128)，杜绝向下截断引起的暗部发黑与偏色
+-// 3. 亮度系数按 (channel*brightness+128)>>8 缩放；标准对比度路径
+-//    保留该结果，避免带符号中心化错误把暗部全部截成黑色。
++// 3. 亮度系数按 (channel*brightness+128)>>8 缩放；标准对比度路径
++//    保留该结果，避免带符号中心化错误把暗部全部截成黑色。
+ // =========================================================================
+ 
+ module brightness_contrast_adjust (
+@@ -15,7 +15,7 @@
+     input  wire        rst_n,
+     input  wire        in_de,
+     input  wire [23:0] rgb_in,
+-    input  wire [7:0]  brightness,   // 亮度系数 (255=100%, 154约60%, 102=40%)
++    input  wire [7:0]  brightness,   // 亮度系数 (255=100%, 154约60%, 102=40%)
+     input  wire [7:0]  contrast,     // 对比度系数 (128=100%, 160=125%, 192=150%, 96=75%, 64=50%)
+     output reg         out_de,
+     output reg  [23:0] rgb_out
+@@ -23,39 +23,46 @@
+ 
+     wire is_bypass = (brightness == 8'd255) && (contrast == 8'd128);
+ 
++    // Isolate only products discarded by the existing bypass selectors.
++    // Keep blank-cycle RGB behavior: rgb_out is externally observable even without DE.
++    wire [23:0] brightness_rgb = (brightness == 8'd255) ? 24'd0 : rgb_in;
++
+     // ---- R 通道 ----
+-    wire [16:0] mul_r = rgb_in[23:16] * brightness + 8'd128;
++    wire [16:0] mul_r = brightness_rgb[23:16] * brightness + 8'd128;
+     wire [7:0]  bright_r = (brightness == 8'd255) ? rgb_in[23:16] : mul_r[15:8];
+     wire signed [8:0]  ctr_r = ({1'b0, bright_r}) - 9'sd128;
+-    wire signed [17:0] contrast_ext = $signed({10'd0, contrast});
+-    wire signed [17:0] ctr_r_product = ctr_r * contrast_ext;
+-    wire signed [18:0] sc_r = ctr_r_product + 19'sd64;
+-    wire signed [10:0] sum_r = (sc_r >>> 7) + 11'sd128;
+-    wire [7:0] final_r = (contrast == 8'd128) ? bright_r :
+-                         (sum_r < 11'sd0)   ? 8'd0   :
+-                         (sum_r > 11'sd255) ? 8'd255 : sum_r[7:0];
++    wire signed [8:0] contrast_r = (contrast == 8'd128) ? 9'sd0 : ctr_r;
++    wire signed [17:0] contrast_ext = $signed({10'd0, contrast});
++    wire signed [17:0] ctr_r_product = contrast_r * contrast_ext;
++    wire signed [18:0] sc_r = ctr_r_product + 19'sd64;
++    wire signed [10:0] sum_r = (sc_r >>> 7) + 11'sd128;
++    wire [7:0] final_r = (contrast == 8'd128) ? bright_r :
++                         (sum_r < 11'sd0)   ? 8'd0   :
++                         (sum_r > 11'sd255) ? 8'd255 : sum_r[7:0];
+ 
+     // ---- G 通道 ----
+-    wire [16:0] mul_g = rgb_in[15:8] * brightness + 8'd128;
++    wire [16:0] mul_g = brightness_rgb[15:8] * brightness + 8'd128;
+     wire [7:0]  bright_g = (brightness == 8'd255) ? rgb_in[15:8] : mul_g[15:8];
+     wire signed [8:0]  ctr_g = ({1'b0, bright_g}) - 9'sd128;
+-    wire signed [17:0] ctr_g_product = ctr_g * contrast_ext;
+-    wire signed [18:0] sc_g = ctr_g_product + 19'sd64;
+-    wire signed [10:0] sum_g = (sc_g >>> 7) + 11'sd128;
+-    wire [7:0] final_g = (contrast == 8'd128) ? bright_g :
+-                         (sum_g < 11'sd0)   ? 8'd0   :
+-                         (sum_g > 11'sd255) ? 8'd255 : sum_g[7:0];
++    wire signed [8:0] contrast_g = (contrast == 8'd128) ? 9'sd0 : ctr_g;
++    wire signed [17:0] ctr_g_product = contrast_g * contrast_ext;
++    wire signed [18:0] sc_g = ctr_g_product + 19'sd64;
++    wire signed [10:0] sum_g = (sc_g >>> 7) + 11'sd128;
++    wire [7:0] final_g = (contrast == 8'd128) ? bright_g :
++                         (sum_g < 11'sd0)   ? 8'd0   :
++                         (sum_g > 11'sd255) ? 8'd255 : sum_g[7:0];
+ 
+     // ---- B 通道 ----
+-    wire [16:0] mul_b = rgb_in[7:0] * brightness + 8'd128;
++    wire [16:0] mul_b = brightness_rgb[7:0] * brightness + 8'd128;
+     wire [7:0]  bright_b = (brightness == 8'd255) ? rgb_in[7:0] : mul_b[15:8];
+     wire signed [8:0]  ctr_b = ({1'b0, bright_b}) - 9'sd128;
+-    wire signed [17:0] ctr_b_product = ctr_b * contrast_ext;
+-    wire signed [18:0] sc_b = ctr_b_product + 19'sd64;
+-    wire signed [10:0] sum_b = (sc_b >>> 7) + 11'sd128;
+-    wire [7:0] final_b = (contrast == 8'd128) ? bright_b :
+-                         (sum_b < 11'sd0)   ? 8'd0   :
+-                         (sum_b > 11'sd255) ? 8'd255 : sum_b[7:0];
++    wire signed [8:0] contrast_b = (contrast == 8'd128) ? 9'sd0 : ctr_b;
++    wire signed [17:0] ctr_b_product = contrast_b * contrast_ext;
++    wire signed [18:0] sc_b = ctr_b_product + 19'sd64;
++    wire signed [10:0] sum_b = (sc_b >>> 7) + 11'sd128;
++    wire [7:0] final_b = (contrast == 8'd128) ? bright_b :
++                         (sum_b < 11'sd0)   ? 8'd0   :
++                         (sum_b > 11'sd255) ? 8'd255 : sum_b[7:0];
+ 
+     // 打一拍流水线寄存器与 DE 对齐
+     always @(posedge clk or negedge rst_n) begin
+--- V1.0/src/user_source/hdl_source/video_fade_overlay.v
++++ d_video_operand_iso/src/user_source/hdl_source/video_fade_overlay.v
+@@ -8,14 +8,14 @@
+     input  wire        switch_event,
+     input wire switch_hard,
+     input  wire        force_commit_toggle,
+-    input  wire [2:0]  switch_buf_idx,
++    input  wire [2:0]  switch_buf_idx,
+     input  wire [3:0]  switch_image_idx,
+     input  wire        de,
+     input  wire [23:0] rgb_in,
+     output reg  [23:0] rgb_out,
+-    output reg  [2:0]  display_buf_idx,
+-    output reg  [3:0]  display_image_idx,
+-    output reg         display_started,
++    output reg  [2:0]  display_buf_idx,
++    output reg  [3:0]  display_image_idx,
++    output reg         display_started,
+     output wire        transition_busy
+ );
+ 
+@@ -29,11 +29,16 @@
+ reg [15:0] r_prod;
+ reg [15:0] g_prod;
+ reg [15:0] b_prod;
+-reg [2:0] pending_buf_idx;
++reg [2:0] pending_buf_idx;
+ reg [3:0] pending_image_idx;
+ reg [1:0] recovery_sync;
+ reg recovery_seen, recovery_pending;
+ reg hard_pending;
++
++// Gate the changing RGB operand before the multipliers, including blanking.
++// The original bypass/black selectors and combinational output latency remain.
++wire fade_multiply = de && state != S_IDLE && alpha != 8'd255;
++wire [23:0] fade_rgb = fade_multiply ? rgb_in : 24'd0;
+ 
+ always @(posedge clk or posedge rst) begin
+     if (rst) begin
+@@ -47,41 +52,41 @@
+     end
+ end
+ 
+-assign transition_busy = (state != S_IDLE) || recovery_pending;
++assign transition_busy = (state != S_IDLE) || recovery_pending;
+ 
+ always @(posedge clk or posedge rst) begin
+     if (rst) begin
+         state <= S_IDLE;
+         alpha <= 8'd255;
+-        display_buf_idx <= 3'd0;
+-        display_image_idx <= 4'd1;
+-        display_started <= 0;
+-        pending_buf_idx <= 3'd0;
++        display_buf_idx <= 3'd0;
++        display_image_idx <= 4'd1;
++        display_started <= 0;
++        pending_buf_idx <= 3'd0;
+         pending_image_idx <= 4'd1; hard_pending <= 0;
+     end else begin
+         if (RECOVERY_ENABLE && frame_start && recovery_pending) begin
+-            // frame_start接读帧起点，bank与read_req同拍更新。
+-            // S_IN至少保护一帧，保证读端已接受新地址才释放旧bank。
++            // frame_start接读帧起点，bank与read_req同拍更新。
++            // S_IN至少保护一帧，保证读端已接受新地址才释放旧bank。
+             state <= S_IN;
+             alpha <= 8'd255;
+             display_buf_idx <= switch_buf_idx;
+-            display_image_idx <= switch_image_idx;
+-            display_started <= 1;
+-        end else if (switch_event && (state == S_IDLE || switch_hard)) begin
+-            state <= S_OUT;
+-            // 抢占时保持本帧亮度；硬切亮度与bank在下一读帧边界一起更新。
+-            if (state == S_IDLE) alpha <= 8'd255;
++            display_image_idx <= switch_image_idx;
++            display_started <= 1;
++        end else if (switch_event && (state == S_IDLE || switch_hard)) begin
++            state <= S_OUT;
++            // 抢占时保持本帧亮度；硬切亮度与bank在下一读帧边界一起更新。
++            if (state == S_IDLE) alpha <= 8'd255;
+             pending_buf_idx <= switch_buf_idx;
+             pending_image_idx <= switch_image_idx;
+             hard_pending <= switch_hard;
+         end else if (frame_start) begin
+             case (state)
+                 S_OUT: begin
+-                    if (hard_pending || alpha <= STEP) begin
+-                        alpha <= hard_pending ? 8'd255 : 8'd0;
+-                        display_buf_idx   <= pending_buf_idx;
+-                        display_image_idx <= pending_image_idx;
+-                        display_started <= 1;
++                    if (hard_pending || alpha <= STEP) begin
++                        alpha <= hard_pending ? 8'd255 : 8'd0;
++                        display_buf_idx   <= pending_buf_idx;
++                        display_image_idx <= pending_image_idx;
++                        display_started <= 1;
+                         state <= S_IN;
+                     end else begin
+                         alpha <= alpha - STEP;
+@@ -95,18 +100,15 @@
+ end
+ 
+ always @* begin
+-    if (state == S_IDLE || alpha == 8'd255) begin
+-        r_prod = 16'd0;
+-        g_prod = 16'd0;
+-        b_prod = 16'd0;
++    r_prod = {8'd0, fade_rgb[23:16]} * {8'd0, alpha};
++    g_prod = {8'd0, fade_rgb[15:8]}  * {8'd0, alpha};
++    b_prod = {8'd0, fade_rgb[7:0]}   * {8'd0, alpha};
++    if (state == S_IDLE || alpha == 8'd255) begin
+         r_mix  = rgb_in[23:16];
+         g_mix  = rgb_in[15:8];
+         b_mix  = rgb_in[7:0];
+         rgb_out = de ? rgb_in : 24'd0;
+     end else begin
+-        r_prod = {8'd0, rgb_in[23:16]} * {8'd0, alpha};
+-        g_prod = {8'd0, rgb_in[15:8]}  * {8'd0, alpha};
+-        b_prod = {8'd0, rgb_in[7:0]}   * {8'd0, alpha};
+         r_mix = r_prod[15:8];
+         g_mix = g_prod[15:8];
+         b_mix = b_prod[15:8];

@@ -1,0 +1,66 @@
+{
+  "build": "C:\\Users\\27348\\.codex_tmp\\logic_low_power_20261007_e_video",
+  "changed": [
+    "src/user_source/hdl_source/brightness_contrast_adjust.v",
+    "src/user_source/hdl_source/video_fade_overlay.v"
+  ],
+  "gate": {
+    "lut": 13248,
+    "reg": 7296,
+    "bram": 32,
+    "bram32k": 0,
+    "dsp": 9,
+    "pad": 49,
+    "pll": 2,
+    "gclk": 2
+  },
+  "routed": {
+    "lut": 13836,
+    "reg": 7339,
+    "bram": 32,
+    "bram32k": 0,
+    "dsp": 9,
+    "pad": 49,
+    "pll": 2,
+    "gclk": 2
+  },
+  "delta": {
+    "lut": 186,
+    "reg": 4,
+    "bram": 0,
+    "bram32k": 0,
+    "dsp": 0,
+    "pad": 0,
+    "pll": 0,
+    "gclk": 0
+  },
+  "setup": -5.565,
+  "hold": 0.009,
+  "tns": -338.292,
+  "self_groups": {
+    "sd_card_clk -> sd_card_clk": {
+      "setup": -1.454,
+      "hold": 0.03
+    },
+    "video_clk -> video_clk": {
+      "setup": 5.441,
+      "hold": 0.129
+    },
+    "clk -> clk": {
+      "setup": 2.949,
+      "hold": 0.178
+    },
+    "ext_mem_clk -> ext_mem_clk": {
+      "setup": 0.282,
+      "hold": 0.14
+    },
+    "hdmi_5x_clk -> hdmi_5x_clk": {
+      "setup": 3.241,
+      "hold": 0.216
+    }
+  },
+  "new_setup_violation_groups": [],
+  "new_hold_violation_groups": [],
+  "new_warning_lines": [],
+  "bit_sha256": "551b9a4d79eb56ecb8f95f3aba367764fd7dddd6da43d8396f53962e4c703129"
+}

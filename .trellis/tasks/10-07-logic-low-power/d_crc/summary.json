@@ -1,0 +1,67 @@
+{
+  "build": "C:\\Users\\27348\\.codex_tmp\\logic_low_power_20261007_d_crc",
+  "changed": [
+    "src/user_source/hdl_source/player_settings_flash.v"
+  ],
+  "gate": {
+    "lut": 13010,
+    "reg": 7303,
+    "bram": 32,
+    "bram32k": 0,
+    "dsp": 9,
+    "pad": 49,
+    "pll": 2,
+    "gclk": 2
+  },
+  "routed": {
+    "lut": 13657,
+    "reg": 7346,
+    "bram": 32,
+    "bram32k": 0,
+    "dsp": 9,
+    "pad": 49,
+    "pll": 2,
+    "gclk": 2
+  },
+  "delta": {
+    "lut": 7,
+    "reg": 11,
+    "bram": 0,
+    "bram32k": 0,
+    "dsp": 0,
+    "pad": 0,
+    "pll": 0,
+    "gclk": 0
+  },
+  "setup": -5.565,
+  "hold": 0.019,
+  "tns": -354.071,
+  "self_groups": {
+    "sd_card_clk -> sd_card_clk": {
+      "setup": -1.704,
+      "hold": 0.023
+    },
+    "video_clk -> video_clk": {
+      "setup": 1.948,
+      "hold": 0.086
+    },
+    "clk -> clk": {
+      "setup": 0.488,
+      "hold": 0.129
+    },
+    "ext_mem_clk -> ext_mem_clk": {
+      "setup": -0.003,
+      "hold": 0.019
+    },
+    "hdmi_5x_clk -> hdmi_5x_clk": {
+      "setup": 4.363,
+      "hold": 0.299
+    }
+  },
+  "new_setup_violation_groups": [
+    "ext_mem_clk -> ext_mem_clk"
+  ],
+  "new_hold_violation_groups": [],
+  "new_warning_lines": [],
+  "bit_sha256": "3a25974099870fc180b1104d62bc16596c4b6d900ecbb25bc0b324d5f0a3202d"
+}

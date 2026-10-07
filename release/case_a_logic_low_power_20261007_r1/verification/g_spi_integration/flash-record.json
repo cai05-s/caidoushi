@@ -1,0 +1,11 @@
+{
+  "parser": "11.0.0",
+  "static_elaboration_errors": 0,
+  "parameter_specializations": 44,
+  "record_lengths_checked": 255,
+  "byte_selection_checks": 163961,
+  "delay_boundary_checks": 15789,
+  "rtl_simulation_run": false,
+  "board_tested": false,
+  "limits": "Elaboration and algebra only; SPI protocol reviewed separately; physical save/load pending."
+}

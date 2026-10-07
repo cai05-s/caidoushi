@@ -1,0 +1,19 @@
+{
+  "static_elaboration_errors": 0,
+  "parser": "11.0.0",
+  "capacity_combinations_checked": 131584,
+  "admissible_grants": 40119,
+  "reserved_return_pipeline_words": 1,
+  "frame_words": 307200,
+  "bank_bases_words": [
+    0,
+    307200,
+    614400,
+    921600,
+    1228800
+  ],
+  "protected_files_unchanged": 23,
+  "rtl_simulation_run": false,
+  "board_tested": false,
+  "limits": "Static elaboration and arithmetic only; TD and board acceptance are separate."
+}

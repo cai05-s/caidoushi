@@ -1,0 +1,118 @@
+--- V1.0/src/user_source/hdl_source/SD/bmp_read.v
++++ f_bmp_output_cache/src/user_source/hdl_source/SD/bmp_read.v
+@@ -38,12 +38,12 @@
+         ST_STEP_X = 6, ST_STEP_Y = 7, ST_ACK_HIGH = 8, ST_ACK_LOW = 9,
+         ST_ROW = 10, ST_ROW_OFFSET = 11, ST_FETCH = 12,
+         ST_BYTE_WAIT = 13, ST_BYTE_DATA = 14, ST_PIXEL = 15,
+-        ST_PIXEL_DATA = 16, ST_SEND = 17, ST_DRAIN = 18, ST_ROW_ADD = 19;
++        ST_PIXEL_DATA = 16, ST_SEND = 17, ST_DRAIN = 18, ST_ROW_ADD = 19, ST_SAMPLE = 20;
+     localparam [7:0] ERR_NONE = 8'h00, ERR_SIGNATURE = 8'h31,
+         ERR_DIMENSIONS = 8'h32, ERR_PLANES = 8'h33, ERR_BPP = 8'h34,
+         ERR_COMPRESSION = 8'h35, ERR_OFFSET = 8'h36,
+         ERR_LENGTH = 8'h37, ERR_IO = 8'h38, ERR_DIB = 8'h39;
+-    localparam integer LINE_ADDR_BITS = (MAX_DIM > 1) ? $clog2(MAX_DIM) : 1;
++    localparam integer LINE_ADDR_BITS = (FRAME_WIDTH > 1) ? $clog2(FRAME_WIDTH) : 1;
+ 
+     reg [4:0] state, sector_return_state;
+     reg [9:0] sector_count;
+@@ -75,6 +75,9 @@
+ 
+     reg line_valid;
+     reg [15:0] cached_row, capture_x;
++    reg [LINE_ADDR_BITS-1:0] sample_x;
++    wire [15:0] next_sample_source = source_x + x_step +
++                                      ((x_error_sum >= {1'b0, fit_width}) ? 16'd1 : 16'd0);
+     reg [1:0] channel;
+     reg [7:0] blue_hold, green_hold;
+     reg [8:0] sector_read_address;
+@@ -82,7 +85,8 @@
+     reg [23:0] line_read_data;
+     // 同步读写，不清零存储阵列，允许 TD 推断为片上块 RAM。
+     reg [7:0] sector_memory [0:511] /* fehdl force_ram=1, ram_style="bram" */;
+-    reg [23:0] line_memory [0:MAX_DIM-1] /* fehdl force_ram=1, ram_style="bram" */;
++    // Cache the fitted output samples, including repeated enlargement samples.
++    reg [23:0] line_memory [0:FRAME_WIDTH-1] /* fehdl force_ram=1, ram_style="bram" */;
+ 
+     reg [1:0] ack_sync;
+     reg div_start;
+@@ -166,8 +170,8 @@
+             sector_memory[sector_count[8:0]] <= sd_sec_read_data;
+         if (state == ST_BYTE_WAIT)
+             sector_read_data <= sector_memory[sector_read_address];
+-        if (state == ST_BYTE_DATA && channel == 2'd2)
+-            line_memory[capture_x[LINE_ADDR_BITS-1:0]] <= {sector_read_data, green_hold, blue_hold};
++        if (state == ST_SAMPLE)
++            line_memory[sample_x] <= {sector_read_data, green_hold, blue_hold};
+         if (state == ST_PIXEL && pixel_in_image)
+             line_read_data <= line_memory[source_x[LINE_ADDR_BITS-1:0]];
+     end
+@@ -227,7 +231,7 @@
+             fit_width <= FRAME_WIDTH; fit_height <= FRAME_HEIGHT; x_offset <= 0; y_offset <= 0;
+             out_x <= 0; out_y <= 0; source_x <= 0; source_y <= 0; file_row <= 0;
+             x_step <= 0; y_step <= 0; x_remainder <= 0; y_remainder <= 0; x_error <= 0; y_error <= 0;
+-            line_valid <= 0; cached_row <= 0; capture_x <= 0; channel <= 0;
++            line_valid <= 0; cached_row <= 0; capture_x <= 0; sample_x <= 0; channel <= 0;
+             blue_hold <= 0; green_hold <= 0; sector_read_address <= 0;
+             div_start <= 0; div_operation <= 0; div_numerator <= 0; div_denominator <= 1;
+         end else begin
+@@ -352,7 +356,7 @@
+                 end
+                 ST_ROW_ADD: begin
+                     fetch_pos <= pixel_offset + row_byte_offset;
+-                    capture_x <= 0; channel <= 0; state <= ST_FETCH;
++                    capture_x <= 0; sample_x <= 0; channel <= 0; state <= ST_FETCH;
+                 end
+                 ST_FETCH: begin
+                     if (!sector_cached || cached_sector != wanted_sector) begin
+@@ -371,11 +375,32 @@
+                         1: begin green_hold <= sector_read_data; channel <= 2; end
+                         default: begin
+                             channel <= 0;
+-                            if (capture_x == image_width - 1'b1) begin
++                            if (capture_x == source_x) begin
++                                state <= ST_SAMPLE;
++                            end else if (capture_x == image_width - 1'b1) begin
+                                 line_valid <= 1; cached_row <= source_y; state <= ST_PIXEL;
++                                source_x <= 0; x_error <= 0;
+                             end else capture_x <= capture_x + 1'b1;
+                         end
+                     endcase
++                end
++                ST_SAMPLE: begin
++                    // sector_read_data and the B/G holds stay unchanged here.
++                    // Emit every output sample for this input pixel before fetching
++                    // the next byte; this handles enlargement without dropping repeats.
++                    sample_x <= sample_x + 1'b1;
++                    source_x <= next_sample_source;
++                    if (x_error_sum >= {1'b0, fit_width})
++                        x_error <= x_error_sum - {1'b0, fit_width};
++                    else x_error <= x_error_sum[15:0];
++                    if (sample_x == fit_width - 1'b1 || next_sample_source != capture_x) begin
++                        if (capture_x == image_width - 1'b1) begin
++                            line_valid <= 1; cached_row <= source_y; state <= ST_PIXEL;
++                            source_x <= 0; x_error <= 0;
++                        end else begin
++                            capture_x <= capture_x + 1'b1; state <= ST_FETCH;
++                        end
++                    end
+                 end
+                 ST_PIXEL: begin
+                     if (pixel_in_image) state <= ST_PIXEL_DATA;
+@@ -386,15 +411,8 @@
+                 end
+                 ST_SEND: if (bmp_data_ready) begin
+                     bmp_data_wr_en <= 0;
+-                    // 等价于 floor(local_x * source_width / fit_width)，无逐像素除法器。
+-                    if (pixel_in_image) begin
+-                        if (x_error_sum >= {1'b0, fit_width}) begin
+-                            source_x <= source_x + x_step + 1'b1;
+-                            x_error <= x_error_sum - {1'b0, fit_width};
+-                        end else begin
+-                            source_x <= source_x + x_step; x_error <= x_error_sum[15:0];
+-                        end
+-                    end
++                    // The line cache already contains floor-mapped output samples.
++                    if (pixel_in_image) source_x <= source_x + 1'b1;
+                     if (out_x == FRAME_WIDTH - 1) begin
+                         out_x <= 0;
+                         if (row_in_image) begin

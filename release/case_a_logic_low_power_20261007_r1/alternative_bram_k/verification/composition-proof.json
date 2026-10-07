@@ -1,0 +1,243 @@
+{
+  "src/user_source/hdl_source/SD/sd_fat32_wav.v": {
+    "method": "Exact byte copy",
+    "component": "c2_wav_partition_only",
+    "component_sha256": "ec5c1bf51ca68b6899aaf17b4a9d5788bec88d9e0de8926c6596515f52284bb1",
+    "candidate_sha256": "ec5c1bf51ca68b6899aaf17b4a9d5788bec88d9e0de8926c6596515f52284bb1"
+  },
+  "src/user_source/hdl_source/w25q64_record_store.v": {
+    "method": "Exact byte copy",
+    "component": "e_shared_flash_spi",
+    "component_sha256": "87cf4374c3984a690253dae6a6665deca9d0c12ed655f1e701dd7e1c041f92e1",
+    "candidate_sha256": "87cf4374c3984a690253dae6a6665deca9d0c12ed655f1e701dd7e1c041f92e1"
+  },
+  "src/user_source/hdl_source/w25q64_preflight_reader.v": {
+    "method": "Exact byte copy",
+    "component": "e_shared_flash_spi",
+    "component_sha256": "b335be71f66e2513f17ef1cb23307a93bf95bc714e532ac5a3d06e687ef533bc",
+    "candidate_sha256": "b335be71f66e2513f17ef1cb23307a93bf95bc714e532ac5a3d06e687ef533bc"
+  },
+  "src/user_source/hdl_source/SD/bmp_read.v": {
+    "method": "Exact byte copy",
+    "component": "f2_bmp_cache_step_predicate",
+    "component_sha256": "65680d52570b47b80a13b05a3dfc33520dbb79677f14b6e7bb14396d74ae8faf",
+    "candidate_sha256": "65680d52570b47b80a13b05a3dfc33520dbb79677f14b6e7bb14396d74ae8faf"
+  },
+  "src/user_source/hdl_source/player_settings_flash.v": {
+    "method": "Union of non-overlapping, exact normalized-text hunks relative to immutable V1.0; no manual HDL edits",
+    "baseline_sha256": "78d0f5caa1c53b7b22f1d7f739ce187d259e781f39d6b62cd8927fe25142f8dd",
+    "first_component": "e_shared_flash_spi",
+    "first_sha256": "1c17eba80fd562d9ba80f2bc0b2784afc6e22dc0583070ffc26a48f01d8d04c1",
+    "second_component": "d_flash_crc_stage",
+    "second_sha256": "a199c3c1f51b30786782b26844f678f921705cf089e5729ca320c7b192a51e3a",
+    "line_endings": "CRLF",
+    "normalized_output_sha256": "f90bd5a482d73cba38f7b88eea29575c5a590ab65d97281e662a14d0c1018659",
+    "candidate_sha256": "12bd009d62e6348db45a4b680a291d773ab71c4037ae6bfc39e2d9f7547bf9b7",
+    "conflicts": 0,
+    "component_reconstruction_exact": true,
+    "union_order_independent": true,
+    "hunks": [
+      {
+        "start": 39,
+        "end": 39,
+        "replacement": [
+          "    // The identity/read-only phase and journal phase own one byte engine.\n",
+          "    // Both existing owners use CLK_DIV=5; standalone wrappers keep their own.\n",
+          "    wire pf_byte_start, st_byte_start, shared_byte_busy, shared_byte_done;\n",
+          "    wire [7:0] pf_byte_tx, st_byte_tx, shared_byte_rx;\n",
+          "    wire shared_sclk, shared_mosi;\n",
+          "    assign pf_clk=shared_sclk;\n",
+          "    assign st_clk=shared_sclk;\n",
+          "    assign pf_mosi=shared_mosi;\n",
+          "    assign st_mosi=shared_mosi;\n"
+        ],
+        "owner": "e_shared_flash_spi",
+        "baseline_range_zero_based_half_open": [
+          39,
+          39
+        ],
+        "removed": []
+      },
+      {
+        "start": 83,
+        "end": 86,
+        "replacement": [
+          "    w25q64_preflight_reader_control #(.SPI_CLK_DIV(5),.STARTUP_CYCLES(1000000)) u_identity(\n",
+          "        .clk(clk),.rst_n(rst_n && !boot_abort),.start(pf_start),\n",
+          "        .flash_cs_n(pf_cs),.flash_wp_n(pf_wp),.flash_hold_n(pf_hold),\n"
+        ],
+        "owner": "e_shared_flash_spi",
+        "baseline_range_zero_based_half_open": [
+          83,
+          86
+        ],
+        "removed": [
+          "    w25q64_preflight_reader #(.SPI_CLK_DIV(5),.STARTUP_CYCLES(1000000)) u_identity(\n",
+          "        .clk(clk),.rst_n(rst_n && !boot_abort),.start(pf_start),.flash_miso(flash_miso),\n",
+          "        .flash_cs_n(pf_cs),.flash_sclk(pf_clk),.flash_mosi(pf_mosi),.flash_wp_n(pf_wp),.flash_hold_n(pf_hold),\n"
+        ]
+      },
+      {
+        "start": 87,
+        "end": 89,
+        "replacement": [
+          "        .jedec_id(jedec_id),.status1(),.status2(),.status3(),\n",
+          "        .engine_start(pf_byte_start),.engine_tx(pf_byte_tx),\n",
+          "        .engine_busy(shared_byte_busy),.engine_done(shared_byte_done),.engine_rx(shared_byte_rx));\n",
+          "    w25q64_record_store_control #(.RECORD_BYTES(32),.COMMIT_LAST(1),.CLK_DIV(5),\n"
+        ],
+        "owner": "e_shared_flash_spi",
+        "baseline_range_zero_based_half_open": [
+          87,
+          89
+        ],
+        "removed": [
+          "        .jedec_id(jedec_id),.status1(),.status2(),.status3());\n",
+          "    w25q64_record_store #(.RECORD_BYTES(32),.COMMIT_LAST(1),.CLK_DIV(5),\n"
+        ]
+      },
+      {
+        "start": 94,
+        "end": 96,
+        "replacement": [
+          "        .spi_cs_n(st_cs),\n",
+          "        .spi_wp_n(st_wp),.spi_hold_n(st_hold),\n",
+          "        .engine_start(st_byte_start),.engine_tx(st_byte_tx),\n",
+          "        .engine_busy(shared_byte_busy),.engine_done(shared_byte_done),.engine_rx(shared_byte_rx));\n",
+          "\n",
+          "    spi_byte_engine #(.CLK_DIV(5)) u_shared_byte_engine (\n",
+          "        .clk(clk),.rst_n(rst_n && !boot_abort),\n",
+          "        .start(pf_owner ? pf_byte_start : st_byte_start),\n",
+          "        .tx_byte(pf_owner ? pf_byte_tx : st_byte_tx),.miso(flash_miso),\n",
+          "        .busy(shared_byte_busy),.done(shared_byte_done),.rx_byte(shared_byte_rx),\n",
+          "        .sclk(shared_sclk),.mosi(shared_mosi)\n",
+          "    );\n"
+        ],
+        "owner": "e_shared_flash_spi",
+        "baseline_range_zero_based_half_open": [
+          94,
+          96
+        ],
+        "removed": [
+          "        .spi_cs_n(st_cs),.spi_sclk(st_clk),.spi_mosi(st_mosi),.spi_miso(flash_miso),\n",
+          "        .spi_wp_n(st_wp),.spi_hold_n(st_hold));\n"
+        ]
+      },
+      {
+        "start": 28,
+        "end": 28,
+        "replacement": [
+          "    reg [7:0] crc_byte;\n"
+        ],
+        "owner": "d_flash_crc_stage",
+        "baseline_range_zero_based_half_open": [
+          28,
+          28
+        ],
+        "removed": []
+      },
+      {
+        "start": 39,
+        "end": 43,
+        "replacement": [
+          "    // Stage one byte while preserving all 224 MSB-first CRC cycles.\n",
+          "    // At the last bit of a byte, bits_left[7:3]+3 selects the next byte.\n",
+          "    wire [4:0] crc_next_byte_index = bits_left[7:3] + 5'd3;\n",
+          "    wire crc_input_bit = crc_byte[7];\n"
+        ],
+        "owner": "d_flash_crc_stage",
+        "baseline_range_zero_based_half_open": [
+          39,
+          43
+        ],
+        "removed": [
+          "    // 记录在整个CRC计算期间保持不变，按255..32的顺序读取，省去224位移位副本。\n",
+          "    wire [7:0] crc_bit_index = bits_left + 8'd31;\n",
+          "    wire crc_input_bit = (state == SAVE_BITS) ? write_record[crc_bit_index] :\n",
+          "        (!read_failed && record[crc_bit_index]);\n"
+        ]
+      },
+      {
+        "start": 103,
+        "end": 104,
+        "replacement": [
+          "            read_failed<=0;write_record<=0;crc<=16'hffff;crc_byte<=0;bits_left<=0;\n"
+        ],
+        "owner": "d_flash_crc_stage",
+        "baseline_range_zero_based_half_open": [
+          103,
+          104
+        ],
+        "removed": [
+          "            read_failed<=0;write_record<=0;crc<=16'hffff;bits_left<=0;\n"
+        ]
+      },
+      {
+        "start": 125,
+        "end": 126,
+        "replacement": [
+          "                CHECK_INIT:begin\n",
+          "                    crc<=16'hffff;bits_left<=224;state<=CHECK_BITS;\n",
+          "                    crc_byte<=read_failed?8'd0:record[255:248];\n",
+          "                end\n"
+        ],
+        "owner": "d_flash_crc_stage",
+        "baseline_range_zero_based_half_open": [
+          125,
+          126
+        ],
+        "removed": [
+          "                CHECK_INIT:begin crc<=16'hffff;bits_left<=224;state<=CHECK_BITS;end\n"
+        ]
+      },
+      {
+        "start": 128,
+        "end": 128,
+        "replacement": [
+          "                    if(bits_left[2:0]==3'd1 && bits_left!=8'd1)\n",
+          "                        crc_byte<=read_failed?8'd0:record[{crc_next_byte_index,3'b000} +: 8];\n",
+          "                    else crc_byte<={crc_byte[6:0],1'b0};\n"
+        ],
+        "owner": "d_flash_crc_stage",
+        "baseline_range_zero_based_half_open": [
+          128,
+          128
+        ],
+        "removed": []
+      },
+      {
+        "start": 162,
+        "end": 163,
+        "replacement": [
+          "                SAVE_INIT:begin\n",
+          "                    crc<=16'hffff;bits_left<=224;state<=SAVE_BITS;\n",
+          "                    crc_byte<=write_record[255:248];\n",
+          "                end\n"
+        ],
+        "owner": "d_flash_crc_stage",
+        "baseline_range_zero_based_half_open": [
+          162,
+          163
+        ],
+        "removed": [
+          "                SAVE_INIT:begin crc<=16'hffff;bits_left<=224;state<=SAVE_BITS;end\n"
+        ]
+      },
+      {
+        "start": 165,
+        "end": 165,
+        "replacement": [
+          "                    if(bits_left[2:0]==3'd1 && bits_left!=8'd1)\n",
+          "                        crc_byte<=write_record[{crc_next_byte_index,3'b000} +: 8];\n",
+          "                    else crc_byte<={crc_byte[6:0],1'b0};\n"
+        ],
+        "owner": "d_flash_crc_stage",
+        "baseline_range_zero_based_half_open": [
+          165,
+          165
+        ],
+        "removed": []
+      }
+    ]
+  }
+}

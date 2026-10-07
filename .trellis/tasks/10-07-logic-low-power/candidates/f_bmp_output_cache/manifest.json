@@ -1,0 +1,16 @@
+{
+  "candidate": "f_bmp_output_cache",
+  "parent": "V1.0",
+  "sources": [
+    {
+      "relative_source": "src/user_source/hdl_source/SD/bmp_read.v",
+      "parent_sha256": "1c13c6c982800f5dae85f620c864a0378fd00059afa1995b9850d6a49c5d0588",
+      "candidate_sha256": "8925a730d5ff3d85ede9541ad028da87be70a6dfd2ad3ca39462f42152ed5ce5",
+      "line_ending_preserved": "LF"
+    }
+  ],
+  "live_source_edited": false,
+  "rtl_simulation_run": false,
+  "td_run": false,
+  "board_tested": false
+}

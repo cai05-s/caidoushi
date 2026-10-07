@@ -17,6 +17,78 @@ module w25q64_record_store #(
     input  wire        op_write,
     input  wire [23:0] address,
     input  wire [RECORD_BYTES*8-1:0] write_data,
+    output wire         busy,
+    output wire         done,
+    output wire         error,
+    output wire  [3:0]  error_code,
+    output wire  [RECORD_BYTES*8-1:0] read_data,
+    output wire         request_dropped,
+    output wire         spi_cs_n,
+    output wire        spi_sclk,
+    output wire        spi_mosi,
+    input  wire        spi_miso,
+    output wire        spi_wp_n,
+    output wire        spi_hold_n
+);
+    // Standalone wrapper retains the original ports, parameters and SPI engine.
+    wire engine_start, engine_busy, engine_done;
+    wire [7:0] engine_tx, engine_rx;
+    w25q64_record_store_control #(
+        .RECORD_BYTES(RECORD_BYTES),
+        .COMMIT_LAST(COMMIT_LAST),
+        .CLK_DIV(CLK_DIV),
+        .CS_HIGH_CYCLES(CS_HIGH_CYCLES),
+        .POLL_INTERVAL_CYCLES(POLL_INTERVAL_CYCLES),
+        .ERASE_TIMEOUT_CYCLES(ERASE_TIMEOUT_CYCLES),
+        .PROGRAM_TIMEOUT_CYCLES(PROGRAM_TIMEOUT_CYCLES),
+        .ALLOWED_BASE(ALLOWED_BASE),
+        .ALLOWED_LIMIT(ALLOWED_LIMIT)
+    ) u_control (
+        .clk(clk),
+        .rst_n(rst_n),
+        .start(start),
+        .op_write(op_write),
+        .address(address),
+        .write_data(write_data),
+        .busy(busy),
+        .done(done),
+        .error(error),
+        .error_code(error_code),
+        .read_data(read_data),
+        .request_dropped(request_dropped),
+        .spi_cs_n(spi_cs_n),
+        .spi_wp_n(spi_wp_n),
+        .spi_hold_n(spi_hold_n),
+        .engine_start(engine_start),
+        .engine_tx(engine_tx),
+        .engine_busy(engine_busy),
+        .engine_done(engine_done),
+        .engine_rx(engine_rx)
+    );
+    spi_byte_engine #(.CLK_DIV(CLK_DIV)) u_byte_engine (
+        .clk(clk), .rst_n(rst_n), .start(engine_start), .tx_byte(engine_tx),
+        .miso(spi_miso), .busy(engine_busy), .done(engine_done),
+        .rx_byte(engine_rx), .sclk(spi_sclk), .mosi(spi_mosi)
+    );
+endmodule
+
+module w25q64_record_store_control #(
+    parameter integer RECORD_BYTES = 12,
+    parameter integer COMMIT_LAST = 0,
+    parameter integer CLK_DIV = 2,
+    parameter integer CS_HIGH_CYCLES = 3,
+    parameter integer POLL_INTERVAL_CYCLES = 5000,
+    parameter [31:0] ERASE_TIMEOUT_CYCLES = 32'd250000000,
+    parameter [31:0] PROGRAM_TIMEOUT_CYCLES = 32'd5000000,
+    parameter [23:0] ALLOWED_BASE = 24'h001000,
+    parameter [23:0] ALLOWED_LIMIT = 24'h003000
+) (
+    input  wire        clk,
+    input  wire        rst_n,
+    input  wire        start,
+    input  wire        op_write,
+    input  wire [23:0] address,
+    input  wire [RECORD_BYTES*8-1:0] write_data,
     output reg         busy,
     output reg         done,
     output reg         error,
@@ -24,11 +96,13 @@ module w25q64_record_store #(
     output reg  [RECORD_BYTES*8-1:0] read_data,
     output reg         request_dropped,
     output reg         spi_cs_n,
-    output wire        spi_sclk,
-    output wire        spi_mosi,
-    input  wire        spi_miso,
     output wire        spi_wp_n,
-    output wire        spi_hold_n
+    output wire        spi_hold_n,
+    output wire        engine_start,
+    output wire [7:0]  engine_tx,
+    input wire         engine_busy,
+    input wire         engine_done,
+    input wire [7:0]   engine_rx
 );
     localparam [3:0] ERR_NONE          = 4'd0;
     localparam [3:0] ERR_OUT_OF_RANGE  = 4'd1;
@@ -131,11 +205,11 @@ module w25q64_record_store #(
     assign address_allowed = (address >= ALLOWED_BASE) &&
                              ({1'b0,address} + RECORD_BYTES - 1 < {1'b0,ALLOWED_LIMIT});
 
-    spi_byte_engine #(.CLK_DIV(CLK_DIV)) u_byte_engine (
-        .clk(clk), .rst_n(rst_n), .start(byte_start), .tx_byte(byte_tx),
-        .miso(spi_miso), .busy(byte_busy), .done(byte_done),
-        .rx_byte(byte_rx), .sclk(spi_sclk), .mosi(spi_mosi)
-    );
+    assign engine_start = byte_start;
+    assign engine_tx = byte_tx;
+    assign byte_busy = engine_busy;
+    assign byte_done = engine_done;
+    assign byte_rx = engine_rx;
 
     function [7:0] address_byte;
         input [23:0] value;

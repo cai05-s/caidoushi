@@ -1,0 +1,51 @@
+{
+  "candidate": "f_bmp_output_cache",
+  "parent": "V1.0",
+  "sources": [
+    {
+      "relative_source": "src/user_source/hdl_source/SD/bmp_read.v",
+      "parent_sha256": "1c13c6c982800f5dae85f620c864a0378fd00059afa1995b9850d6a49c5d0588",
+      "candidate_sha256": "8925a730d5ff3d85ede9541ad028da87be70a6dfd2ad3ca39462f42152ed5ce5",
+      "line_ending_preserved": "LF"
+    }
+  ],
+  "live_source_edited": false,
+  "rtl_simulation_run": false,
+  "td_run": false,
+  "board_tested": false,
+  "parser": "11.0.0",
+  "elaboration_errors": 0,
+  "evidence": {
+    "elaboration_diagnostics": {
+      "before": {
+        "DiagCode(ArithOpMismatch)": 4,
+        "DiagCode(SignCompare)": 4,
+        "DiagCode(WidthTruncate)": 2,
+        "DiagCode(UnconnectedInputPort)": 204,
+        "DiagCode(UnconnectedOutputPort)": 180
+      },
+      "after": {
+        "DiagCode(ArithOpMismatch)": 4,
+        "DiagCode(SignCompare)": 4,
+        "DiagCode(WidthTruncate)": 2,
+        "DiagCode(UnconnectedInputPort)": 204,
+        "DiagCode(UnconnectedOutputPort)": 180
+      }
+    },
+    "parameter_specializations_each": 12,
+    "all_default_source_fit_pairs": 2621440,
+    "floor_recurrence_cases": 38067,
+    "floor_recurrence_positions": 10367394,
+    "line_storage_bits_before": 98304,
+    "line_storage_bits_after": 15360,
+    "retained_regions_exact": [
+      "header geometry pipeline",
+      "sector/header/scan states",
+      "divider",
+      "fetch/byte read states",
+      "output row advance/backpressure/abort drain"
+    ],
+    "limitations": "Host coordinate algebra and source review; adds fit_width clocks per fetched row. TD/board behavior not established."
+  },
+  "checker_sha256": "d000c81c6b925d4b43bcbda7cd7ea44e4122c84e67b95778c74a4dea3a0a5d03"
+}

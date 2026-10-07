@@ -1,0 +1,63 @@
+--- baseline/src/user_source/hdl_source/SD/bmp_read.v
++++ candidate/src/user_source/hdl_source/SD/bmp_read.v
+@@ -95,6 +95,15 @@
+ 
+     assign ready = state == ST_IDLE && sd_init_done && !load_abort;
+ 
++    // Keep the entire header sector enabled, including the natural pipeline drain
++    // after byte 33. Consumers run only after all 512 bytes have completed.
++    wire header_pipeline_ce = state == ST_SECTOR && capture_header;
++    // Final offsets are assigned on the last divider completion. ACK states
++    // provide the boundary-adder drain before ST_ROW first consumes the bounds.
++    wire geometry_pipeline_ce = state == ST_GEOMETRY || state == ST_DIV_WAIT ||
++        state == ST_STEP_X || state == ST_STEP_Y ||
++        state == ST_ACK_HIGH || state == ST_ACK_LOW;
++
+     // 宽高等字段最迟在字节 33 完成，判头在 512 字节扇区结束之后。
+     // 连续流水计算在判头前已稳定，拆开乘法、加法和范围比较的长路径。
+     always @(posedge clk or posedge rst) begin
+@@ -106,23 +115,27 @@
+             image_x_end <= FRAME_WIDTH; image_y_end <= FRAME_HEIGHT;
+             aspect_w <= 0; aspect_h <= 0;
+         end else begin
+-            height_abs <= height_raw[31] ? (~height_raw + 32'd1) : height_raw;
+-            header_stride <= (({16'd0, width_raw[15:0]} << 1) +
+-                              {16'd0, width_raw[15:0]} + 32'd3) & 32'hfffffffc;
+-            header_pixel_bytes <= header_stride[15:0] * height_abs[15:0];
+-            required_file_bytes <= {1'b0, pixel_offset} + {1'b0, header_pixel_bytes};
+-            // 文件长度在头部第 5 字节完成；扇区收完前两级流水已稳定。
+-            // 拆开向上取整、地址累加与扫描边界比较，缩短 SD 侧组合路径。
+-            file_sector_count <= ({1'b0, file_len} + 33'd511) >> 9;
+-            next_scan_match <= {1'b0, scan_sector} + file_sector_count;
+-            // 头字段在前54字节完成，检查在512字节扇区结束后进行；
+-            // 几何参数在除法阶段稳定，像素阶段不再串联边界加法。
+-            dib_end <= {1'b0, dib_size} + 33'd14;
+-            header_error_q <= header_error;
+-            image_x_end <= {1'b0, x_offset} + {1'b0, fit_width};
+-            image_y_end <= {1'b0, y_offset} + {1'b0, fit_height};
+-            aspect_w <= width_raw[15:0] * FRAME_HEIGHT;
+-            aspect_h <= height_abs[15:0] * FRAME_WIDTH;
++            if (header_pipeline_ce) begin
++                height_abs <= height_raw[31] ? (~height_raw + 32'd1) : height_raw;
++                header_stride <= (({16'd0, width_raw[15:0]} << 1) +
++                                  {16'd0, width_raw[15:0]} + 32'd3) & 32'hfffffffc;
++                header_pixel_bytes <= header_stride[15:0] * height_abs[15:0];
++                required_file_bytes <= {1'b0, pixel_offset} + {1'b0, header_pixel_bytes};
++                // 文件长度在头部第 5 字节完成；扇区收完前两级流水已稳定。
++                // 拆开向上取整、地址累加与扫描边界比较，缩短 SD 侧组合路径。
++                file_sector_count <= ({1'b0, file_len} + 33'd511) >> 9;
++                next_scan_match <= {1'b0, scan_sector} + file_sector_count;
++                // 头字段在前54字节完成，检查在512字节扇区结束后进行；
++                // 几何参数在除法阶段稳定，像素阶段不再串联边界加法。
++                dib_end <= {1'b0, dib_size} + 33'd14;
++                header_error_q <= header_error;
++                aspect_w <= width_raw[15:0] * FRAME_HEIGHT;
++                aspect_h <= height_abs[15:0] * FRAME_WIDTH;
++            end
++            if (geometry_pipeline_ce) begin
++                image_x_end <= {1'b0, x_offset} + {1'b0, fit_width};
++                image_y_end <= {1'b0, y_offset} + {1'b0, fit_height};
++            end
+         end
+     end
+ 

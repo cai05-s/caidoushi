@@ -1,0 +1,184 @@
+{
+  "candidate": "a_rate_gcd",
+  "relative_source": "src/user_source/hdl_source/hdmi_audio_route/pcm_media_tone.v",
+  "parent": "V1.0",
+  "parent_sha256": "6b1c3d5b357b9b6870b1150c0e60da68b7d1a26295f4016f06ea8e6f9ef0afdf",
+  "candidate_sha256": "a4ddc78a6b115f551b6205b1c0e39a2c8fa74705e89753eb8e823dcdf7ddfcf2",
+  "line_ending_preserved": "LF",
+  "live_source_edited": false,
+  "td_run": false,
+  "rtl_simulation_run": false,
+  "parser": "11.0.0",
+  "elaboration_errors": 0,
+  "checks": {
+    "parameter_specializations_each": 20,
+    "actual_widths": [
+      {
+        "clock": 25000000,
+        "sample": 48000,
+        "gcd": 8000,
+        "bits": 12,
+        "fallback": false
+      },
+      {
+        "clock": 25000000,
+        "sample": 44100,
+        "gcd": 100,
+        "bits": 18,
+        "fallback": false
+      },
+      {
+        "clock": 24576000,
+        "sample": 48000,
+        "gcd": 48000,
+        "bits": 9,
+        "fallback": false
+      },
+      {
+        "clock": 3,
+        "sample": 2,
+        "gcd": 1,
+        "bits": 2,
+        "fallback": false
+      },
+      {
+        "clock": 7,
+        "sample": 3,
+        "gcd": 1,
+        "bits": 3,
+        "fallback": false
+      },
+      {
+        "clock": 100,
+        "sample": 33,
+        "gcd": 1,
+        "bits": 7,
+        "fallback": false
+      },
+      {
+        "clock": 1,
+        "sample": 1,
+        "gcd": 1,
+        "bits": 1,
+        "fallback": false
+      },
+      {
+        "clock": 2,
+        "sample": 1,
+        "gcd": 1,
+        "bits": 1,
+        "fallback": false
+      },
+      {
+        "clock": 100,
+        "sample": 100,
+        "gcd": 100,
+        "bits": 1,
+        "fallback": false
+      },
+      {
+        "clock": 33554432,
+        "sample": 16777216,
+        "gcd": 16777216,
+        "bits": 1,
+        "fallback": false
+      },
+      {
+        "clock": 33554432,
+        "sample": 1,
+        "gcd": 1,
+        "bits": 25,
+        "fallback": false
+      },
+      {
+        "clock": 25000000,
+        "sample": 1,
+        "gcd": 1,
+        "bits": 25,
+        "fallback": false
+      },
+      {
+        "clock": 10,
+        "sample": 0,
+        "gcd": 1,
+        "bits": 25,
+        "fallback": true
+      },
+      {
+        "clock": 0,
+        "sample": 0,
+        "gcd": 1,
+        "bits": 25,
+        "fallback": true
+      },
+      {
+        "clock": 0,
+        "sample": 1,
+        "gcd": 1,
+        "bits": 25,
+        "fallback": true
+      },
+      {
+        "clock": -1,
+        "sample": 1,
+        "gcd": 1,
+        "bits": 25,
+        "fallback": true
+      },
+      {
+        "clock": 10,
+        "sample": -1,
+        "gcd": 1,
+        "bits": 25,
+        "fallback": true
+      },
+      {
+        "clock": 10,
+        "sample": 11,
+        "gcd": 1,
+        "bits": 25,
+        "fallback": true
+      },
+      {
+        "clock": 33554433,
+        "sample": 48000,
+        "gcd": 1,
+        "bits": 25,
+        "fallback": true
+      },
+      {
+        "clock": 2147483647,
+        "sample": 1,
+        "gcd": 1,
+        "bits": 25,
+        "fallback": true
+      }
+    ],
+    "tick_hold_transition_algebra_cases": 547508,
+    "default_gcd": 8000,
+    "default_modulus": 3125,
+    "default_increment": 6,
+    "default_accumulator_bits": 12,
+    "other_source_identical": true,
+    "diagnostic_categories": {
+      "baseline": {
+        "DiagCode(SignCompare)": 3,
+        "DiagCode(SignConversion)": 2,
+        "DiagCode(ArithOpMismatch)": 6,
+        "DiagCode(WidthTruncate)": 4,
+        "DiagCode(UnconnectedInputPort)": 240,
+        "DiagCode(UnconnectedOutputPort)": 140
+      },
+      "candidate": {
+        "DiagCode(SignCompare)": 3,
+        "DiagCode(SignConversion)": 2,
+        "DiagCode(ArithOpMismatch)": 6,
+        "DiagCode(WidthTruncate)": 6,
+        "DiagCode(UnconnectedInputPort)": 240,
+        "DiagCode(UnconnectedOutputPort)": 140
+      }
+    }
+  },
+  "board_tested": false,
+  "limits": "Host algebra/source lifetime checks and elaboration only; TD inference/timing and physical power/audio/media validation remain separate."
+}

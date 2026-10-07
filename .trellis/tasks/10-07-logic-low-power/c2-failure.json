@@ -1,0 +1,12 @@
+{
+  "build": "C:\\Users\\27348\\.codex_tmp\\logic_low_power_20261007_c2_bound_only",
+  "status": "ROUTE_FAILED",
+  "returncode": 1,
+  "errors": [
+    "PHY-8023 ERROR: Location: (x19y35_w2beg4), nets: u_night_pcm_stream/u_wav/mux297_syn_81 u_night_pcm_stream/sd_local_rst_n_dup_45_holdbuf",
+    "RUN-8102 ERROR: Incremental route failed. Please check if the resources used in your design exceed the device resource limitations. You can try using 'report_area' in console to check the resource utilization of the device. Or try check gate report and timing constraints. And you can try modifying the design or changing the strategy of syn, place or route, and rerunning it."
+  ],
+  "log_sha256": "7a11d83e1a549da96c56c92ffce8e5dba78c71d344cd6f8d6c452f67027e163d",
+  "complete_bit": false,
+  "rtl_simulation_run": false
+}

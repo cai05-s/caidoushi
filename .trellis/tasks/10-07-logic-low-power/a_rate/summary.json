@@ -1,0 +1,63 @@
+{
+  "build": "C:\\Users\\27348\\.codex_tmp\\logic_low_power_20261007_a_rate",
+  "changed": [
+    "src/user_source/hdl_source/hdmi_audio_route/pcm_media_tone.v"
+  ],
+  "gate": {
+    "lut": 13201,
+    "reg": 7288,
+    "bram": 32,
+    "bram32k": 0,
+    "dsp": 9,
+    "pad": 49,
+    "pll": 2,
+    "gclk": 2
+  },
+  "routed": {
+    "lut": 13820,
+    "reg": 7322,
+    "bram": 32,
+    "bram32k": 0,
+    "dsp": 9,
+    "pad": 49,
+    "pll": 2,
+    "gclk": 2
+  },
+  "delta": {
+    "lut": 170,
+    "reg": -13,
+    "bram": 0,
+    "bram32k": 0,
+    "dsp": 0,
+    "pad": 0,
+    "pll": 0,
+    "gclk": 0
+  },
+  "setup": -5.565,
+  "hold": 0.014,
+  "tns": -366.35,
+  "self_groups": {
+    "sd_card_clk -> sd_card_clk": {
+      "setup": -1.164,
+      "hold": 0.024
+    },
+    "video_clk -> video_clk": {
+      "setup": 2.533,
+      "hold": 0.02
+    },
+    "clk -> clk": {
+      "setup": 7.371,
+      "hold": 0.075
+    },
+    "ext_mem_clk -> ext_mem_clk": {
+      "setup": 0.334,
+      "hold": 0.014
+    },
+    "hdmi_5x_clk -> hdmi_5x_clk": {
+      "setup": 2.89,
+      "hold": 0.223
+    }
+  },
+  "new_warning_lines": [],
+  "bit_sha256": "2387c78c0f58592f9692fb9095309fd3b627a8e64eaa67835fcbd18d09422991"
+}

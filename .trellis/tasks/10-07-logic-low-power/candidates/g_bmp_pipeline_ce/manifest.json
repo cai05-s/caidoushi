@@ -1,0 +1,16 @@
+{
+  "candidate": "g_bmp_pipeline_ce",
+  "parent": "V1.0",
+  "sources": [
+    {
+      "relative_source": "src/user_source/hdl_source/SD/bmp_read.v",
+      "parent_sha256": "1c13c6c982800f5dae85f620c864a0378fd00059afa1995b9850d6a49c5d0588",
+      "candidate_sha256": "de234efc16343823158878b40887dc48199099f9703e5f5b6ee80e449743b5b8",
+      "line_ending_preserved": "LF"
+    }
+  ],
+  "live_source_edited": false,
+  "rtl_simulation_run": false,
+  "td_run": false,
+  "board_tested": false
+}

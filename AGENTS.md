@@ -36,9 +36,19 @@ unless a cited board revision or authoritative wiring correction supersedes them
 
 ## Current hardware handoff
 
-- Resource efficiency release (2026-10-07): read
+- Logic/low-power plan delivered (2026-10-07): read
+  `.trellis/tasks/10-07-logic-low-power/RESULTS.md` first. Selected shared Flash
+  SPI engine: LUT13562 REG7294 BRAM9K32 DSP9. Release:
+  `release/case_a_logic_low_power_20261007_r1/`. Only the three Flash RTL files
+  differ from V1.0. The packaged K BRAM alternative is NOT the live selection.
+  Other candidates were rejected; no physical power saving or timing closure
+  is claimed. Board acceptance remains pending; deep sleep stays disabled.
+- Git baseline: annotated tag `V1.0`, commit `22bbb7a9f019368c785f047ee64398ec8ca47295`,
+  records the selected R5 before further optimization. Current implementation
+  task: `.trellis/tasks/10-07-logic-low-power/`. Preserve the tag and all releases.
+- Earlier resource efficiency release (2026-10-07): read
   `.trellis/tasks/10-07-resource-efficiency/info.md` and `RESULTS.md` first.
-  Selected R5 sources are restored exactly; release is
+  Selected R5 sources were restored exactly before V1.0; release is
   `release/case_a_resource_efficiency_20261007_r1/`.
   Routed LUT13650 REG7335 BRAM32 DSP9. BPB classifiers and BMP-width trials
   were rejected and reverted; do not reapply them from trial snapshots.
@@ -63,4 +73,4 @@ unless a cited board revision or authoritative wiring correction supersedes them
   a 100ms change cue. SW2 controls the parameter menu; SW4 is reserved and masked.
   Emergency audio ignores SW1 mute.
 - Build with `python tools/build_five_bank.py` in this project root. Preserve
-  earlier release artifacts. This workspace is not a Git repository.
+  earlier release artifacts. This project root is a Git repository since V1.0.

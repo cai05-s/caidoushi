@@ -1,0 +1,1004 @@
+{
+  "baseline": {
+    "build_dir": "C:\\Users\\27348\\.codex_tmp\\logic_low_power_20261007_baseline",
+    "resources": {
+      "gate": {
+        "lut": 13046,
+        "reg": 7296,
+        "bram": 32,
+        "bram32k": 0,
+        "dsp": 9,
+        "pad": 49,
+        "pll": 2,
+        "gclk": 2
+      },
+      "routed": {
+        "lut": 13650,
+        "reg": 7335,
+        "bram": 32,
+        "bram32k": 0,
+        "dsp": 9,
+        "pad": 49,
+        "pll": 2,
+        "gclk": 2
+      }
+    },
+    "utilization": {
+      "gate": {
+        "lut": {
+          "used": 13046,
+          "capacity": 19600,
+          "percent": 66.5612
+        },
+        "reg": {
+          "used": 7296,
+          "capacity": 19600,
+          "percent": 37.2245
+        },
+        "bram": {
+          "used": 32,
+          "capacity": 64,
+          "percent": 50.0
+        },
+        "bram32k": {
+          "used": 0,
+          "capacity": 16,
+          "percent": 0.0
+        },
+        "dsp": {
+          "used": 9,
+          "capacity": 29,
+          "percent": 31.0345
+        },
+        "pad": {
+          "used": 49,
+          "capacity": 188,
+          "percent": 26.0638
+        },
+        "pll": {
+          "used": 2,
+          "capacity": 4,
+          "percent": 50.0
+        },
+        "gclk": {
+          "used": 2,
+          "capacity": 16,
+          "percent": 12.5
+        }
+      },
+      "routed": {
+        "lut": {
+          "used": 13650,
+          "capacity": 19600,
+          "percent": 69.6429
+        },
+        "reg": {
+          "used": 7335,
+          "capacity": 19600,
+          "percent": 37.4235
+        },
+        "bram": {
+          "used": 32,
+          "capacity": 64,
+          "percent": 50.0
+        },
+        "bram32k": {
+          "used": 0,
+          "capacity": 16,
+          "percent": 0.0
+        },
+        "dsp": {
+          "used": 9,
+          "capacity": 29,
+          "percent": 31.0345
+        },
+        "pad": {
+          "used": 49,
+          "capacity": 188,
+          "percent": 26.0638
+        },
+        "pll": {
+          "used": 2,
+          "capacity": 4,
+          "percent": 50.0
+        },
+        "gclk": {
+          "used": 2,
+          "capacity": 16,
+          "percent": 12.5
+        }
+      }
+    },
+    "global_setup_ns": -5.565,
+    "global_setup_total_ns": -401.572,
+    "global_hold_ns": 0.021,
+    "global_hold_total_ns": 0.0,
+    "clock_groups": {
+      "sd_card_clk -> sd_card_clk": {
+        "type": "Self",
+        "setup_ns": -1.411,
+        "setup_total_ns": -97.696,
+        "setup_violating_endpoints": 240,
+        "hold_ns": 0.021,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "video_clk -> video_clk": {
+        "type": "Self",
+        "setup_ns": 2.72,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.091,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "clk -> clk": {
+        "type": "Self",
+        "setup_ns": 0.358,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.038,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "ext_mem_clk -> ext_mem_clk": {
+        "type": "Self",
+        "setup_ns": 0.226,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.094,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "hdmi_5x_clk -> hdmi_5x_clk": {
+        "type": "Self",
+        "setup_ns": 3.718,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.285,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "sd_card_clk -> video_clk": {
+        "type": "Same Domain",
+        "setup_ns": 3.338,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.244,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "video_clk -> sd_card_clk": {
+        "type": "Same Domain",
+        "setup_ns": 3.652,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.244,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "ext_mem_clk -> video_clk": {
+        "type": "Same Domain",
+        "setup_ns": 2.276,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.253,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "clk -> video_clk": {
+        "type": "Same Domain",
+        "setup_ns": 10.436,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 1.859,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "video_clk -> hdmi_5x_clk": {
+        "type": "Same Domain",
+        "setup_ns": 6.277,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.253,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "video_clk -> ext_mem_clk": {
+        "type": "Same Domain",
+        "setup_ns": 2.542,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.244,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "ext_mem_clk -> sd_card_clk": {
+        "type": "Same Domain",
+        "setup_ns": -0.348,
+        "setup_total_ns": -0.879,
+        "setup_violating_endpoints": 4,
+        "hold_ns": 0.244,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "sd_card_clk -> ext_mem_clk": {
+        "type": "Same Domain",
+        "setup_ns": 0.284,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.253,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "clk -> sd_card_clk": {
+        "type": "Same Domain",
+        "setup_ns": 0.902,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 2.062,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "sd_card_clk -> clk": {
+        "type": "Same Domain",
+        "setup_ns": 2.799,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.143,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "clk -> ext_mem_clk": {
+        "type": "Same Domain",
+        "setup_ns": -2.39,
+        "setup_total_ns": -4.78,
+        "setup_violating_endpoints": 2,
+        "hold_ns": 2.84,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "video_clk -> clk": {
+        "type": "Same Domain",
+        "setup_ns": 12.11,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 1.22,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "clk -> hdmi_5x_clk": {
+        "type": "Same Domain",
+        "setup_ns": -2.254,
+        "setup_total_ns": -2.254,
+        "setup_violating_endpoints": 1,
+        "hold_ns": 2.761,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "hdmi_5x_clk -> video_clk": {
+        "type": "Same Domain",
+        "setup_ns": 6.23,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.578,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "ext_mem_clk -> sys_pll_m0/pll_inst.clkc[2]": {
+        "type": "Same Domain",
+        "setup_ns": -3.98,
+        "setup_total_ns": -117.883,
+        "setup_violating_endpoints": 32,
+        "hold_ns": 4.874,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "sys_pll_m0/pll_inst.clkc[2] -> ext_mem_clk": {
+        "type": "Same Domain",
+        "setup_ns": -5.565,
+        "setup_total_ns": -178.08,
+        "setup_violating_endpoints": 32,
+        "hold_ns": 7.43,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      }
+    },
+    "bit_sha256": "58b8bd4fc2e368d2e7e498f985fc4aa4369801ea5e404c5977c76bea7088223b",
+    "bit_bytes": 629624,
+    "warning_lines": [
+      "HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed",
+      "HDL-5007 WARNING: concatenation with an unsized literal will be treated as 32 bits in ../user_source/hdl_source/include/sdr_init_ref.enc.v(47)",
+      "HDL-5007 WARNING: concatenation with an unsized literal will be treated as 32 bits in ../user_source/hdl_source/include/sdr_wrrd.enc.v(283)",
+      "HDL-5317 WARNING: input port '**' is not connected on this instance in ../user_source/hdl_source/include/sdr_as_ram.enc.v(17)",
+      "HDL-5317 WARNING: input port 'dib[31]' is not connected on this instance in ../user_source/hdl_source/ip/afifo_16_32_256.v(231)",
+      "HDL-5317 WARNING: input port 'dib[31]' is not connected on this instance in ../user_source/hdl_source/ip/afifo_32_16_256.v(231)",
+      "HDL-5373 WARNING: identifier 'auto_cnt' is used before its declaration in ../user_source/hdl_source/SD/sd_card_bmp.v(95)",
+      "HDL-5373 WARNING: identifier 'sd_reset_n' is used before its declaration in ../user_source/hdl_source/top_tf_hdmi_audio.v(94)",
+      "HDL-5373 WARNING: identifier 'sd_reset_n' is used before its declaration in ../user_source/hdl_source/top_tf_hdmi_audio.v(95)",
+      "HDL-7225 CRITICAL-WARNING: 'sys_reset_n' is already implicitly declared on line 92 in ../user_source/hdl_source/top_tf_hdmi_audio.v(208)",
+      "PHY-5079 CRITICAL-WARNING: Marked 1 clock net(s) utilize the local routing resources. Please check log message and the sinks of clock nets.",
+      "PHY-7002 CRITICAL-WARNING: Instance U3/sdram location (12, 12) is not honored. Cell's initial location is not legal at the beginning of ECO placement, and will be moved during placement. Please verify user location constraints through the adc file.",
+      "PHY-7002 CRITICAL-WARNING: Instance U3/sdram location (164, 288) is not honored. Cell's initial location is not legal at the beginning of ECO placement, and will be moved during placement. Please verify user location constraints through the adc file.",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[0]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[10]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[11]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[12]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[13]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[14]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[15]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[16]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[17]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[18]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[19]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[1]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[20]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[21]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[22]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[23]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[24]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[25]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[26]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[27]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[28]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[29]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[2]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[30]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[31]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[3]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[4]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[5]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[6]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[7]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[8]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[9]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"frame_read_write_m0/read_buf/ram_inst/ramread0_syn_4\" in ../user_source/hdl_source/ip/afifo_32_16_256.v(822) / pin \"bea[0]\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"frame_read_write_m0/read_buf/ram_inst/ramread0_syn_4\" in ../user_source/hdl_source/ip/afifo_32_16_256.v(822) / pin \"beb[0]\"",
+      "SYN-5013 WARNING: Undriven net: model \"top\" / net \"U3/u2_ram/u2_wrrd/Sdr_init_ref_ba[0]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0)",
+      "SYN-5013 WARNING: Undriven net: model \"top\" / net \"U3/u2_ram/u2_wrrd/Sdr_init_ref_ba[1]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0)",
+      "SYN-5025 WARNING: Using 0 for all undriven pins and nets",
+      "SYN-6562 WARNING: The init value of \"frame_read_write_m0/read_buf/ram_inst/ramread0_syn_4(../user_source/hdl_source/ip/afifo_32_16_256.v(822))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"frame_read_write_m0/write_buf/ram_inst/ramread0_syn_4(../user_source/hdl_source/ip/afifo_16_32_256.v(822))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"sd_card_bmp_m0/bmp_read_m0/ramread0_syn_4(../user_source/hdl_source/SD/bmp_read.v(168))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"sd_card_bmp_m0/bmp_read_m0/ramread1_syn_4(../user_source/hdl_source/SD/bmp_read.v(172))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"u_night_pcm_stream/ramread0_syn_4(../user_source/hdl_source/hdmi_audio_route/night_pcm_stream.v(187))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"u_night_pcm_stream/u_wav/ramread0_syn_4(../user_source/hdl_source/SD/sd_fat32_wav.v(63))\" will be ignored since gate eram_init is set to off",
+      "SYN-6577 WARNING: The clock signal \"U3/u2_ram/SDRAM_CLK\" is added with the synthetic instruction (keep/mark_debug/dont_touch/max_fanout), which may create additional logic on this net"
+    ],
+    "td_error_diagnostics": [],
+    "diagnostic_files_scanned": [
+      "build_five_bank.log",
+      "final_timing.rpt",
+      "five_bank_gate.area",
+      "five_bank_gate.timing",
+      "five_bank_phy.area",
+      "five_bank_phy.ts",
+      "five_bank_place.timing",
+      "five_bank_pr.timing",
+      "five_bank_rtl.area",
+      "gate.qor",
+      "place.qor",
+      "route.qor",
+      "td_20261007_134144.log",
+      "td_20261007_134144.logw"
+    ],
+    "source_manifest_files_verified": 99,
+    "all_input_files_hashed": 131,
+    "artifact_sha256": {
+      "build_five_bank.log": "bda430b004918eca6fe0c581485ae8f47cd5d2bd36a0a9a4a1c04b4de50d6942",
+      "build_five_bank.tcl": "56b54a0390c002605004edd18f678b0154f592b3125bdca5abc8d34c4eb2b799",
+      "HDMI1.4b_Transmitter_v1.0.al": "28d54218a88940732b194dc6a4204c098f1427d6d7f7c7fe891f1035d8899082",
+      "five_bank_gate.area": "183d15ccc9874c35d410593e32e13b2972b9f3ab1ffe210cc758ee56d9f2728f",
+      "five_bank_phy.area": "c9157fdc9470416e29a6a146b0dfdc3557c9b029567828dbfbd5e6fcb665e8de",
+      "five_bank_pr.timing": "be77355f6fdac0d1d24c73ac323d30bc3c88fd8510ec76049d80a95692d2efd1"
+    }
+  },
+  "optimized": {
+    "build_dir": "C:\\Users\\27348\\.codex_tmp\\logic_low_power_20261007_f_bmp",
+    "resources": {
+      "gate": {
+        "lut": 13280,
+        "reg": 7312,
+        "bram": 24,
+        "bram32k": 0,
+        "dsp": 9,
+        "pad": 49,
+        "pll": 2,
+        "gclk": 2
+      },
+      "routed": {
+        "lut": 13878,
+        "reg": 7350,
+        "bram": 24,
+        "bram32k": 0,
+        "dsp": 9,
+        "pad": 49,
+        "pll": 2,
+        "gclk": 2
+      }
+    },
+    "utilization": {
+      "gate": {
+        "lut": {
+          "used": 13280,
+          "capacity": 19600,
+          "percent": 67.7551
+        },
+        "reg": {
+          "used": 7312,
+          "capacity": 19600,
+          "percent": 37.3061
+        },
+        "bram": {
+          "used": 24,
+          "capacity": 64,
+          "percent": 37.5
+        },
+        "bram32k": {
+          "used": 0,
+          "capacity": 16,
+          "percent": 0.0
+        },
+        "dsp": {
+          "used": 9,
+          "capacity": 29,
+          "percent": 31.0345
+        },
+        "pad": {
+          "used": 49,
+          "capacity": 188,
+          "percent": 26.0638
+        },
+        "pll": {
+          "used": 2,
+          "capacity": 4,
+          "percent": 50.0
+        },
+        "gclk": {
+          "used": 2,
+          "capacity": 16,
+          "percent": 12.5
+        }
+      },
+      "routed": {
+        "lut": {
+          "used": 13878,
+          "capacity": 19600,
+          "percent": 70.8061
+        },
+        "reg": {
+          "used": 7350,
+          "capacity": 19600,
+          "percent": 37.5
+        },
+        "bram": {
+          "used": 24,
+          "capacity": 64,
+          "percent": 37.5
+        },
+        "bram32k": {
+          "used": 0,
+          "capacity": 16,
+          "percent": 0.0
+        },
+        "dsp": {
+          "used": 9,
+          "capacity": 29,
+          "percent": 31.0345
+        },
+        "pad": {
+          "used": 49,
+          "capacity": 188,
+          "percent": 26.0638
+        },
+        "pll": {
+          "used": 2,
+          "capacity": 4,
+          "percent": 50.0
+        },
+        "gclk": {
+          "used": 2,
+          "capacity": 16,
+          "percent": 12.5
+        }
+      }
+    },
+    "global_setup_ns": -5.565,
+    "global_setup_total_ns": -777.54,
+    "global_hold_ns": 0.014,
+    "global_hold_total_ns": 0.0,
+    "clock_groups": {
+      "sd_card_clk -> sd_card_clk": {
+        "type": "Self",
+        "setup_ns": -3.249,
+        "setup_total_ns": -478.827,
+        "setup_violating_endpoints": 560,
+        "hold_ns": 0.014,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "video_clk -> video_clk": {
+        "type": "Self",
+        "setup_ns": 4.47,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.107,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "clk -> clk": {
+        "type": "Self",
+        "setup_ns": 4.634,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.155,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "ext_mem_clk -> ext_mem_clk": {
+        "type": "Self",
+        "setup_ns": -0.21,
+        "setup_total_ns": -0.254,
+        "setup_violating_endpoints": 2,
+        "hold_ns": 0.092,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "hdmi_5x_clk -> hdmi_5x_clk": {
+        "type": "Self",
+        "setup_ns": 2.432,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.239,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "sd_card_clk -> video_clk": {
+        "type": "Same Domain",
+        "setup_ns": 3.003,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.244,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "ext_mem_clk -> video_clk": {
+        "type": "Same Domain",
+        "setup_ns": 2.69,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.365,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "video_clk -> sd_card_clk": {
+        "type": "Same Domain",
+        "setup_ns": 3.09,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.253,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "clk -> video_clk": {
+        "type": "Same Domain",
+        "setup_ns": 9.715,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 1.85,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "video_clk -> ext_mem_clk": {
+        "type": "Same Domain",
+        "setup_ns": 2.683,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.244,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "video_clk -> hdmi_5x_clk": {
+        "type": "Same Domain",
+        "setup_ns": 6.386,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.399,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "ext_mem_clk -> sd_card_clk": {
+        "type": "Same Domain",
+        "setup_ns": -0.857,
+        "setup_total_ns": -2.583,
+        "setup_violating_endpoints": 5,
+        "hold_ns": 0.244,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "sd_card_clk -> ext_mem_clk": {
+        "type": "Same Domain",
+        "setup_ns": -0.083,
+        "setup_total_ns": -0.083,
+        "setup_violating_endpoints": 1,
+        "hold_ns": 0.244,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "clk -> sd_card_clk": {
+        "type": "Same Domain",
+        "setup_ns": 0.141,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 1.973,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "sd_card_clk -> clk": {
+        "type": "Same Domain",
+        "setup_ns": 1.697,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.366,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "video_clk -> clk": {
+        "type": "Same Domain",
+        "setup_ns": 14.794,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 0.314,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "clk -> ext_mem_clk": {
+        "type": "Same Domain",
+        "setup_ns": -1.563,
+        "setup_total_ns": -1.563,
+        "setup_violating_endpoints": 1,
+        "hold_ns": 2.99,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "clk -> hdmi_5x_clk": {
+        "type": "Same Domain",
+        "setup_ns": -1.761,
+        "setup_total_ns": -1.761,
+        "setup_violating_endpoints": 1,
+        "hold_ns": 3.133,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "hdmi_5x_clk -> video_clk": {
+        "type": "Same Domain",
+        "setup_ns": 5.042,
+        "setup_total_ns": 0.0,
+        "setup_violating_endpoints": 0,
+        "hold_ns": 1.409,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "ext_mem_clk -> sys_pll_m0/pll_inst.clkc[2]": {
+        "type": "Same Domain",
+        "setup_ns": -3.829,
+        "setup_total_ns": -114.389,
+        "setup_violating_endpoints": 32,
+        "hold_ns": 4.874,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      },
+      "sys_pll_m0/pll_inst.clkc[2] -> ext_mem_clk": {
+        "type": "Same Domain",
+        "setup_ns": -5.565,
+        "setup_total_ns": -178.08,
+        "setup_violating_endpoints": 32,
+        "hold_ns": 7.43,
+        "hold_total_ns": 0.0,
+        "hold_violating_endpoints": 0
+      }
+    },
+    "bit_sha256": "cfc00b0bda07148d644d5a3ebb1a4c9338279934bc830b09bfe2c74f4f205c5f",
+    "bit_bytes": 633116,
+    "warning_lines": [
+      "HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed",
+      "HDL-5007 WARNING: concatenation with an unsized literal will be treated as 32 bits in ../user_source/hdl_source/include/sdr_init_ref.enc.v(47)",
+      "HDL-5007 WARNING: concatenation with an unsized literal will be treated as 32 bits in ../user_source/hdl_source/include/sdr_wrrd.enc.v(283)",
+      "HDL-5317 WARNING: input port '**' is not connected on this instance in ../user_source/hdl_source/include/sdr_as_ram.enc.v(17)",
+      "HDL-5317 WARNING: input port 'dib[31]' is not connected on this instance in ../user_source/hdl_source/ip/afifo_16_32_256.v(231)",
+      "HDL-5317 WARNING: input port 'dib[31]' is not connected on this instance in ../user_source/hdl_source/ip/afifo_32_16_256.v(231)",
+      "HDL-5373 WARNING: identifier 'auto_cnt' is used before its declaration in ../user_source/hdl_source/SD/sd_card_bmp.v(95)",
+      "HDL-5373 WARNING: identifier 'sd_reset_n' is used before its declaration in ../user_source/hdl_source/top_tf_hdmi_audio.v(94)",
+      "HDL-5373 WARNING: identifier 'sd_reset_n' is used before its declaration in ../user_source/hdl_source/top_tf_hdmi_audio.v(95)",
+      "HDL-7225 CRITICAL-WARNING: 'sys_reset_n' is already implicitly declared on line 92 in ../user_source/hdl_source/top_tf_hdmi_audio.v(208)",
+      "PHY-5079 CRITICAL-WARNING: Marked 1 clock net(s) utilize the local routing resources. Please check log message and the sinks of clock nets.",
+      "PHY-7002 CRITICAL-WARNING: Instance U3/sdram location (12, 12) is not honored. Cell's initial location is not legal at the beginning of ECO placement, and will be moved during placement. Please verify user location constraints through the adc file.",
+      "PHY-7002 CRITICAL-WARNING: Instance U3/sdram location (164, 288) is not honored. Cell's initial location is not legal at the beginning of ECO placement, and will be moved during placement. Please verify user location constraints through the adc file.",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[0]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[10]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[11]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[12]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[13]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[14]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[15]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[16]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[17]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[18]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[19]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[1]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[20]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[21]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[22]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[23]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[24]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[25]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[26]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[27]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[28]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[29]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[2]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[30]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[31]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[3]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[4]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[5]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[6]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[7]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[8]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[9]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"frame_read_write_m0/read_buf/ram_inst/ramread0_syn_4\" in ../user_source/hdl_source/ip/afifo_32_16_256.v(822) / pin \"bea[0]\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"frame_read_write_m0/read_buf/ram_inst/ramread0_syn_4\" in ../user_source/hdl_source/ip/afifo_32_16_256.v(822) / pin \"beb[0]\"",
+      "SYN-5013 WARNING: Undriven net: model \"top\" / net \"U3/u2_ram/u2_wrrd/Sdr_init_ref_ba[0]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0)",
+      "SYN-5013 WARNING: Undriven net: model \"top\" / net \"U3/u2_ram/u2_wrrd/Sdr_init_ref_ba[1]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0)",
+      "SYN-5025 WARNING: Using 0 for all undriven pins and nets",
+      "SYN-6562 WARNING: The init value of \"frame_read_write_m0/read_buf/ram_inst/ramread0_syn_4(../user_source/hdl_source/ip/afifo_32_16_256.v(822))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"frame_read_write_m0/write_buf/ram_inst/ramread0_syn_4(../user_source/hdl_source/ip/afifo_16_32_256.v(822))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"sd_card_bmp_m0/bmp_read_m0/ramread0_syn_4(../user_source/hdl_source/SD/bmp_read.v(172))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"u_night_pcm_stream/ramread0_syn_4(../user_source/hdl_source/hdmi_audio_route/night_pcm_stream.v(187))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"u_night_pcm_stream/u_wav/ramread0_syn_4(../user_source/hdl_source/SD/sd_fat32_wav.v(63))\" will be ignored since gate eram_init is set to off",
+      "SYN-6577 WARNING: The clock signal \"U3/u2_ram/SDRAM_CLK\" is added with the synthetic instruction (keep/mark_debug/dont_touch/max_fanout), which may create additional logic on this net"
+    ],
+    "td_error_diagnostics": [],
+    "diagnostic_files_scanned": [
+      "build_five_bank.log",
+      "final_timing.rpt",
+      "five_bank_gate.area",
+      "five_bank_gate.timing",
+      "five_bank_phy.area",
+      "five_bank_phy.ts",
+      "five_bank_place.timing",
+      "five_bank_pr.timing",
+      "five_bank_rtl.area",
+      "gate.qor",
+      "place.qor",
+      "route.qor",
+      "td_20261007_140136.log",
+      "td_20261007_140136.logw"
+    ],
+    "source_manifest_files_verified": 99,
+    "all_input_files_hashed": 131,
+    "artifact_sha256": {
+      "build_five_bank.log": "1d3cb19c6494d9866749e126d6c51535586024c0448d217b6c8fef3d311c0ec5",
+      "build_five_bank.tcl": "14c0fcb9ee27f8bae0cd855d43e42d7120da2fd779883b2932042c95caeba7ef",
+      "HDMI1.4b_Transmitter_v1.0.al": "8f116cb38c35ad793b339ab399b0c7123e2c16a7188c3c49b573356c4df83ee1",
+      "five_bank_gate.area": "cd202e6e787a71ebf777c9209ffa0b8d98c73df2818aa162f4263fcd01c21a60",
+      "five_bank_phy.area": "91bb2e9543fde8cb37b2f2b2ad4338b8c659cbe22f7a88ba2b1159065d840fc1",
+      "five_bank_pr.timing": "a366a3f4bb0872bef61fe9c813d82ca99988a4243d7626a7fad4e8929e371004"
+    }
+  },
+  "changed_sources": [
+    "src/user_source/hdl_source/SD/bmp_read.v"
+  ],
+  "changed_source_sha256": {
+    "src/user_source/hdl_source/SD/bmp_read.v": {
+      "baseline": "1c13c6c982800f5dae85f620c864a0378fd00059afa1995b9850d6a49c5d0588",
+      "candidate": "8925a730d5ff3d85ede9541ad028da87be70a6dfd2ad3ca39462f42152ed5ce5"
+    }
+  },
+  "source_files_verified_per_build": 99,
+  "all_input_files_compared": 131,
+  "project_settings_and_source_order_match": true,
+  "build_commands_match": true,
+  "build_overrides_match": true,
+  "resource_delta_candidate_minus_baseline": {
+    "gate": {
+      "lut": 234,
+      "reg": 16,
+      "bram": -8,
+      "bram32k": 0,
+      "dsp": 0,
+      "pad": 0,
+      "pll": 0,
+      "gclk": 0
+    },
+    "routed": {
+      "lut": 228,
+      "reg": 15,
+      "bram": -8,
+      "bram32k": 0,
+      "dsp": 0,
+      "pad": 0,
+      "pll": 0,
+      "gclk": 0
+    }
+  },
+  "clock_group_delta_candidate_minus_baseline": {
+    "sd_card_clk -> sd_card_clk": {
+      "setup_ns": -1.838,
+      "hold_ns": -0.007,
+      "setup_total_ns": -381.131,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 320,
+      "hold_violating_endpoints": 0
+    },
+    "video_clk -> video_clk": {
+      "setup_ns": 1.75,
+      "hold_ns": 0.016,
+      "setup_total_ns": 0.0,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    },
+    "clk -> clk": {
+      "setup_ns": 4.276,
+      "hold_ns": 0.117,
+      "setup_total_ns": 0.0,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    },
+    "ext_mem_clk -> ext_mem_clk": {
+      "setup_ns": -0.436,
+      "hold_ns": -0.002,
+      "setup_total_ns": -0.254,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 2,
+      "hold_violating_endpoints": 0
+    },
+    "hdmi_5x_clk -> hdmi_5x_clk": {
+      "setup_ns": -1.286,
+      "hold_ns": -0.046,
+      "setup_total_ns": 0.0,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    },
+    "sd_card_clk -> video_clk": {
+      "setup_ns": -0.335,
+      "hold_ns": 0.0,
+      "setup_total_ns": 0.0,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    },
+    "video_clk -> sd_card_clk": {
+      "setup_ns": -0.562,
+      "hold_ns": 0.009,
+      "setup_total_ns": 0.0,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    },
+    "ext_mem_clk -> video_clk": {
+      "setup_ns": 0.414,
+      "hold_ns": 0.112,
+      "setup_total_ns": 0.0,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    },
+    "clk -> video_clk": {
+      "setup_ns": -0.721,
+      "hold_ns": -0.009,
+      "setup_total_ns": 0.0,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    },
+    "video_clk -> hdmi_5x_clk": {
+      "setup_ns": 0.109,
+      "hold_ns": 0.146,
+      "setup_total_ns": 0.0,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    },
+    "video_clk -> ext_mem_clk": {
+      "setup_ns": 0.141,
+      "hold_ns": 0.0,
+      "setup_total_ns": 0.0,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    },
+    "ext_mem_clk -> sd_card_clk": {
+      "setup_ns": -0.509,
+      "hold_ns": 0.0,
+      "setup_total_ns": -1.704,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 1,
+      "hold_violating_endpoints": 0
+    },
+    "sd_card_clk -> ext_mem_clk": {
+      "setup_ns": -0.367,
+      "hold_ns": -0.009,
+      "setup_total_ns": -0.083,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 1,
+      "hold_violating_endpoints": 0
+    },
+    "clk -> sd_card_clk": {
+      "setup_ns": -0.761,
+      "hold_ns": -0.089,
+      "setup_total_ns": 0.0,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    },
+    "sd_card_clk -> clk": {
+      "setup_ns": -1.102,
+      "hold_ns": 0.223,
+      "setup_total_ns": 0.0,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    },
+    "clk -> ext_mem_clk": {
+      "setup_ns": 0.827,
+      "hold_ns": 0.15,
+      "setup_total_ns": 3.217,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": -1,
+      "hold_violating_endpoints": 0
+    },
+    "video_clk -> clk": {
+      "setup_ns": 2.684,
+      "hold_ns": -0.906,
+      "setup_total_ns": 0.0,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    },
+    "clk -> hdmi_5x_clk": {
+      "setup_ns": 0.493,
+      "hold_ns": 0.372,
+      "setup_total_ns": 0.493,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    },
+    "hdmi_5x_clk -> video_clk": {
+      "setup_ns": -1.188,
+      "hold_ns": 0.831,
+      "setup_total_ns": 0.0,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    },
+    "ext_mem_clk -> sys_pll_m0/pll_inst.clkc[2]": {
+      "setup_ns": 0.151,
+      "hold_ns": 0.0,
+      "setup_total_ns": 3.494,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    },
+    "sys_pll_m0/pll_inst.clkc[2] -> ext_mem_clk": {
+      "setup_ns": 0.0,
+      "hold_ns": 0.0,
+      "setup_total_ns": 0.0,
+      "hold_total_ns": 0.0,
+      "setup_violating_endpoints": 0,
+      "hold_violating_endpoints": 0
+    }
+  },
+  "new_warning_lines": [
+    "SYN-6562 WARNING: The init value of \"sd_card_bmp_m0/bmp_read_m0/ramread0_syn_4(../user_source/hdl_source/SD/bmp_read.v(172))\" will be ignored since gate eram_init is set to off"
+  ],
+  "resolved_warning_lines": [
+    "SYN-6562 WARNING: The init value of \"sd_card_bmp_m0/bmp_read_m0/ramread0_syn_4(../user_source/hdl_source/SD/bmp_read.v(168))\" will be ignored since gate eram_init is set to off",
+    "SYN-6562 WARNING: The init value of \"sd_card_bmp_m0/bmp_read_m0/ramread1_syn_4(../user_source/hdl_source/SD/bmp_read.v(172))\" will be ignored since gate eram_init is set to off"
+  ],
+  "rtl_simulation_run": false,
+  "hardware_tested": false
+}

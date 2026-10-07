@@ -1,0 +1,11 @@
+{
+  "candidate": "c_wav_partition_bound",
+  "relative_source": "src/user_source/hdl_source/SD/sd_fat32_wav.v",
+  "parent": "b_wav_ram_ce",
+  "parent_sha256": "e152c8ad542ea663c51627c8b63d3453f47a49200748930410e9e698314e9245",
+  "candidate_sha256": "d2af5a63e6ed8a095b75a5b45ca8662b8ab4d7e3a088ae3793239eb101661238",
+  "line_ending_preserved": "LF",
+  "live_source_edited": false,
+  "td_run": false,
+  "rtl_simulation_run": false
+}

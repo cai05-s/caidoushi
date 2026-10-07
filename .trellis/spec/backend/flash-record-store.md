@@ -3,6 +3,49 @@
 Applies to `w25q64_record_store.v` and its player-settings caller. Physical
 pins and chip identity remain in [board memory](hx4s20-board.md).
 
+## Shared production SPI engine (2026-10-07)
+
+### Scope and signatures
+The player shares one CLK_DIV=5 `spi_byte_engine` between boot identity checks
+and the settings journal. Public `w25q64_preflight_reader` and
+`w25q64_record_store` remain standalone wrappers with their original ordered
+parameters/ports and one private engine each. The same source files also define
+`w25q64_preflight_reader_control` and `w25q64_record_store_control`. Their byte boundary
+exports `engine_start`, `engine_tx[7:0]` and accepts `engine_busy`, `engine_done`,
+`engine_rx[7:0]`; transaction and CS/WP/HOLD interfaces retain their semantics.
+
+### Ownership contract
+`pf_owner` selects start/tx during PF_START/PF_WAIT and keeps the journal core
+reset. Preflight completion includes the existing CS-high gap; before ownership
+changes, the byte engine is idle, SCLK=0, MOSI=1 and both CS alternatives are high.
+Journal requests begin later through READ_START. Its first byte overwrites the
+old preflight receive byte before any consumer sees done. The inactive preflight
+core ignores shared responses. Reset/boot_abort clear both owners and the engine.
+No additional SPI edge, transaction cycle or journal-record change is introduced.
+
+### Validation and errors
+| Event | Required behavior |
+|---|---|
+| Successful boot identity check | Transfer only after idle engine and CS gap |
+| Identity/protection rejection | Keep original unavailable/error response |
+| Boot abort during a byte | Reset engine, release CS and preserve default/invalid load |
+| Journal response after handoff | Must not modify idle preflight diagnostics |
+| New save while busy | Preserve original dropped-request handling |
+
+### Cases and required checks
+Good/base: one boot preflight followed by journal scan/save uses one engine.
+Bad: adding periodic identity reads without a new ownership handshake is unsafe.
+Check standalone named and positional callers, generic record sizes, exact
+normalized controller-state identity, idle handoff, reset/abort and RX lifetime.
+Run source-hash-bound static checks and full TD builds; physical save/load and
+power-cycle acceptance remain separate. See task `10-07-logic-low-power`.
+
+### Wrong versus correct
+Wrong: mux owners while a byte is active, or let journal control consume the
+retained preflight RX value. Correct: transfer only at the existing idle boundary
+and consume RX only with a new completed byte. Configured JEDEC ID is not physical
+identity evidence; dynamic deep sleep remains disabled pending hardware evidence.
+
 ## Transaction contract
 
 Accept `start` only in IDLE. Latch operation, address and the complete write

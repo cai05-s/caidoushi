@@ -1,0 +1,31 @@
+{
+  "candidate": "b_wav_ram_ce",
+  "relative_source": "src/user_source/hdl_source/SD/sd_fat32_wav.v",
+  "parent": "V1.0",
+  "parent_sha256": "e240279e54b39f0919c3a2239360eb37997b4aee8f3b7c857ea79995958a24c0",
+  "candidate_sha256": "e152c8ad542ea663c51627c8b63d3453f47a49200748930410e9e698314e9245",
+  "line_ending_preserved": "LF",
+  "live_source_edited": false,
+  "td_run": false,
+  "rtl_simulation_run": false,
+  "parser": "11.0.0",
+  "elaboration_errors": 0,
+  "checks": {
+    "read_write_exclusion_cases": 1024,
+    "address_cases": 512,
+    "wait_done_pipeline_source_checked": true,
+    "other_source_identical": true,
+    "diagnostic_categories": {
+      "baseline": {
+        "DiagCode(CaseDefault)": 2,
+        "DiagCode(WidthExpand)": 2
+      },
+      "candidate": {
+        "DiagCode(CaseDefault)": 2,
+        "DiagCode(WidthExpand)": 2
+      }
+    }
+  },
+  "board_tested": false,
+  "limits": "Host algebra/source lifetime checks and elaboration only; TD inference/timing and physical power/audio/media validation remain separate."
+}

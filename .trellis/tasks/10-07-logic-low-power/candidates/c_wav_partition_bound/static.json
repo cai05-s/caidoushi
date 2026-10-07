@@ -1,0 +1,38 @@
+{
+  "candidate": "c_wav_partition_bound",
+  "relative_source": "src/user_source/hdl_source/SD/sd_fat32_wav.v",
+  "parent": "b_wav_ram_ce",
+  "parent_sha256": "e152c8ad542ea663c51627c8b63d3453f47a49200748930410e9e698314e9245",
+  "candidate_sha256": "d2af5a63e6ed8a095b75a5b45ca8662b8ab4d7e3a088ae3793239eb101661238",
+  "line_ending_preserved": "LF",
+  "live_source_edited": false,
+  "td_run": false,
+  "rtl_simulation_run": false,
+  "parser": "11.0.0",
+  "elaboration_errors": 0,
+  "checks": {
+    "mbr_last_field_byte_indices": [
+      461,
+      477,
+      493,
+      509
+    ],
+    "precompute_byte_index": 510,
+    "original_check_after_byte_index": 511,
+    "sum_and_priority_cases": 320880,
+    "existing_partition_end_register_reused": true,
+    "other_source_including_read_error_state_sequence_identical": true,
+    "diagnostic_categories": {
+      "baseline": {
+        "DiagCode(CaseDefault)": 2,
+        "DiagCode(WidthExpand)": 2
+      },
+      "candidate": {
+        "DiagCode(CaseDefault)": 2,
+        "DiagCode(WidthExpand)": 2
+      }
+    }
+  },
+  "board_tested": false,
+  "limits": "Host algebra/source lifetime checks and elaboration only; TD inference/timing and physical power/audio/media validation remain separate."
+}

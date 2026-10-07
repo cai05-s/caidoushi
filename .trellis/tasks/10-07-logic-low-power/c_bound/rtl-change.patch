@@ -1,0 +1,32 @@
+--- baseline/src/user_source/hdl_source/SD/sd_fat32_wav.v
++++ candidate/src/user_source/hdl_source/SD/sd_fat32_wav.v
+@@ -60,7 +60,8 @@
+ always @(posedge clk) begin
+     if (state == S_IO_WAIT && rd_valid && rx_count < 10'd512)
+         sector_ram[rx_count[8:0]] <= rd_data;
+-    ram_q <= sector_ram[ram_addr];
++    if (state == S_BYTE_WAIT)
++        ram_q <= sector_ram[ram_addr];
+ end
+ 
+ assign req = (state == S_IO_REQ);
+@@ -391,6 +392,10 @@
+                     endcase
+                     mbr_index <= mbr_index + 1'b1;
+                 end
++                // Last MBR entry completes at byte509. Precompute its full
++                // 33-bit bound before the original S_BOOT_CHECK decision.
++                if (boot_index == 9'd510)
++                    partition_end <= {1'b0,partition_lba} + {1'b0,partition_size};
+                 if (boot_index == 9'd511) state <= S_BOOT_CHECK;
+                 else begin boot_index <= boot_index + 1'b1; state <= S_BYTE_ADDR; end
+             end
+@@ -401,7 +406,7 @@
+                     state <= S_GEOM0;
+                 else if (first_boot && partition_found && partition_lba != 0 &&
+                          partition_size != 0 &&
+-                         ({1'b0,partition_lba}+{1'b0,partition_size}) <= 33'h100000000) begin
++                         partition_end <= 33'h100000000) begin
+                     first_boot <= 0; volume_lba <= partition_lba;
+                     req_addr <= partition_lba; io_return <= S_BOOT_BEGIN;
+                     state <= S_IO_REQ;

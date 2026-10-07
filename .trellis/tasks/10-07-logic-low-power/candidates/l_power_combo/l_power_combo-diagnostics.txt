@@ -1,0 +1,1905 @@
+sd_fat32_wav.v:165:9: warning: 'case' missing 'default' label [-Wcase-default]
+        case (index)
+        ^~~~
+sd_fat32_wav.v:176:9: warning: 'case' missing 'default' label [-Wcase-default]
+        case (index)
+        ^~~~
+sd_fat32_wav.v:301:35: warning: implicit conversion expands from 6 to 8 bits [-Wwidth-expand]
+                    else state <= io_return;
+                               ~~ ^~~~~~~~~
+sd_fat32_wav.v:325:26: warning: implicit conversion expands from 6 to 8 bits [-Wwidth-expand]
+                state <= byte_return;
+                      ~~ ^~~~~~~~~~~
+  in 4 instances, e.g. combination_checks.store_4.u_control
+w25q64_record_store.v:175:48: warning: arithmetic between operands of different types ('reg[23:0]' and 'integer') [-Warith-op-mismatch]
+    wire [23:0] program_address=address_latched+((COMMIT_LAST && commit_phase)?RECORD_BYTES-2:0);
+                                ~~~~~~~~~~~~~~~^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  in 4 instances, e.g. combination_checks.store_4.u_control
+w25q64_record_store.v:176:30: warning: implicit conversion changes signedness from 'integer' to 'logic[8:0]' [-Wsign-conversion]
+    wire [8:0] program_bytes=COMMIT_LAST?(commit_phase?2:RECORD_BYTES-2):RECORD_BYTES;
+                            ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  in 4 instances, e.g. combination_checks.store_4.u_control
+w25q64_record_store.v:177:29: warning: implicit conversion changes signedness from 'integer' to 'logic[8:0]' [-Wsign-conversion]
+    wire [8:0] verify_bytes=(COMMIT_LAST && op_write_latched && !commit_phase)?RECORD_BYTES-2:RECORD_BYTES;
+                           ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  in instance: combination_checks.settings.u_store
+w25q64_record_store.v:179:51: warning: implicit conversion truncates from 32 to 5 bits [-Wwidth-trunc]
+    wire [BYTE_INDEX_BITS-1:0] write_byte_index = RECORD_BYTES - 1 - byte_index;
+                                                ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  in instance: combination_checks.store_0.u_control
+w25q64_record_store.v:179:51: warning: implicit conversion truncates from 32 to 1 bits [-Wwidth-trunc]
+    wire [BYTE_INDEX_BITS-1:0] write_byte_index = RECORD_BYTES - 1 - byte_index;
+                                                ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  in instance: combination_checks.store_2.u_control
+w25q64_record_store.v:179:51: warning: implicit conversion truncates from 32 to 5 bits [-Wwidth-trunc]
+    wire [BYTE_INDEX_BITS-1:0] write_byte_index = RECORD_BYTES - 1 - byte_index;
+                                                ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  in instance: combination_checks.store_3.u_control
+w25q64_record_store.v:179:51: warning: implicit conversion truncates from 32 to 8 bits [-Wwidth-trunc]
+    wire [BYTE_INDEX_BITS-1:0] write_byte_index = RECORD_BYTES - 1 - byte_index;
+                                                ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w25q64_record_store.v:179:68: warning: arithmetic between operands of different types ('integer' and 'reg[4:0]') [-Warith-op-mismatch]
+    wire [BYTE_INDEX_BITS-1:0] write_byte_index = RECORD_BYTES - 1 - byte_index;
+                                                  ~~~~~~~~~~~~~~~~ ^ ~~~~~~~~~~
+w25q64_record_store.v:207:46: warning: arithmetic between operands of different types ('logic[24:0]' and 'integer') [-Warith-op-mismatch]
+                             ({1'b0,address} + RECORD_BYTES - 1 < {1'b0,ALLOWED_LIMIT});
+                              ~~~~~~~~~~~~~~ ^ ~~~~~~~~~~~~
+w25q64_record_store.v:541:39: warning: comparison of differently signed types ('reg[1:0]' and 'integer') [-Wsign-compare]
+                    if (cs_high_count >= CS_HIGH_CYCLES - 1) begin
+                        ~~~~~~~~~~~~~ ^~ ~~~~~~~~~~~~~~~~~~
+w25q64_record_store.v:557:54: warning: comparison of differently signed types ('reg[12:0]' and 'integer') [-Wsign-compare]
+                    end else if (poll_interval_count >= POLL_INTERVAL_CYCLES - 1) begin
+                                 ~~~~~~~~~~~~~~~~~~~ ^~ ~~~~~~~~~~~~~~~~~~~~~~~~
+w25q64_preflight_reader.v:211:41: warning: comparison of differently signed types ('reg[31:0]' and 'integer') [-Wsign-compare]
+                    if (delay_count + 1 >= STARTUP_CYCLES) begin
+                        ~~~~~~~~~~~~~~~ ^~ ~~~~~~~~~~~~~~
+w25q64_preflight_reader.v:228:41: warning: comparison of differently signed types ('reg[31:0]' and 'integer') [-Wsign-compare]
+                    if (delay_count + 1 >= WAKE_CYCLES) begin
+                        ~~~~~~~~~~~~~~~ ^~ ~~~~~~~~~~~
+w25q64_preflight_reader.v:290:41: warning: comparison of differently signed types ('reg[31:0]' and 'integer') [-Wsign-compare]
+                    if (delay_count + 1 >= CS_HIGH_CYCLES) begin
+                        ~~~~~~~~~~~~~~~ ^~ ~~~~~~~~~~~~~~
+pcm_media_tone.v:77:41: warning: comparison of differently signed types ('reg[11:0]' and 'integer') [-Wsign-compare]
+    wire sample_tick = rate_accumulator >= RATE_CLOCK - RATE_SAMPLE;
+                       ~~~~~~~~~~~~~~~~ ^~ ~~~~~~~~~~~~~~~~~~~~~~~~
+pcm_media_tone.v:81:26: warning: implicit conversion changes signedness from 'reg[15:0]' to 'logic signed[15:0]' [-Wsign-conversion]
+    assign sample_left = fifo[read_pointer][15:0];
+                       ~ ^~~~~~~~~~~~~~~~~~~~~~~~
+pcm_media_tone.v:82:27: warning: implicit conversion changes signedness from 'reg[31:16]' to 'logic signed[15:0]' [-Wsign-conversion]
+    assign sample_right = fifo[read_pointer][31:16];
+                        ~ ^~~~~~~~~~~~~~~~~~~~~~~~~
+pcm_media_tone.v:168:47: warning: arithmetic between operands of different types ('logic signed[15:0]' and 'logic signed[8:0]') [-Warith-op-mismatch]
+    wire signed [24:0] scaled_left = raw_left * $signed({1'b0, selected_gain});
+                                     ~~~~~~~~ ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pcm_media_tone.v:169:49: warning: arithmetic between operands of different types ('logic signed[15:0]' and 'logic signed[8:0]') [-Warith-op-mismatch]
+    wire signed [24:0] scaled_right = raw_right * $signed({1'b0, selected_gain});
+                                      ~~~~~~~~~ ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pcm_media_tone.v:171:45: warning: implicit conversion truncates from 25 to 16 bits [-Wwidth-trunc]
+    wire signed [15:0] scaled_sample_left = scaled_left >>> 8;
+                                          ~ ^~~~~~~~~~~~~~~~~
+pcm_media_tone.v:172:46: warning: implicit conversion truncates from 25 to 16 bits [-Wwidth-trunc]
+    wire signed [15:0] scaled_sample_right = scaled_right >>> 8;
+                                           ~ ^~~~~~~~~~~~~~~~~~
+  in instance: combination_checks.pcm_5
+pcm_media_tone.v:187:41: warning: implicit conversion truncates from 32 to 25 bits [-Wwidth-trunc]
+                    rate_accumulator <= rate_accumulator + RATE_SAMPLE - RATE_CLOCK;
+                                     ~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pcm_media_tone.v:187:58: warning: arithmetic between operands of different types ('reg[11:0]' and 'integer') [-Warith-op-mismatch]
+                    rate_accumulator <= rate_accumulator + RATE_SAMPLE - RATE_CLOCK;
+                                        ~~~~~~~~~~~~~~~~ ^ ~~~~~~~~~~~
+pcm_media_tone.v:187:72: warning: arithmetic between operands of different types ('logic[31:0]' and 'integer') [-Warith-op-mismatch]
+                    rate_accumulator <= rate_accumulator + RATE_SAMPLE - RATE_CLOCK;
+                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^ ~~~~~~~~~~
+pcm_media_tone.v:189:58: warning: arithmetic between operands of different types ('reg[11:0]' and 'integer') [-Warith-op-mismatch]
+                    rate_accumulator <= rate_accumulator + RATE_SAMPLE;
+                                        ~~~~~~~~~~~~~~~~ ^ ~~~~~~~~~~~
+pcm_media_tone.v:255:36: warning: comparison of differently signed types ('reg[12:0]' and 'integer') [-Wsign-compare]
+                    if (ramp_count == FADE_SAMPLES - 1) begin
+                        ~~~~~~~~~~ ^~ ~~~~~~~~~~~~~~~~
+pcm_media_tone.v:260:38: warning: comparison of differently signed types ('logic[13:0]' and 'integer') [-Wsign-compare]
+                        if (ramp_sum >= FADE_SAMPLES) begin
+                            ~~~~~~~~ ^~ ~~~~~~~~~~~~
+pcm_media_tone.v:261:43: warning: implicit conversion truncates from 32 to 13 bits [-Wwidth-trunc]
+                            ramp_error <= ramp_sum - FADE_SAMPLES;
+                                       ~~ ^~~~~~~~~~~~~~~~~~~~~~~
+pcm_media_tone.v:261:52: warning: arithmetic between operands of different types ('logic[13:0]' and 'integer') [-Warith-op-mismatch]
+                            ramp_error <= ramp_sum - FADE_SAMPLES;
+                                          ~~~~~~~~ ^ ~~~~~~~~~~~~
+brightness_contrast_adjust.v:34:32: warning: implicit conversion changes signedness from 'logic[8:0]' to 'logic signed[8:0]' [-Wsign-conversion]
+    wire signed [8:0]  ctr_r = ({1'b0, bright_r}) - 9'sd128;
+                             ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+brightness_contrast_adjust.v:37:51: warning: arithmetic between operands of different types ('logic signed[8:0]' and 'logic signed[17:0]') [-Warith-op-mismatch]
+    wire signed [17:0] ctr_r_product = contrast_r * contrast_ext;
+                                       ~~~~~~~~~~ ^ ~~~~~~~~~~~~
+brightness_contrast_adjust.v:39:32: warning: implicit conversion truncates from 19 to 11 bits [-Wwidth-trunc]
+    wire signed [10:0] sum_r = (sc_r >>> 7) + 11'sd128;
+                             ~ ^~~~~~~~~~~~~~~~~~~~~~~
+brightness_contrast_adjust.v:47:32: warning: implicit conversion changes signedness from 'logic[8:0]' to 'logic signed[8:0]' [-Wsign-conversion]
+    wire signed [8:0]  ctr_g = ({1'b0, bright_g}) - 9'sd128;
+                             ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+brightness_contrast_adjust.v:49:51: warning: arithmetic between operands of different types ('logic signed[8:0]' and 'logic signed[17:0]') [-Warith-op-mismatch]
+    wire signed [17:0] ctr_g_product = contrast_g * contrast_ext;
+                                       ~~~~~~~~~~ ^ ~~~~~~~~~~~~
+brightness_contrast_adjust.v:51:32: warning: implicit conversion truncates from 19 to 11 bits [-Wwidth-trunc]
+    wire signed [10:0] sum_g = (sc_g >>> 7) + 11'sd128;
+                             ~ ^~~~~~~~~~~~~~~~~~~~~~~
+brightness_contrast_adjust.v:59:32: warning: implicit conversion changes signedness from 'logic[8:0]' to 'logic signed[8:0]' [-Wsign-conversion]
+    wire signed [8:0]  ctr_b = ({1'b0, bright_b}) - 9'sd128;
+                             ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+brightness_contrast_adjust.v:61:51: warning: arithmetic between operands of different types ('logic signed[8:0]' and 'logic signed[17:0]') [-Warith-op-mismatch]
+    wire signed [17:0] ctr_b_product = contrast_b * contrast_ext;
+                                       ~~~~~~~~~~ ^ ~~~~~~~~~~~~
+brightness_contrast_adjust.v:63:32: warning: implicit conversion truncates from 19 to 11 bits [-Wwidth-trunc]
+    wire signed [10:0] sum_b = (sc_b >>> 7) + 11'sd128;
+                             ~ ^~~~~~~~~~~~~~~~~~~~~~~
+video_fade_overlay.v:86:47: warning: comparison of differently signed types ('reg[7:0]' and 'integer') [-Wsign-compare]
+                    if (hard_pending || alpha <= STEP) begin
+                                        ~~~~~ ^~ ~~~~
+video_fade_overlay.v:93:40: warning: arithmetic between operands of different types ('reg[7:0]' and 'integer') [-Warith-op-mismatch]
+                        alpha <= alpha - STEP;
+                                 ~~~~~ ^ ~~~~
+video_fade_overlay.v:96:44: warning: arithmetic between operands of different types ('bit[7:0]' and 'integer') [-Warith-op-mismatch]
+                S_IN:  if (alpha >= 8'd255 - STEP) begin alpha <= 8'd255; state <= S_IDLE; end else alpha <= alpha + STEP;
+                                    ~~~~~~ ^ ~~~~
+video_fade_overlay.v:96:116: warning: arithmetic between operands of different types ('reg[7:0]' and 'integer') [-Warith-op-mismatch]
+                S_IN:  if (alpha >= 8'd255 - STEP) begin alpha <= 8'd255; state <= S_IDLE; end else alpha <= alpha + STEP;
+                                                                                                             ~~~~~ ^ ~~~~
+player_settings_flash.v:69:40: warning: arithmetic between operands of different types ('bit[23:0]' and 'logic[15:0]') [-Warith-op-mismatch]
+    wire [23:0] slot_address=24'h7f0000+{slot,12'd0};
+                             ~~~~~~~~~~^~~~~~~~~~~~~
+player_settings_flash.v:98:10: warning: output port 'busy' is explicitly connected to nothing [-Wempty-output-connection]
+        .busy(),.done(pf_done),.accepted(pf_accepted),.error(pf_error),.error_code(pf_code),
+         ^~~~
+player_settings_flash.v:99:30: warning: output port 'status1' is explicitly connected to nothing [-Wempty-output-connection]
+        .jedec_id(jedec_id),.status1(),.status2(),.status3(),
+                             ^~~~~~~
+player_settings_flash.v:99:41: warning: output port 'status2' is explicitly connected to nothing [-Wempty-output-connection]
+        .jedec_id(jedec_id),.status1(),.status2(),.status3(),
+                                        ^~~~~~~
+player_settings_flash.v:99:52: warning: output port 'status3' is explicitly connected to nothing [-Wempty-output-connection]
+        .jedec_id(jedec_id),.status1(),.status2(),.status3(),
+                                                   ^~~~~~~
+player_settings_flash.v:106:10: warning: output port 'busy' is explicitly connected to nothing [-Wempty-output-connection]
+        .busy(),.done(store_done),.error(store_error),.error_code(store_code),
+         ^~~~
+player_settings_flash.v:107:38: warning: output port 'request_dropped' is explicitly connected to nothing [-Wempty-output-connection]
+        .read_data(store_read_data),.request_dropped(),
+                                     ^~~~~~~~~~~~~~~
+bmp_read.v:137:45: warning: arithmetic between operands of different types ('reg[15:0]' and 'integer') [-Warith-op-mismatch]
+                aspect_w <= width_raw[15:0] * FRAME_HEIGHT;
+                            ~~~~~~~~~~~~~~~ ^ ~~~~~~~~~~~~
+bmp_read.v:138:46: warning: arithmetic between operands of different types ('reg[15:0]' and 'integer') [-Warith-op-mismatch]
+                aspect_h <= height_abs[15:0] * FRAME_WIDTH;
+                            ~~~~~~~~~~~~~~~~ ^ ~~~~~~~~~~~
+bmp_read.v:152:46: warning: comparison of differently signed types ('reg[31:0]' and 'integer') [-Wsign-compare]
+        else if (width_raw == 0 || width_raw > MAX_DIM || height_abs == 0 || height_abs > MAX_DIM)
+                                   ~~~~~~~~~ ^ ~~~~~~~
+bmp_read.v:152:89: warning: comparison of differently signed types ('reg[31:0]' and 'integer') [-Wsign-compare]
+        else if (width_raw == 0 || width_raw > MAX_DIM || height_abs == 0 || height_abs > MAX_DIM)
+                                                                             ~~~~~~~~~~ ^ ~~~~~~~
+bmp_read.v:342:54: warning: arithmetic between operands of different types ('integer' and 'reg[15:0]') [-Warith-op-mismatch]
+                            x_offset <= (FRAME_WIDTH - fit_width) >> 1;
+                                         ~~~~~~~~~~~ ^ ~~~~~~~~~
+bmp_read.v:343:55: warning: arithmetic between operands of different types ('integer' and 'reg[15:0]') [-Warith-op-mismatch]
+                            y_offset <= (FRAME_HEIGHT - fit_height) >> 1;
+                                         ~~~~~~~~~~~~ ^ ~~~~~~~~~~
+bmp_read.v:408:36: warning: implicit conversion truncates from 17 to 16 bits [-Wwidth-trunc]
+                        x_error <= x_error_sum - {1'b0, fit_width};
+                                ~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+bmp_read.v:430:31: warning: comparison of differently signed types ('reg[15:0]' and 'integer') [-Wsign-compare]
+                    if (out_x == FRAME_WIDTH - 1) begin
+                        ~~~~~ ^~ ~~~~~~~~~~~~~~~
+bmp_read.v:435:44: warning: implicit conversion truncates from 17 to 16 bits [-Wwidth-trunc]
+                                y_error <= y_error_sum - {1'b0, fit_height};
+                                        ~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+bmp_read.v:440:35: warning: comparison of differently signed types ('reg[15:0]' and 'integer') [-Wsign-compare]
+                        if (out_y == FRAME_HEIGHT - 1) state <= ST_IDLE;
+                            ~~~~~ ^~ ~~~~~~~~~~~~~~~~
+  in 4 instances, e.g. combination_checks.preflight.u_spi_byte_engine
+spi_byte_engine.v:67:35: warning: comparison of differently signed types ('reg[1:0]' and 'integer') [-Wsign-compare]
+                    if (div_count == CLK_DIV-1) begin
+                        ~~~~~~~~~ ^~ ~~~~~~~~~
+elaboration-wrappers.v:3:23: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: input port 'rst_n' has no connection [-Wunconnected-input-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: input port 'save_start' has no connection [-Wunconnected-input-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: input port 'save_settings' has no connection [-Wunconnected-input-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: input port 'flash_miso' has no connection [-Wunconnected-input-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: output port 'busy' has no connection [-Wunconnected-output-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: output port 'load_done' has no connection [-Wunconnected-output-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: output port 'load_valid' has no connection [-Wunconnected-output-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: output port 'loaded_settings' has no connection [-Wunconnected-output-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: output port 'save_done' has no connection [-Wunconnected-output-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: output port 'save_ok' has no connection [-Wunconnected-output-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: output port 'error_code' has no connection [-Wunconnected-output-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: output port 'jedec_id' has no connection [-Wunconnected-output-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: output port 'flash_cs_n' has no connection [-Wunconnected-output-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: output port 'flash_sclk' has no connection [-Wunconnected-output-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: output port 'flash_mosi' has no connection [-Wunconnected-output-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: output port 'flash_wp_n' has no connection [-Wunconnected-output-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:3:23: warning: output port 'flash_hold_n' has no connection [-Wunconnected-output-port]
+player_settings_flash settings();
+                      ^
+elaboration-wrappers.v:4:14: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: input port 'rst' has no connection [-Wunconnected-input-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: input port 'restart' has no connection [-Wunconnected-input-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: input port 'enable' has no connection [-Wunconnected-input-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: input port 'sd_init_done' has no connection [-Wunconnected-input-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: input port 'sd_io_error' has no connection [-Wunconnected-input-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: input port 'req_accept' has no connection [-Wunconnected-input-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: input port 'rd_data' has no connection [-Wunconnected-input-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: input port 'rd_valid' has no connection [-Wunconnected-input-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: input port 'rd_end' has no connection [-Wunconnected-input-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: input port 'pcm_ready' has no connection [-Wunconnected-input-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: output port 'req' has no connection [-Wunconnected-output-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: output port 'req_addr' has no connection [-Wunconnected-output-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: output port 'pcm_valid' has no connection [-Wunconnected-output-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: output port 'pcm_data' has no connection [-Wunconnected-output-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: output port 'file_ready' has no connection [-Wunconnected-output-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:4:14: warning: output port 'error_code' has no connection [-Wunconnected-output-port]
+sd_fat32_wav wav();
+             ^
+elaboration-wrappers.v:5:67: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'rst' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'scan_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'scan_start_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'scan_max_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'scan_target_count' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'load_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'load_abort' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'load_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'sd_init_done' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'bmp_width' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'bmp_height' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'write_req_ack' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'bmp_data_ready' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'sd_sec_read_data' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'sd_sec_read_data_valid' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: input port 'sd_sec_read_end' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: output port 'ready' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: output port 'scan_done' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: output port 'scan_found_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: output port 'scan_found_sector' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: output port 'scan_found_total' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: output port 'state_code' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: output port 'write_req' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: output port 'sd_sec_read' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: output port 'sd_sec_read_addr' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: output port 'bmp_data_wr_en' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: output port 'bmp_data' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: output port 'image_width' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: output port 'image_height' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: output port 'image_info_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:5:67: warning: output port 'image_error' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+                                                                  ^
+elaboration-wrappers.v:6:60: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'rst' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'scan_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'scan_start_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'scan_max_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'scan_target_count' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'load_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'load_abort' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'load_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'sd_init_done' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'bmp_width' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'bmp_height' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'write_req_ack' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'bmp_data_ready' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'sd_sec_read_data' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'sd_sec_read_data_valid' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: input port 'sd_sec_read_end' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: output port 'ready' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: output port 'scan_done' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: output port 'scan_found_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: output port 'scan_found_sector' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: output port 'scan_found_total' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: output port 'state_code' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: output port 'write_req' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: output port 'sd_sec_read' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: output port 'sd_sec_read_addr' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: output port 'bmp_data_wr_en' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: output port 'bmp_data' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: output port 'image_width' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: output port 'image_height' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: output port 'image_info_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:6:60: warning: output port 'image_error' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+                                                           ^
+elaboration-wrappers.v:7:65: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'rst' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'scan_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'scan_start_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'scan_max_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'scan_target_count' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'load_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'load_abort' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'load_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'sd_init_done' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'bmp_width' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'bmp_height' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'write_req_ack' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'bmp_data_ready' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'sd_sec_read_data' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'sd_sec_read_data_valid' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: input port 'sd_sec_read_end' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: output port 'ready' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: output port 'scan_done' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: output port 'scan_found_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: output port 'scan_found_sector' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: output port 'scan_found_total' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: output port 'state_code' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: output port 'write_req' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: output port 'sd_sec_read' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: output port 'sd_sec_read_addr' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: output port 'bmp_data_wr_en' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: output port 'bmp_data' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: output port 'image_width' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: output port 'image_height' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: output port 'image_info_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:7:65: warning: output port 'image_error' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'rst' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'scan_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'scan_start_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'scan_max_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'scan_target_count' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'load_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'load_abort' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'load_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'sd_init_done' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'bmp_width' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'bmp_height' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'write_req_ack' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'bmp_data_ready' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'sd_sec_read_data' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'sd_sec_read_data_valid' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: input port 'sd_sec_read_end' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: output port 'ready' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: output port 'scan_done' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: output port 'scan_found_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: output port 'scan_found_sector' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: output port 'scan_found_total' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: output port 'state_code' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: output port 'write_req' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: output port 'sd_sec_read' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: output port 'sd_sec_read_addr' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: output port 'bmp_data_wr_en' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: output port 'bmp_data' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: output port 'image_width' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: output port 'image_height' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: output port 'image_info_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:8:65: warning: output port 'image_error' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+                                                                ^
+elaboration-wrappers.v:9:64: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'rst' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'scan_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'scan_start_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'scan_max_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'scan_target_count' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'load_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'load_abort' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'load_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'sd_init_done' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'bmp_width' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'bmp_height' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'write_req_ack' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'bmp_data_ready' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'sd_sec_read_data' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'sd_sec_read_data_valid' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: input port 'sd_sec_read_end' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: output port 'ready' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: output port 'scan_done' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: output port 'scan_found_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: output port 'scan_found_sector' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: output port 'scan_found_total' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: output port 'state_code' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: output port 'write_req' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: output port 'sd_sec_read' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: output port 'sd_sec_read_addr' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: output port 'bmp_data_wr_en' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: output port 'bmp_data' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: output port 'image_width' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: output port 'image_height' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: output port 'image_info_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:9:64: warning: output port 'image_error' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+                                                               ^
+elaboration-wrappers.v:10:67: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'rst' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'scan_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'scan_start_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'scan_max_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'scan_target_count' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'load_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'load_abort' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'load_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'sd_init_done' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'bmp_width' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'bmp_height' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'write_req_ack' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'bmp_data_ready' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'sd_sec_read_data' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'sd_sec_read_data_valid' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: input port 'sd_sec_read_end' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: output port 'ready' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: output port 'scan_done' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: output port 'scan_found_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: output port 'scan_found_sector' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: output port 'scan_found_total' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: output port 'state_code' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: output port 'write_req' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: output port 'sd_sec_read' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: output port 'sd_sec_read_addr' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: output port 'bmp_data_wr_en' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: output port 'bmp_data' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: output port 'image_width' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: output port 'image_height' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: output port 'image_info_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:10:67: warning: output port 'image_error' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+                                                                  ^
+elaboration-wrappers.v:11:69: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'rst' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'scan_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'scan_start_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'scan_max_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'scan_target_count' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'load_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'load_abort' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'load_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'sd_init_done' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'bmp_width' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'bmp_height' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'write_req_ack' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'bmp_data_ready' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'sd_sec_read_data' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'sd_sec_read_data_valid' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: input port 'sd_sec_read_end' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: output port 'ready' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: output port 'scan_done' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: output port 'scan_found_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: output port 'scan_found_sector' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: output port 'scan_found_total' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: output port 'state_code' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: output port 'write_req' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: output port 'sd_sec_read' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: output port 'sd_sec_read_addr' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: output port 'bmp_data_wr_en' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: output port 'bmp_data' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: output port 'image_width' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: output port 'image_height' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: output port 'image_info_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:11:69: warning: output port 'image_error' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+                                                                    ^
+elaboration-wrappers.v:12:68: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'rst' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'scan_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'scan_start_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'scan_max_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'scan_target_count' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'load_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'load_abort' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'load_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'sd_init_done' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'bmp_width' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'bmp_height' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'write_req_ack' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'bmp_data_ready' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'sd_sec_read_data' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'sd_sec_read_data_valid' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: input port 'sd_sec_read_end' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: output port 'ready' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: output port 'scan_done' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: output port 'scan_found_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: output port 'scan_found_sector' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: output port 'scan_found_total' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: output port 'state_code' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: output port 'write_req' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: output port 'sd_sec_read' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: output port 'sd_sec_read_addr' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: output port 'bmp_data_wr_en' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: output port 'bmp_data' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: output port 'image_width' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: output port 'image_height' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: output port 'image_info_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:12:68: warning: output port 'image_error' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+                                                                   ^
+elaboration-wrappers.v:13:67: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'rst' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'scan_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'scan_start_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'scan_max_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'scan_target_count' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'load_start' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'load_abort' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'load_sector' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'sd_init_done' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'bmp_width' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'bmp_height' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'write_req_ack' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'bmp_data_ready' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'sd_sec_read_data' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'sd_sec_read_data_valid' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: input port 'sd_sec_read_end' has no connection [-Wunconnected-input-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: output port 'ready' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: output port 'scan_done' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: output port 'scan_found_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: output port 'scan_found_sector' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: output port 'scan_found_total' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: output port 'state_code' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: output port 'write_req' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: output port 'sd_sec_read' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: output port 'sd_sec_read_addr' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: output port 'bmp_data_wr_en' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: output port 'bmp_data' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: output port 'image_width' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: output port 'image_height' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: output port 'image_info_valid' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:13:67: warning: output port 'image_error' has no connection [-Wunconnected-output-port]
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+                                                                  ^
+elaboration-wrappers.v:14:71: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: input port 'rst_n' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: input port 'start' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: input port 'op_write' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: input port 'address' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: input port 'write_data' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: input port 'spi_miso' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: output port 'busy' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: output port 'done' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: output port 'error' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: output port 'error_code' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: output port 'read_data' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: output port 'request_dropped' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: output port 'spi_cs_n' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: output port 'spi_sclk' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: output port 'spi_mosi' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: output port 'spi_wp_n' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:14:71: warning: output port 'spi_hold_n' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: input port 'rst_n' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: input port 'start' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: input port 'op_write' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: input port 'address' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: input port 'write_data' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: input port 'spi_miso' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: output port 'busy' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: output port 'done' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: output port 'error' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: output port 'error_code' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: output port 'read_data' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: output port 'request_dropped' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: output port 'spi_cs_n' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: output port 'spi_sclk' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: output port 'spi_mosi' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: output port 'spi_wp_n' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:15:71: warning: output port 'spi_hold_n' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+                                                                      ^
+elaboration-wrappers.v:16:72: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: input port 'rst_n' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: input port 'start' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: input port 'op_write' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: input port 'address' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: input port 'write_data' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: input port 'spi_miso' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: output port 'busy' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: output port 'done' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: output port 'error' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: output port 'error_code' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: output port 'read_data' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: output port 'request_dropped' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: output port 'spi_cs_n' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: output port 'spi_sclk' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: output port 'spi_mosi' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: output port 'spi_wp_n' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:16:72: warning: output port 'spi_hold_n' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+                                                                       ^
+elaboration-wrappers.v:17:73: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: input port 'rst_n' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: input port 'start' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: input port 'op_write' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: input port 'address' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: input port 'write_data' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: input port 'spi_miso' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: output port 'busy' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: output port 'done' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: output port 'error' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: output port 'error_code' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: output port 'read_data' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: output port 'request_dropped' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: output port 'spi_cs_n' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: output port 'spi_sclk' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: output port 'spi_mosi' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: output port 'spi_wp_n' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:17:73: warning: output port 'spi_hold_n' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: input port 'rst_n' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: input port 'start' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: input port 'op_write' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: input port 'address' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: input port 'write_data' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: input port 'spi_miso' has no connection [-Wunconnected-input-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: output port 'busy' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: output port 'done' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: output port 'error' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: output port 'error_code' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: output port 'read_data' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: output port 'request_dropped' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: output port 'spi_cs_n' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: output port 'spi_sclk' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: output port 'spi_mosi' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: output port 'spi_wp_n' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:18:73: warning: output port 'spi_hold_n' has no connection [-Wunconnected-output-port]
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+                                                                        ^
+elaboration-wrappers.v:19:25: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: input port 'rst_n' has no connection [-Wunconnected-input-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: input port 'start' has no connection [-Wunconnected-input-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: input port 'flash_miso' has no connection [-Wunconnected-input-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: output port 'flash_cs_n' has no connection [-Wunconnected-output-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: output port 'flash_sclk' has no connection [-Wunconnected-output-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: output port 'flash_mosi' has no connection [-Wunconnected-output-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: output port 'flash_wp_n' has no connection [-Wunconnected-output-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: output port 'flash_hold_n' has no connection [-Wunconnected-output-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: output port 'busy' has no connection [-Wunconnected-output-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: output port 'done' has no connection [-Wunconnected-output-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: output port 'accepted' has no connection [-Wunconnected-output-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: output port 'error' has no connection [-Wunconnected-output-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: output port 'error_code' has no connection [-Wunconnected-output-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: output port 'jedec_id' has no connection [-Wunconnected-output-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: output port 'status1' has no connection [-Wunconnected-output-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: output port 'status2' has no connection [-Wunconnected-output-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:19:25: warning: output port 'status3' has no connection [-Wunconnected-output-port]
+w25q64_preflight_reader preflight();
+                        ^
+elaboration-wrappers.v:20:58: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: input port 'rst_n' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: input port 'music_profile' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: input port 'image_melody_id' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: input port 'image_change_pulse' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: input port 'music_enable' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: input port 'volume' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: input port 'emergency_active' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: input port 'night_pcm_valid' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: input port 'night_pcm_left' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: input port 'night_pcm_right' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: input port 'sample_ready' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: output port 'night_pcm_ready' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: output port 'night_drain' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: output port 'sample_valid' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: output port 'sample_left' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: output port 'sample_right' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: output port 'overflow' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:20:58: warning: output port 'blip_active' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: input port 'rst_n' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: input port 'music_profile' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: input port 'image_melody_id' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: input port 'image_change_pulse' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: input port 'music_enable' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: input port 'volume' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: input port 'emergency_active' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: input port 'night_pcm_valid' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: input port 'night_pcm_left' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: input port 'night_pcm_right' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: input port 'sample_ready' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: output port 'night_pcm_ready' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: output port 'night_drain' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: output port 'sample_valid' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: output port 'sample_left' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: output port 'sample_right' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: output port 'overflow' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:21:58: warning: output port 'blip_active' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+                                                         ^
+elaboration-wrappers.v:22:47: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: input port 'rst_n' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: input port 'music_profile' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: input port 'image_melody_id' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: input port 'image_change_pulse' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: input port 'music_enable' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: input port 'volume' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: input port 'emergency_active' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: input port 'night_pcm_valid' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: input port 'night_pcm_left' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: input port 'night_pcm_right' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: input port 'sample_ready' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: output port 'night_pcm_ready' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: output port 'night_drain' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: output port 'sample_valid' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: output port 'sample_left' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: output port 'sample_right' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: output port 'overflow' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:22:47: warning: output port 'blip_active' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+                                              ^
+elaboration-wrappers.v:23:48: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: input port 'rst_n' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: input port 'music_profile' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: input port 'image_melody_id' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: input port 'image_change_pulse' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: input port 'music_enable' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: input port 'volume' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: input port 'emergency_active' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: input port 'night_pcm_valid' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: input port 'night_pcm_left' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: input port 'night_pcm_right' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: input port 'sample_ready' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: output port 'night_pcm_ready' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: output port 'night_drain' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: output port 'sample_valid' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: output port 'sample_left' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: output port 'sample_right' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: output port 'overflow' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:23:48: warning: output port 'blip_active' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+                                               ^
+elaboration-wrappers.v:24:49: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: input port 'rst_n' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: input port 'music_profile' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: input port 'image_melody_id' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: input port 'image_change_pulse' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: input port 'music_enable' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: input port 'volume' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: input port 'emergency_active' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: input port 'night_pcm_valid' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: input port 'night_pcm_left' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: input port 'night_pcm_right' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: input port 'sample_ready' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: output port 'night_pcm_ready' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: output port 'night_drain' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: output port 'sample_valid' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: output port 'sample_left' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: output port 'sample_right' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: output port 'overflow' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:24:49: warning: output port 'blip_active' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+                                                ^
+elaboration-wrappers.v:25:58: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: input port 'rst_n' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: input port 'music_profile' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: input port 'image_melody_id' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: input port 'image_change_pulse' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: input port 'music_enable' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: input port 'volume' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: input port 'emergency_active' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: input port 'night_pcm_valid' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: input port 'night_pcm_left' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: input port 'night_pcm_right' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: input port 'sample_ready' has no connection [-Wunconnected-input-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: output port 'night_pcm_ready' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: output port 'night_drain' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: output port 'sample_valid' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: output port 'sample_left' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: output port 'sample_right' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: output port 'overflow' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:25:58: warning: output port 'blip_active' has no connection [-Wunconnected-output-port]
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+                                                         ^
+elaboration-wrappers.v:26:28: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+brightness_contrast_adjust brightness();
+                           ^
+elaboration-wrappers.v:26:28: warning: input port 'rst_n' has no connection [-Wunconnected-input-port]
+brightness_contrast_adjust brightness();
+                           ^
+elaboration-wrappers.v:26:28: warning: input port 'in_de' has no connection [-Wunconnected-input-port]
+brightness_contrast_adjust brightness();
+                           ^
+elaboration-wrappers.v:26:28: warning: input port 'rgb_in' has no connection [-Wunconnected-input-port]
+brightness_contrast_adjust brightness();
+                           ^
+elaboration-wrappers.v:26:28: warning: input port 'brightness' has no connection [-Wunconnected-input-port]
+brightness_contrast_adjust brightness();
+                           ^
+elaboration-wrappers.v:26:28: warning: input port 'contrast' has no connection [-Wunconnected-input-port]
+brightness_contrast_adjust brightness();
+                           ^
+elaboration-wrappers.v:26:28: warning: output port 'out_de' has no connection [-Wunconnected-output-port]
+brightness_contrast_adjust brightness();
+                           ^
+elaboration-wrappers.v:26:28: warning: output port 'rgb_out' has no connection [-Wunconnected-output-port]
+brightness_contrast_adjust brightness();
+                           ^
+elaboration-wrappers.v:27:20: warning: input port 'clk' has no connection [-Wunconnected-input-port]
+video_fade_overlay fade();
+                   ^
+elaboration-wrappers.v:27:20: warning: input port 'rst' has no connection [-Wunconnected-input-port]
+video_fade_overlay fade();
+                   ^
+elaboration-wrappers.v:27:20: warning: input port 'frame_start' has no connection [-Wunconnected-input-port]
+video_fade_overlay fade();
+                   ^
+elaboration-wrappers.v:27:20: warning: input port 'switch_event' has no connection [-Wunconnected-input-port]
+video_fade_overlay fade();
+                   ^
+elaboration-wrappers.v:27:20: warning: input port 'switch_hard' has no connection [-Wunconnected-input-port]
+video_fade_overlay fade();
+                   ^
+elaboration-wrappers.v:27:20: warning: input port 'force_commit_toggle' has no connection [-Wunconnected-input-port]
+video_fade_overlay fade();
+                   ^
+elaboration-wrappers.v:27:20: warning: input port 'switch_buf_idx' has no connection [-Wunconnected-input-port]
+video_fade_overlay fade();
+                   ^
+elaboration-wrappers.v:27:20: warning: input port 'switch_image_idx' has no connection [-Wunconnected-input-port]
+video_fade_overlay fade();
+                   ^
+elaboration-wrappers.v:27:20: warning: input port 'de' has no connection [-Wunconnected-input-port]
+video_fade_overlay fade();
+                   ^
+elaboration-wrappers.v:27:20: warning: input port 'rgb_in' has no connection [-Wunconnected-input-port]
+video_fade_overlay fade();
+                   ^
+elaboration-wrappers.v:27:20: warning: output port 'rgb_out' has no connection [-Wunconnected-output-port]
+video_fade_overlay fade();
+                   ^
+elaboration-wrappers.v:27:20: warning: output port 'display_buf_idx' has no connection [-Wunconnected-output-port]
+video_fade_overlay fade();
+                   ^
+elaboration-wrappers.v:27:20: warning: output port 'display_image_idx' has no connection [-Wunconnected-output-port]
+video_fade_overlay fade();
+                   ^
+elaboration-wrappers.v:27:20: warning: output port 'display_started' has no connection [-Wunconnected-output-port]
+video_fade_overlay fade();
+                   ^
+elaboration-wrappers.v:27:20: warning: output port 'transition_busy' has no connection [-Wunconnected-output-port]
+video_fade_overlay fade();
+                   ^

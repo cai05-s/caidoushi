@@ -1,0 +1,11 @@
+--- f_bmp_output_cache/src/user_source/hdl_source/SD/bmp_read.v
++++ f2_bmp_cache_step_predicate/src/user_source/hdl_source/SD/bmp_read.v
+@@ -393,7 +393,7 @@
+                     if (x_error_sum >= {1'b0, fit_width})
+                         x_error <= x_error_sum - {1'b0, fit_width};
+                     else x_error <= x_error_sum[15:0];
+-                    if (sample_x == fit_width - 1'b1 || next_sample_source != capture_x) begin
++                    if (sample_x == fit_width - 1'b1 || x_step != 16'd0 || x_error_sum >= {1'b0, fit_width}) begin
+                         if (capture_x == image_width - 1'b1) begin
+                             line_valid <= 1; cached_row <= source_y; state <= ST_PIXEL;
+                             source_x <= 0; x_error <= 0;

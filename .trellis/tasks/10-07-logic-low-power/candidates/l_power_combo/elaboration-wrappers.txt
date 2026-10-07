@@ -1,0 +1,28 @@
+`timescale 1ns/1ps
+module combination_checks;
+player_settings_flash settings();
+sd_fat32_wav wav();
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_0();
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(1), .MAX_DIM(1)) bmp_1();
+bmp_read #(.FRAME_WIDTH(1), .FRAME_HEIGHT(480), .MAX_DIM(4096)) bmp_2();
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_3();
+bmp_read #(.FRAME_WIDTH(7), .FRAME_HEIGHT(11), .MAX_DIM(4096)) bmp_4();
+bmp_read #(.FRAME_WIDTH(641), .FRAME_HEIGHT(479), .MAX_DIM(4096)) bmp_5();
+bmp_read #(.FRAME_WIDTH(4096), .FRAME_HEIGHT(4096), .MAX_DIM(4096)) bmp_6();
+bmp_read #(.FRAME_WIDTH(640), .FRAME_HEIGHT(480), .MAX_DIM(65535)) bmp_7();
+bmp_read #(.FRAME_WIDTH(65535), .FRAME_HEIGHT(1), .MAX_DIM(4096)) bmp_8();
+w25q64_record_store #(.RECORD_BYTES(2), .COMMIT_LAST(0), .CLK_DIV(1)) store_0();
+w25q64_record_store #(.RECORD_BYTES(3), .COMMIT_LAST(1), .CLK_DIV(1)) store_1();
+w25q64_record_store #(.RECORD_BYTES(32), .COMMIT_LAST(1), .CLK_DIV(5)) store_2();
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(0), .CLK_DIV(7)) store_3();
+w25q64_record_store #(.RECORD_BYTES(256), .COMMIT_LAST(1), .CLK_DIV(5)) store_4();
+w25q64_preflight_reader preflight();
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(48000)) pcm_0();
+pcm_media_tone #(.CLOCK_HZ(25000000), .SAMPLE_HZ(44100)) pcm_1();
+pcm_media_tone #(.CLOCK_HZ(1), .SAMPLE_HZ(1)) pcm_2();
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(0)) pcm_3();
+pcm_media_tone #(.CLOCK_HZ(10), .SAMPLE_HZ(11)) pcm_4();
+pcm_media_tone #(.CLOCK_HZ(33554433), .SAMPLE_HZ(48000)) pcm_5();
+brightness_contrast_adjust brightness();
+video_fade_overlay fade();
+endmodule

@@ -1,0 +1,134 @@
+{
+  "candidate": "k_resource_combo",
+  "parent": "V1.0",
+  "baseline_commit": "22bbb7a9f019368c785f047ee64398ec8ca47295",
+  "files": {
+    "src/user_source/hdl_source/SD/sd_fat32_wav.v": {
+      "candidate_file": ".trellis/tasks/10-07-logic-low-power/candidates/k_resource_combo/sd_fat32_wav.v",
+      "parent_sha256": "e240279e54b39f0919c3a2239360eb37997b4aee8f3b7c857ea79995958a24c0",
+      "candidate_sha256": "ec5c1bf51ca68b6899aaf17b4a9d5788bec88d9e0de8926c6596515f52284bb1",
+      "composition": "Exact byte copy"
+    },
+    "src/user_source/hdl_source/w25q64_record_store.v": {
+      "candidate_file": ".trellis/tasks/10-07-logic-low-power/candidates/k_resource_combo/w25q64_record_store.v",
+      "parent_sha256": "41de374a9bbfcdee91bb45c89b9ad1b62abaf93843ec05a85ea15a7cd073214b",
+      "candidate_sha256": "87cf4374c3984a690253dae6a6665deca9d0c12ed655f1e701dd7e1c041f92e1",
+      "composition": "Exact byte copy"
+    },
+    "src/user_source/hdl_source/w25q64_preflight_reader.v": {
+      "candidate_file": ".trellis/tasks/10-07-logic-low-power/candidates/k_resource_combo/w25q64_preflight_reader.v",
+      "parent_sha256": "42268808045584d4e3fc7572fbc3b5881431da161dfb0a2b30e70d2bba1fa9d5",
+      "candidate_sha256": "b335be71f66e2513f17ef1cb23307a93bf95bc714e532ac5a3d06e687ef533bc",
+      "composition": "Exact byte copy"
+    },
+    "src/user_source/hdl_source/SD/bmp_read.v": {
+      "candidate_file": ".trellis/tasks/10-07-logic-low-power/candidates/k_resource_combo/bmp_read.v",
+      "parent_sha256": "1c13c6c982800f5dae85f620c864a0378fd00059afa1995b9850d6a49c5d0588",
+      "candidate_sha256": "65680d52570b47b80a13b05a3dfc33520dbb79677f14b6e7bb14396d74ae8faf",
+      "composition": "Exact byte copy"
+    },
+    "src/user_source/hdl_source/player_settings_flash.v": {
+      "candidate_file": ".trellis/tasks/10-07-logic-low-power/candidates/k_resource_combo/player_settings_flash.v",
+      "parent_sha256": "78d0f5caa1c53b7b22f1d7f739ce187d259e781f39d6b62cd8927fe25142f8dd",
+      "candidate_sha256": "12bd009d62e6348db45a4b680a291d773ab71c4037ae6bfc39e2d9f7547bf9b7",
+      "composition": "Union of non-overlapping, exact normalized-text hunks relative to immutable V1.0; no manual HDL edits"
+    }
+  },
+  "components": {
+    "c2_wav_partition_only/sd_fat32_wav.v": {
+      "candidate": "c2_wav_partition_only",
+      "relative_destination": "src/user_source/hdl_source/SD/sd_fat32_wav.v",
+      "source": ".trellis/tasks/10-07-logic-low-power/candidates/c2_wav_partition_only/sd_fat32_wav.v",
+      "source_sha256": "ec5c1bf51ca68b6899aaf17b4a9d5788bec88d9e0de8926c6596515f52284bb1",
+      "parent": "V1.0",
+      "parent_sha256": "e240279e54b39f0919c3a2239360eb37997b4aee8f3b7c857ea79995958a24c0",
+      "manifest_sha256": "6ab1f6133923df8fbfd01b0feccaca9e1ef05d8c6652f430689d6fbf84c9920c",
+      "review_and_static_evidence_sha256": {
+        ".trellis/tasks/10-07-logic-low-power/candidates/c2_wav_partition_only/static.json": "21e55f7888786404bc96d7cfc585e70749291384c66265ffca3591d1c967259d",
+        ".trellis/tasks/10-07-logic-low-power/candidates/c2_wav_partition_only/rationale.md": "1db66c27bc40e273d94d43dea27b069a9fdd96474784cd5049f65eb645410fa6"
+      }
+    },
+    "e_shared_flash_spi/w25q64_record_store.v": {
+      "candidate": "e_shared_flash_spi",
+      "relative_destination": "src/user_source/hdl_source/w25q64_record_store.v",
+      "source": ".trellis/tasks/10-07-logic-low-power/candidates/e_shared_flash_spi/w25q64_record_store.v",
+      "source_sha256": "87cf4374c3984a690253dae6a6665deca9d0c12ed655f1e701dd7e1c041f92e1",
+      "parent": "V1.0",
+      "parent_sha256": "41de374a9bbfcdee91bb45c89b9ad1b62abaf93843ec05a85ea15a7cd073214b",
+      "manifest_sha256": "51b2fa4612bbe5c6289812970485004cff5bb6e7ec845cd1cee77886899d9b61",
+      "review_and_static_evidence_sha256": {
+        ".trellis/tasks/10-07-logic-low-power/candidates/e_shared_flash_spi/static.json": "967a8c6e29afbd630c4d6267005407a6392adf43d6dd0a9d8ed7cb2f780b43ee",
+        ".trellis/tasks/10-07-logic-low-power/candidates/e_shared_flash_spi/rationale.md": "34ba4a32cc848169f7daf4b4deb502d261426f2b83199f68eb4816b45625c1db"
+      }
+    },
+    "e_shared_flash_spi/w25q64_preflight_reader.v": {
+      "candidate": "e_shared_flash_spi",
+      "relative_destination": "src/user_source/hdl_source/w25q64_preflight_reader.v",
+      "source": ".trellis/tasks/10-07-logic-low-power/candidates/e_shared_flash_spi/w25q64_preflight_reader.v",
+      "source_sha256": "b335be71f66e2513f17ef1cb23307a93bf95bc714e532ac5a3d06e687ef533bc",
+      "parent": "V1.0",
+      "parent_sha256": "42268808045584d4e3fc7572fbc3b5881431da161dfb0a2b30e70d2bba1fa9d5",
+      "manifest_sha256": "51b2fa4612bbe5c6289812970485004cff5bb6e7ec845cd1cee77886899d9b61",
+      "review_and_static_evidence_sha256": {
+        ".trellis/tasks/10-07-logic-low-power/candidates/e_shared_flash_spi/static.json": "967a8c6e29afbd630c4d6267005407a6392adf43d6dd0a9d8ed7cb2f780b43ee",
+        ".trellis/tasks/10-07-logic-low-power/candidates/e_shared_flash_spi/rationale.md": "34ba4a32cc848169f7daf4b4deb502d261426f2b83199f68eb4816b45625c1db"
+      }
+    },
+    "f_bmp_output_cache/bmp_read.v": {
+      "candidate": "f_bmp_output_cache",
+      "relative_destination": "src/user_source/hdl_source/SD/bmp_read.v",
+      "source": ".trellis/tasks/10-07-logic-low-power/candidates/f_bmp_output_cache/bmp_read.v",
+      "source_sha256": "8925a730d5ff3d85ede9541ad028da87be70a6dfd2ad3ca39462f42152ed5ce5",
+      "parent": "V1.0",
+      "parent_sha256": "1c13c6c982800f5dae85f620c864a0378fd00059afa1995b9850d6a49c5d0588",
+      "manifest_sha256": "af8cac5f17f6f2e196ef68bd6f0420da2dfdbf3c340e6f26f0e1080bebfbdfd0",
+      "review_and_static_evidence_sha256": {
+        ".trellis/tasks/10-07-logic-low-power/candidates/f_bmp_output_cache/static-evidence.json": "a7f6049df3dee656a239f0e8bc5dbb90ff91c33df20833a56100185d44ba230c",
+        ".trellis/tasks/10-07-logic-low-power/candidates/f_bmp_output_cache/REVIEW.md": "98317ba42dd2d8e9ca4c90bf41c8455ccff1e439d16f691ec5e259e685c3d1d3"
+      }
+    },
+    "f2_bmp_cache_step_predicate/bmp_read.v": {
+      "candidate": "f2_bmp_cache_step_predicate",
+      "relative_destination": "src/user_source/hdl_source/SD/bmp_read.v",
+      "source": ".trellis/tasks/10-07-logic-low-power/candidates/f2_bmp_cache_step_predicate/bmp_read.v",
+      "source_sha256": "65680d52570b47b80a13b05a3dfc33520dbb79677f14b6e7bb14396d74ae8faf",
+      "parent": "f_bmp_output_cache",
+      "parent_sha256": "8925a730d5ff3d85ede9541ad028da87be70a6dfd2ad3ca39462f42152ed5ce5",
+      "manifest_sha256": "bec146d1059f25e531f80056845b6aee21ad8fcf77761065b85e1b07377ebf93",
+      "review_and_static_evidence_sha256": {
+        ".trellis/tasks/10-07-logic-low-power/candidates/f2_bmp_cache_step_predicate/static-evidence.json": "fca7dde568ce02f5f260146fa1118d7932b524e4664033b8300dcb9700dc28e9",
+        ".trellis/tasks/10-07-logic-low-power/candidates/f2_bmp_cache_step_predicate/REVIEW.md": "97e72938fe4a05d0d3f8e48673236e04d2e6c6f96e6eeed35834fb4d9945b7c4"
+      }
+    },
+    "e_shared_flash_spi/player_settings_flash.v": {
+      "candidate": "e_shared_flash_spi",
+      "relative_destination": "src/user_source/hdl_source/player_settings_flash.v",
+      "source": ".trellis/tasks/10-07-logic-low-power/candidates/e_shared_flash_spi/player_settings_flash.v",
+      "source_sha256": "1c17eba80fd562d9ba80f2bc0b2784afc6e22dc0583070ffc26a48f01d8d04c1",
+      "parent": "V1.0",
+      "parent_sha256": "78d0f5caa1c53b7b22f1d7f739ce187d259e781f39d6b62cd8927fe25142f8dd",
+      "manifest_sha256": "51b2fa4612bbe5c6289812970485004cff5bb6e7ec845cd1cee77886899d9b61",
+      "review_and_static_evidence_sha256": {
+        ".trellis/tasks/10-07-logic-low-power/candidates/e_shared_flash_spi/static.json": "967a8c6e29afbd630c4d6267005407a6392adf43d6dd0a9d8ed7cb2f780b43ee",
+        ".trellis/tasks/10-07-logic-low-power/candidates/e_shared_flash_spi/rationale.md": "34ba4a32cc848169f7daf4b4deb502d261426f2b83199f68eb4816b45625c1db"
+      }
+    },
+    "d_flash_crc_stage/player_settings_flash.v": {
+      "candidate": "d_flash_crc_stage",
+      "relative_destination": "src/user_source/hdl_source/player_settings_flash.v",
+      "source": ".trellis/tasks/10-07-logic-low-power/candidates/d_flash_crc_stage/player_settings_flash.v",
+      "source_sha256": "a199c3c1f51b30786782b26844f678f921705cf089e5729ca320c7b192a51e3a",
+      "parent": "V1.0",
+      "parent_sha256": "78d0f5caa1c53b7b22f1d7f739ce187d259e781f39d6b62cd8927fe25142f8dd",
+      "manifest_sha256": "d6bff53c814af8523f268fa8f1613d4f208f8744ed8d05687b0d9bbdb94ce528",
+      "review_and_static_evidence_sha256": {
+        ".trellis/tasks/10-07-logic-low-power/candidates/d_flash_crc_stage/static.json": "0401527d417ff937a81742f952a8583cc6730127bbd2820d57315d09c03640c7",
+        ".trellis/tasks/10-07-logic-low-power/candidates/d_flash_crc_stage/rationale.md": "e4ef39c016c505a93cfb2e68138b18643b9c5504831d3e2e663a8a095dc5deff"
+      }
+    }
+  },
+  "live_source_edited": false,
+  "td_run": false,
+  "rtl_simulation_run": false,
+  "board_tested": false
+}

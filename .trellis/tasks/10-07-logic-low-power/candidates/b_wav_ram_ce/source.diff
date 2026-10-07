@@ -1,0 +1,12 @@
+--- V1.0/src/user_source/hdl_source/SD/sd_fat32_wav.v
++++ b_wav_ram_ce/src/user_source/hdl_source/SD/sd_fat32_wav.v
+@@ -60,7 +60,8 @@
+ always @(posedge clk) begin
+     if (state == S_IO_WAIT && rd_valid && rx_count < 10'd512)
+         sector_ram[rx_count[8:0]] <= rd_data;
+-    ram_q <= sector_ram[ram_addr];
++    if (state == S_BYTE_WAIT)
++        ram_q <= sector_ram[ram_addr];
+ end
+ 
+ assign req = (state == S_IO_REQ);

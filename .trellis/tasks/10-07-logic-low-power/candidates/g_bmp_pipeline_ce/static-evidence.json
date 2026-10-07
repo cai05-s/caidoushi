@@ -1,0 +1,72 @@
+{
+  "candidate": "g_bmp_pipeline_ce",
+  "parent": "V1.0",
+  "sources": [
+    {
+      "relative_source": "src/user_source/hdl_source/SD/bmp_read.v",
+      "parent_sha256": "1c13c6c982800f5dae85f620c864a0378fd00059afa1995b9850d6a49c5d0588",
+      "candidate_sha256": "de234efc16343823158878b40887dc48199099f9703e5f5b6ee80e449743b5b8",
+      "line_ending_preserved": "LF"
+    }
+  ],
+  "live_source_edited": false,
+  "rtl_simulation_run": false,
+  "td_run": false,
+  "board_tested": false,
+  "parser": "11.0.0",
+  "elaboration_errors": 0,
+  "evidence": {
+    "elaboration_diagnostics": {
+      "before": {
+        "DiagCode(ArithOpMismatch)": 4,
+        "DiagCode(SignCompare)": 4,
+        "DiagCode(WidthTruncate)": 2,
+        "DiagCode(UnconnectedInputPort)": 153,
+        "DiagCode(UnconnectedOutputPort)": 135
+      },
+      "after": {
+        "DiagCode(ArithOpMismatch)": 4,
+        "DiagCode(SignCompare)": 4,
+        "DiagCode(WidthTruncate)": 2,
+        "DiagCode(UnconnectedInputPort)": 153,
+        "DiagCode(UnconnectedOutputPort)": 135
+      }
+    },
+    "parameter_specializations_each": 9,
+    "header_registers": [
+      "aspect_h",
+      "aspect_w",
+      "dib_end",
+      "file_sector_count",
+      "header_error_q",
+      "header_pixel_bytes",
+      "header_stride",
+      "height_abs",
+      "next_scan_match",
+      "required_file_bytes"
+    ],
+    "geometry_registers": [
+      "image_x_end",
+      "image_y_end"
+    ],
+    "settled_edges_from_first_header_byte": {
+      "aspect_h": 27,
+      "aspect_w": 22,
+      "dib_end": 18,
+      "file_sector_count": 6,
+      "header_error_q": 34,
+      "header_pixel_bytes": 27,
+      "header_stride": 22,
+      "height_abs": 26,
+      "next_scan_match": 7,
+      "required_file_bytes": 28
+    },
+    "earliest_consumer_edge": 512,
+    "minimum_header_drain_margin_edges": 478,
+    "geometry_drain": "Final DIV_WAIT offset update -> ACK_HIGH boundary update -> ACK_LOW -> ROW consumption",
+    "exact_preservation": "All register RHS/reset arithmetic and all code outside added CE/pipeline guards",
+    "feasibility": "Raw operands already remain stable outside header/setup; useful dynamic-power gain is unproven and likely small. Added enables may increase LUT.",
+    "limitations": "Static dependency/algebra review and elaboration only; TD and physical power required before adoption."
+  },
+  "checker_sha256": "e7df3359465c25a165d57bb299e9bfacf72e0fe68574ad8de4a2669d4b3ef7cc"
+}

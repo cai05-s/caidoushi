@@ -1,0 +1,61 @@
+{
+  "build": "C:\\Users\\27348\\.codex_tmp\\logic_low_power_20261007_baseline",
+  "changed": [],
+  "gate": {
+    "lut": 13046,
+    "reg": 7296,
+    "bram": 32,
+    "bram32k": 0,
+    "dsp": 9,
+    "pad": 49,
+    "pll": 2,
+    "gclk": 2
+  },
+  "routed": {
+    "lut": 13650,
+    "reg": 7335,
+    "bram": 32,
+    "bram32k": 0,
+    "dsp": 9,
+    "pad": 49,
+    "pll": 2,
+    "gclk": 2
+  },
+  "delta": {
+    "lut": 0,
+    "reg": 0,
+    "bram": 0,
+    "bram32k": 0,
+    "dsp": 0,
+    "pad": 0,
+    "pll": 0,
+    "gclk": 0
+  },
+  "setup": -5.565,
+  "hold": 0.021,
+  "tns": -401.572,
+  "self_groups": {
+    "sd_card_clk -> sd_card_clk": {
+      "setup": -1.411,
+      "hold": 0.021
+    },
+    "video_clk -> video_clk": {
+      "setup": 2.72,
+      "hold": 0.091
+    },
+    "clk -> clk": {
+      "setup": 0.358,
+      "hold": 0.038
+    },
+    "ext_mem_clk -> ext_mem_clk": {
+      "setup": 0.226,
+      "hold": 0.094
+    },
+    "hdmi_5x_clk -> hdmi_5x_clk": {
+      "setup": 3.718,
+      "hold": 0.285
+    }
+  },
+  "new_warning_lines": [],
+  "bit_sha256": "58b8bd4fc2e368d2e7e498f985fc4aa4369801ea5e404c5977c76bea7088223b"
+}
