@@ -706,3 +706,36 @@ snapshots, diffs and SHA256 manifests supply rollback/provenance.
 ### Next Steps
 
 - None - task complete
+
+
+## Session 17: V1.0 baseline and measured logic/power optimization delivery
+
+**Date**: 2026-10-07
+**Task**: V1.0 baseline and measured logic/power optimization delivery
+**Branch**: `optimize/logic-low-power`
+
+### Summary
+
+Created immutable V1.0 baseline at22bbb7a; completed12 TD builds, recorded1 route failure and retried2 interrupted attempts. Selected shared Flash SPI saves88 LUT/41 REG; packaged K BRAM alternative separately. Static integration, independent reviews,99 source/131 input hashes and63 package hashes pass. Timing/power/board acceptance limitations recorded.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `feefdcc` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

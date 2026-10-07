@@ -8,7 +8,7 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 16
+- **Total Sessions**: 17
 - **Last Active**: 2026-10-07
 <!-- @@@/auto:current-status -->
 
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~708 | Active |
+| `journal-1.md` | ~741 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 17 | 2026-10-07 | V1.0 baseline and measured logic/power optimization delivery | `feefdcc` | `optimize/logic-low-power` |
 | 16 | 2026-10-07 | FPGA resource efficiency: measured best selection | - | `-` |
 | 15 | 2026-10-03 | Flash record resource optimization | - | `-` |
 | 14 | 2026-10-02 | Quiet boot loading UI | - | `-` |
