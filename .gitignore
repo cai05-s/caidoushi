@@ -1,0 +1,15 @@
+# Generated Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# TD scratch outputs; release packages remain versioned.
+/src/td_project/*_Runs/
+/src/td_project/log/
+/src/td_project/*.log
+/src/td_project/*.logw
+
+# Local editor and session state
+.DS_Store
+Thumbs.db
+/.trellis/.runtime/

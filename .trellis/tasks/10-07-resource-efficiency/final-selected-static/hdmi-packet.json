@@ -1,0 +1,20 @@
+{
+  "parser": "11.0.0",
+  "elaboration_errors": {
+    "baseline": 0,
+    "candidate": 0
+  },
+  "frame_bases": 48,
+  "slots_each": 4,
+  "pcm_pairs_each": 164,
+  "subpacket_and_bch_cases": 31488,
+  "bch_linear_basis_cases": 57,
+  "complete_packet_cases": 4800,
+  "control_function_header_source_identical": true,
+  "consumer_bch_sources_identical": true,
+  "baseline_sha256": "85177298bb0463d2ecfbae2ea5a36792d0538a6a8720d890f78ba5b6597238fe",
+  "candidate_sha256": "10a21fb86ecf07e9ff826c1b6e0cc75c25c8d77ab4851e4e7756b884f48527dc",
+  "rtl_simulation_run": false,
+  "board_tested": false,
+  "limits": "Host algebra and elaboration; payload differs while invalid by design, masked by unchanged consumers. TD and hardware audio checks required."
+}

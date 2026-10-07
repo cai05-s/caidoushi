@@ -1,0 +1,18 @@
+{
+  "audio_manifest.json": "d5a3a27d55bf7db861db9628f1202f55ee73ab0f9a8dcafd5e700f6f11d3893e",
+  "build_five_bank.log": "495a5fdacde33ec4364a5acd4fefbba8c275b9d0edf6702e67f1d9919e3e3bf1",
+  "build_five_bank.tcl": "1b1cf08b6af4581fe990fa870898175781b9d733b0f646d8dae2248fb35e660c",
+  "case_a_night_kanon_20261001_r6.bit": "3336685c548327641a02aacb1740713122afed7c8687d60c8b2eaf820f211ed9",
+  "changed_source/src/user_source/hdl_source/video_status_osd.v": "3989ee9e07f5ffa26466d1a690c4334eee5d70c26a86755d62d512e949dadecf",
+  "check_kanon_media.py": "54f84dfa6e5b5e8676c53c4d53bccd9c478f798f29f1c266dd79d0ccfa10b745",
+  "five_bank_phy.area": "ce05631dd8bd9030e3aaf8ea019430f92c956de4839542304a3958022b878b4a",
+  "five_bank_phy.ts": "66fb2c94605b69b040d0dcccbeca10b6570600ca10bef4fbcd91124f85ad4183",
+  "five_bank_pr.timing": "57f89b8dba762e66cfff34920a5652e5e3a64f37689c444c95caee78169cfad5",
+  "KANON.WAV": "3cfc23eedaa7cc899ae4de5dd9d47ef0d431edefa413715271ea3894959d43c2",
+  "manifest.json": "ee23bb1883cddb48a930c3e644321723816f9b9a922908411d8b248bad088d5d",
+  "prepare_kanon.py": "803e108ac6a19390fe02cf921003615bae3d01374ed64c0c11485a5812047e36",
+  "SHA256.txt": "134b7c70190bc53b4812ac671ebe9610be8cbeb79ea5f82dd210ce68a984bab6",
+  "source_sha256.json": "829aaabd281ec5b5eaf85745ddd57f4428bb7bab479608a82c45003eda820b89",
+  "verification.md": "24d70c5322d6f53025ea6b8b8e43a9307844e99a8b2efa54f53eb8142c39bbb2",
+  "\u4e0a\u677f\u6d4b\u8bd5\u8bf4\u660e.md": "1ea81a28eb0c901897dc924c5fa529c9a0ba2c08ed5c52dadfaf16eb68febd24"
+}

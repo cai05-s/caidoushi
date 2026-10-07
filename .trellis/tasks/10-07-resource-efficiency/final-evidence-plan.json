@@ -1,0 +1,12 @@
+{
+  "baseline": "C:/Users/27348/.codex_tmp/resource_efficiency_20261007_baseline",
+  "expected_manifest_files": 99,
+  "expected_all_input_files": 131,
+  "stages": [
+    {"name": "r1_fmt", "build": "C:/Users/27348/.codex_tmp/resource_efficiency_20261007_r1_fmt", "source": "src/user_source/hdl_source/SD/sd_fat32_wav.v", "evidence": "wav_fmt_static.json", "review": "review-fmt.md"},
+    {"name": "r2_wave", "build": "C:/Users/27348/.codex_tmp/resource_efficiency_20261007_r2_wave", "source": "src/user_source/hdl_source/promax_audio_waveform.v", "evidence": "wave_ram_static.json", "review": "review-wave-ram.md"},
+    {"name": "r3_flash", "build": "C:/Users/27348/.codex_tmp/resource_efficiency_20261007_r3_flash", "source": "src/user_source/hdl_source/player_settings_flash.v", "evidence": "flash_read_alias_static.json", "review": "review-flash-read-alias.md"},
+    {"name": "r4_hdmi", "build": "C:/Users/27348/.codex_tmp/resource_efficiency_20261007_r4_hdmi", "source": "src/user_source/hdl_source/hdmi_audio_route/hdmi_audio_sample_packetizer.v", "evidence": "hdmi_packet_static.json", "review": "review-hdmi-packet.md"},
+    {"name": "r5_tags", "build": "C:/Users/27348/.codex_tmp/resource_efficiency_20261007_r5_tags", "source": "src/user_source/hdl_source/SD/sd_fat32_wav.v", "evidence": "wav_tags_static.json", "review": "review-wav-tags.md"}
+  ]
+}

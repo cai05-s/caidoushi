@@ -1,0 +1,2 @@
+PASS actual_FIFO frames=2 words=2048 stalled_write_cycles=1872
+C:\Users\27348\Desktop\lab_ex5_i2s\tests\lesson12\tb_frame_write_ready.v:85: $finish called at 68030000 (1ps)

@@ -1,0 +1,436 @@
+--- baseline/src/user_source/hdl_source/SD/sd_fat32_wav.v
++++ candidate/src/user_source/hdl_source/SD/sd_fat32_wav.v
+@@ -93,10 +93,10 @@
+ reg [31:0] directory_cluster, directory_size;
+ reg [31:0] file_size, file_position;
+ reg [3:0] field_index;
+-reg [31:0] riff_tag, riff_size, wave_tag, riff_end;
+-reg [31:0] chunk_tag, chunk_size, skip_remaining;
+-reg [15:0] fmt_format, fmt_channels, fmt_align, fmt_bits;
+-reg [31:0] fmt_rate, fmt_byte_rate;
++reg [31:0] riff_size, riff_end;
++reg [31:0] chunk_size, skip_remaining;
++reg riff_mismatch, chunk_data_mismatch, chunk_fmt_mismatch;
++reg fmt_mismatch;
+ reg fmt_seen;
+ reg [31:0] data_size, data_remaining, data_file_position;
+ reg [27:0] data_cluster;
+@@ -118,6 +118,64 @@
+             9: short_name_byte=8'h41; // A
+             10: short_name_byte=8'h56; // V
+             default: short_name_byte=8'h20;
++        endcase
++    end
++endfunction
++
++// The supported PCM format is fixed. Retain only the comparison result,
++// rather than storing all 16 bytes until S_FMT_CHECK.
++function [7:0] pcm_format_byte;
++    input [3:0] index;
++    begin
++        case (index)
++            0: pcm_format_byte=8'h01;  // PCM
++            2: pcm_format_byte=8'h02;  // stereo
++            4: pcm_format_byte=8'h80;  // 48000 = 0x0000bb80
++            5: pcm_format_byte=8'hbb;
++            9: pcm_format_byte=8'hee;  // 192000 = 0x0002ee00
++            10: pcm_format_byte=8'h02;
++            12: pcm_format_byte=8'h04; // block alignment
++            14: pcm_format_byte=8'h10; // 16 bits/sample
++            default: pcm_format_byte=8'h00;
++        endcase
++    end
++endfunction
++
++function [7:0] riff_magic_byte;
++    input [3:0] index;
++    begin
++        case (index)
++            0: riff_magic_byte=8'h52; // R
++            1: riff_magic_byte=8'h49; // I
++            2,3: riff_magic_byte=8'h46; // F
++            8: riff_magic_byte=8'h57; // W
++            9: riff_magic_byte=8'h41; // A
++            10: riff_magic_byte=8'h56; // V
++            11: riff_magic_byte=8'h45; // E
++            default: riff_magic_byte=8'h00;
++        endcase
++    end
++endfunction
++
++function [7:0] data_tag_byte;
++    input [1:0] index;
++    begin
++        case (index)
++            0: data_tag_byte=8'h64; // d
++            1,3: data_tag_byte=8'h61; // a
++            2: data_tag_byte=8'h74; // t
++        endcase
++    end
++endfunction
++
++function [7:0] fmt_tag_byte;
++    input [1:0] index;
++    begin
++        case (index)
++            0: fmt_tag_byte=8'h66; // f
++            1: fmt_tag_byte=8'h6d; // m
++            2: fmt_tag_byte=8'h74; // t
++            3: fmt_tag_byte=8'h20;
+         endcase
+     end
+ endfunction
+@@ -169,10 +227,10 @@
+         directory_first <= 0; directory_attr <= 0;
+         directory_cluster <= 0; directory_size <= 0;
+         file_size <= 0; file_position <= 0; field_index <= 0;
+-        riff_tag <= 0; riff_size <= 0; wave_tag <= 0; riff_end <= 0;
+-        chunk_tag <= 0; chunk_size <= 0; skip_remaining <= 0;
+-        fmt_format <= 0; fmt_channels <= 0; fmt_align <= 0; fmt_bits <= 0;
+-        fmt_rate <= 0; fmt_byte_rate <= 0; fmt_seen <= 0;
++        riff_mismatch <= 1; riff_size <= 0; riff_end <= 0;
++        chunk_data_mismatch <= 1; chunk_fmt_mismatch <= 1;
++        chunk_size <= 0; skip_remaining <= 0;
++        fmt_mismatch <= 1; fmt_seen <= 0;
+         data_size <= 0; data_remaining <= 0; data_file_position <= 0;
+         data_cluster <= 0; data_cluster_sector <= 0; data_sector_pos <= 0;
+         pcm_index <= 0; pcm_partial <= 0;
+@@ -522,30 +580,24 @@
+             end
+ 
+             S_FILE_BEGIN: begin
+-                field_index <= 0; riff_tag <= 0; riff_size <= 0; wave_tag <= 0;
++                field_index <= 0; riff_mismatch <= 0; riff_size <= 0;
+                 fmt_seen <= 0; byte_return <= S_RIFF_BYTE; state <= S_BYTE_ADDR;
+             end
+             S_RIFF_BYTE: begin
+                 case (field_index)
+-                    0: riff_tag[7:0] <= byte_value;
+-                    1: riff_tag[15:8] <= byte_value;
+-                    2: riff_tag[23:16] <= byte_value;
+-                    3: riff_tag[31:24] <= byte_value;
++                    0,1,2,3,8,9,10,11:
++                        if (byte_value != riff_magic_byte(field_index)) riff_mismatch <= 1;
+                     4: riff_size[7:0] <= byte_value;
+                     5: riff_size[15:8] <= byte_value;
+                     6: riff_size[23:16] <= byte_value;
+                     7: riff_size[31:24] <= byte_value;
+-                    8: wave_tag[7:0] <= byte_value;
+-                    9: wave_tag[15:8] <= byte_value;
+-                    10: wave_tag[23:16] <= byte_value;
+-                    11: wave_tag[31:24] <= byte_value;
+                     default: begin end
+                 endcase
+                 if (field_index == 11) state <= S_RIFF_CHECK;
+                 else begin field_index <= field_index+1'b1; state <= S_BYTE_ADDR; end
+             end
+             S_RIFF_CHECK: begin
+-                if (riff_tag != 32'h46464952 || wave_tag != 32'h45564157 ||
++                if (riff_mismatch ||
+                     riff_size < 36 || {1'b0,riff_size}+33'd8 > {1'b0,file_size})
+                     fail(8'h42);
+                 else begin riff_end <= riff_size+32'd8; state <= S_CHUNK_BEGIN; end
+@@ -553,16 +605,17 @@
+             S_CHUNK_BEGIN: begin
+                 if (file_position > riff_end-32'd8) fail(8'h42);
+                 else begin
+-                    field_index <= 0; chunk_tag <= 0; chunk_size <= 0;
++                    field_index <= 0; chunk_size <= 0;
++                    chunk_data_mismatch <= 0; chunk_fmt_mismatch <= 0;
+                     byte_return <= S_CHUNK_BYTE; state <= S_BYTE_ADDR;
+                 end
+             end
+             S_CHUNK_BYTE: begin
+                 case (field_index)
+-                    0: chunk_tag[7:0] <= byte_value;
+-                    1: chunk_tag[15:8] <= byte_value;
+-                    2: chunk_tag[23:16] <= byte_value;
+-                    3: chunk_tag[31:24] <= byte_value;
++                    0,1,2,3: begin
++                        if (byte_value != data_tag_byte(field_index[1:0])) chunk_data_mismatch <= 1;
++                        if (byte_value != fmt_tag_byte(field_index[1:0])) chunk_fmt_mismatch <= 1;
++                    end
+                     4: chunk_size[7:0] <= byte_value;
+                     5: chunk_size[15:8] <= byte_value;
+                     6: chunk_size[23:16] <= byte_value;
+@@ -576,7 +629,7 @@
+                 // 33-bit addition rejects a wrapping size plus odd-byte pad.
+                 if ({1'b0,chunk_size}+{32'd0,chunk_size[0]} >
+                     {1'b0,riff_end}-{1'b0,file_position}) fail(8'h42);
+-                else if (chunk_tag == 32'h61746164) begin // data
++                else if (!chunk_data_mismatch) begin // data
+                     if (!fmt_seen || chunk_size == 0 || chunk_size[1:0] != 0)
+                         fail(8'h42);
+                     else begin
+@@ -587,11 +640,10 @@
+                         data_file_position <= file_position;
+                         file_ready <= 1; state <= S_PCM_NEXT;
+                     end
+-                end else if (chunk_tag == 32'h20746d66) begin // fmt
++                end else if (!chunk_fmt_mismatch) begin // fmt
+                     if (chunk_size < 16) fail(8'h42);
+                     else begin
+-                        field_index <= 0; fmt_format <= 0; fmt_channels <= 0;
+-                        fmt_rate <= 0; fmt_byte_rate <= 0; fmt_align <= 0; fmt_bits <= 0;
++                        field_index <= 0; fmt_mismatch <= 0;
+                         skip_remaining <= chunk_size-32'd16+{31'd0,chunk_size[0]};
+                         byte_return <= S_FMT_BYTE; state <= S_BYTE_ADDR;
+                     end
+@@ -601,31 +653,12 @@
+                 end
+             end
+             S_FMT_BYTE: begin
+-                case (field_index)
+-                    0: fmt_format[7:0] <= byte_value;
+-                    1: fmt_format[15:8] <= byte_value;
+-                    2: fmt_channels[7:0] <= byte_value;
+-                    3: fmt_channels[15:8] <= byte_value;
+-                    4: fmt_rate[7:0] <= byte_value;
+-                    5: fmt_rate[15:8] <= byte_value;
+-                    6: fmt_rate[23:16] <= byte_value;
+-                    7: fmt_rate[31:24] <= byte_value;
+-                    8: fmt_byte_rate[7:0] <= byte_value;
+-                    9: fmt_byte_rate[15:8] <= byte_value;
+-                    10: fmt_byte_rate[23:16] <= byte_value;
+-                    11: fmt_byte_rate[31:24] <= byte_value;
+-                    12: fmt_align[7:0] <= byte_value;
+-                    13: fmt_align[15:8] <= byte_value;
+-                    14: fmt_bits[7:0] <= byte_value;
+-                    15: fmt_bits[15:8] <= byte_value;
+-                    default: begin end
+-                endcase
++                if (byte_value != pcm_format_byte(field_index)) fmt_mismatch <= 1;
+                 if (field_index == 15) state <= S_FMT_CHECK;
+                 else begin field_index <= field_index+1'b1; state <= S_BYTE_ADDR; end
+             end
+             S_FMT_CHECK: begin
+-                if (fmt_format != 1 || fmt_channels != 2 || fmt_rate != 48000 ||
+-                    fmt_byte_rate != 192000 || fmt_align != 4 || fmt_bits != 16)
++                if (fmt_mismatch)
+                     fail(8'h42);
+                 else begin fmt_seen <= 1; state <= S_SKIP; end
+             end
+--- baseline/src/user_source/hdl_source/hdmi_audio_route/hdmi_audio_sample_packetizer.v
++++ candidate/src/user_source/hdl_source/hdmi_audio_route/hdmi_audio_sample_packetizer.v
+@@ -12,14 +12,13 @@
+     output reg  [23:0]        packet_header,
+     output wire [7:0]         packet_header_ecc,
+     output reg  [223:0]       packet_body,
+-    output wire [31:0]        packet_body_ecc,
++    output reg  [31:0]        packet_body_ecc,
+     output reg  [7:0]         packet_frame_base
+ );
+     reg [1:0] collect_count;
+     reg [7:0] next_audio_frame_base;
+-    reg signed [15:0] left0, left1, left2;
+-    reg signed [15:0] right0, right1, right2;
+-    wire [7:0] ecc0, ecc1, ecc2, ecc3;
++    wire [55:0] current_subpacket;
++    wire [7:0] current_subpacket_ecc;
+ 
+     assign sample_ready = !packet_valid;
+ 
+@@ -55,22 +54,17 @@
+         end
+     endfunction
+ 
++    // Fill one subpacket per accepted stereo sample. The downstream scheduler
++    // observes the payload only when all four slots have made packet_valid.
++    assign current_subpacket = make_subpacket(sample_left, sample_right,
++        next_audio_frame_base + {6'd0, collect_count});
++
+     hdmi_bch8 #(.DATA_BYTES(3)) u_header_bch (
+         .data(packet_header), .ecc(packet_header_ecc)
+     );
+-    hdmi_bch8 #(.DATA_BYTES(7)) u_body0_bch (
+-        .data(packet_body[55:0]), .ecc(ecc0)
++    hdmi_bch8 #(.DATA_BYTES(7)) u_body_bch (
++        .data(current_subpacket), .ecc(current_subpacket_ecc)
+     );
+-    hdmi_bch8 #(.DATA_BYTES(7)) u_body1_bch (
+-        .data(packet_body[111:56]), .ecc(ecc1)
+-    );
+-    hdmi_bch8 #(.DATA_BYTES(7)) u_body2_bch (
+-        .data(packet_body[167:112]), .ecc(ecc2)
+-    );
+-    hdmi_bch8 #(.DATA_BYTES(7)) u_body3_bch (
+-        .data(packet_body[223:168]), .ecc(ecc3)
+-    );
+-    assign packet_body_ecc = {ecc3, ecc2, ecc1, ecc0};
+ 
+     always @(posedge clk or negedge rst_n) begin
+         if (!rst_n) begin
+@@ -78,32 +72,27 @@
+             packet_valid <= 1'b0;
+             packet_header <= 24'd0;
+             packet_body <= 224'd0;
++            packet_body_ecc <= 32'd0;
+             packet_frame_base <= 8'd0;
+             next_audio_frame_base <= 8'd0;
+-            left0 <= 16'sd0;
+-            left1 <= 16'sd0;
+-            left2 <= 16'sd0;
+-            right0 <= 16'sd0;
+-            right1 <= 16'sd0;
+-            right2 <= 16'sd0;
+         end else if (packet_valid) begin
+             if (packet_ready)
+                 packet_valid <= 1'b0;
+         end else if (sample_valid) begin
+             case (collect_count)
+                 2'd0: begin
+-                    left0 <= sample_left;
+-                    right0 <= sample_right;
++                    packet_body[55:0] <= current_subpacket;
++                    packet_body_ecc[7:0] <= current_subpacket_ecc;
+                     collect_count <= 2'd1;
+                 end
+                 2'd1: begin
+-                    left1 <= sample_left;
+-                    right1 <= sample_right;
++                    packet_body[111:56] <= current_subpacket;
++                    packet_body_ecc[15:8] <= current_subpacket_ecc;
+                     collect_count <= 2'd2;
+                 end
+                 2'd2: begin
+-                    left2 <= sample_left;
+-                    right2 <= sample_right;
++                    packet_body[167:112] <= current_subpacket;
++                    packet_body_ecc[23:16] <= current_subpacket_ecc;
+                     collect_count <= 2'd3;
+                 end
+                 default: begin
+@@ -113,16 +102,8 @@
+                                       {(next_audio_frame_base == 0) ?
+                                             8'h10 : 8'h00,
+                                        8'h0f, 8'h02};
+-                    packet_body <= {
+-                        make_subpacket(sample_left, sample_right,
+-                                       next_audio_frame_base + 8'd3),
+-                        make_subpacket(left2, right2,
+-                                       next_audio_frame_base + 8'd2),
+-                        make_subpacket(left1, right1,
+-                                       next_audio_frame_base + 8'd1),
+-                        make_subpacket(left0, right0,
+-                                       next_audio_frame_base)
+-                    };
++                    packet_body[223:168] <= current_subpacket;
++                    packet_body_ecc[31:24] <= current_subpacket_ecc;
+                     packet_frame_base <= next_audio_frame_base;
+                     packet_valid <= 1'b1;
+                     collect_count <= 2'd0;
+--- baseline/src/user_source/hdl_source/player_settings_flash.v
++++ candidate/src/user_source/hdl_source/player_settings_flash.v
+@@ -23,7 +23,8 @@
+     reg any_valid,invalid_nonblank;
+     reg [31:0] newest_sequence,active_sequence,save_sequence;
+     reg [17:0] newest_settings,save_settings_q;
+-    reg [255:0] record,write_record;
++    reg [255:0] write_record;
++    reg read_failed;
+     reg [15:0] crc;
+     reg [7:0] bits_left;
+     reg pf_start,store_start,store_write;
+@@ -32,10 +33,14 @@
+     wire pf_done,pf_accepted,pf_error,store_done,store_error;
+     wire [3:0] pf_code,store_code;
+     wire [255:0] store_read_data;
++    // The store holds read_data while idle; no new request occurs throughout
++    // CHECK_INIT/CHECK_BITS/CHECK_DONE. Reuse that stable record in place.
++    wire [255:0] record=store_read_data;
+     wire pf_cs,pf_clk,pf_mosi,pf_wp,pf_hold,st_cs,st_clk,st_mosi,st_wp,st_hold;
+     // 记录在整个CRC计算期间保持不变，按255..32的顺序读取，省去224位移位副本。
+     wire [7:0] crc_bit_index = bits_left + 8'd31;
+-    wire crc_input_bit = (state == SAVE_BITS) ? write_record[crc_bit_index] : record[crc_bit_index];
++    wire crc_input_bit = (state == SAVE_BITS) ? write_record[crc_bit_index] :
++        (!read_failed && record[crc_bit_index]);
+     wire [15:0] crc_step={crc[14:0],1'b0} ^ ((crc[15]^crc_input_bit)?16'h1021:16'h0000);
+     wire [31:0] record_sequence={record[135:128],record[143:136],record[151:144],record[159:152]};
+     wire [17:0] record_settings={3'd0,record[160],record[169:168],record[178:176],
+@@ -44,8 +49,10 @@
+         record[215:208]==32 && record[207:200]<=4 && record[199:192]<=4 &&
+         record[191:184]<=4 && record[183:176]<=4 && record[175:168]<=3 &&
+         record[167:160]<=1 && record[127:32]==0 && record[15:0]==16'ha55a;
+-    wire record_good=fields_good && {record[23:16],record[31:24]}==crc;
+-    wire record_blank=&record;
++    // Failed reads previously supplied an all-zero record: always invalid,
++    // never blank, with zero input bits for the complete CRC traversal.
++    wire record_good=!read_failed && fields_good && {record[23:16],record[31:24]}==crc;
++    wire record_blank=!read_failed && (&record);
+     wire [31:0] sequence_delta=record_sequence-newest_sequence;
+     wire record_newer=record_sequence!=newest_sequence && !sequence_delta[31];
+     wire [23:0] slot_address=24'h7f0000+{slot,12'd0};
+@@ -94,7 +101,7 @@
+             slot<=0;active_slot<=0;newest_slot<=0;any_valid<=0;invalid_nonblank<=0;
+             newest_sequence<=0;active_sequence<=0;save_sequence<=0;
+             newest_settings<=DEFAULTS;save_settings_q<=DEFAULTS;
+-            record<=0;write_record<=0;crc<=16'hffff;bits_left<=0;
++            read_failed<=0;write_record<=0;crc<=16'hffff;bits_left<=0;
+             pf_start<=0;store_start<=0;store_write<=0;store_address<=24'h7f0000;
+             load_done<=0;load_valid<=0;loaded_settings<=DEFAULTS;
+             save_done<=0;save_ok<=0;error_code<=0;
+@@ -112,7 +119,7 @@
+                     store_write<=0;store_start<=1;state<=READ_WAIT;
+                 end
+                 READ_WAIT:if(store_done) begin
+-                    record<=store_error?256'd0:store_read_data;
++                    read_failed<=store_error;
+                     if(store_error) error_code<=8'h71;
+                     state<=CHECK_INIT;
+                 end
+--- baseline/src/user_source/hdl_source/promax_audio_waveform.v
++++ candidate/src/user_source/hdl_source/promax_audio_waveform.v
+@@ -29,8 +29,8 @@
+     // 显示只使用高8位有符号值除以4的结果；提前保留向零取整的6位商。
+     wire signed [5:0] capture_quarter = pcm_tap_left[15:10] +
+         ((pcm_tap_left[15] && (|pcm_tap_left[9:8])) ? 6'd1 : 6'd0);
+-    reg [5:0] sample_bank0 [0:SAMPLE_COUNT-1];
+-    reg [5:0] sample_bank1 [0:SAMPLE_COUNT-1];
++    (* ram_style = "dram" *) reg [5:0] sample_bank0 [0:SAMPLE_COUNT-1];
++    (* ram_style = "dram" *) reg [5:0] sample_bank1 [0:SAMPLE_COUNT-1];
+     reg       write_bank;
+     reg       display_bank;
+     reg       display_valid;
+@@ -49,7 +49,19 @@
+ 
+     wire frame_start = vs_q && !vsync;
+ 
+-    integer i;
++    // Unreset distributed RAM keeps the asynchronous display read unchanged.
++    // display_valid masks RAM until a complete bank has been captured; the
++    // write bank is always opposite the displayed bank, including after swap.
++    always @(posedge clk) begin
++        if (rst_n && !frame_start && pcm_tap_valid &&
++            capture_count < SAMPLE_COUNT && decimate_count == 8'd0) begin
++            if (write_bank)
++                sample_bank1[capture_count] <= capture_quarter;
++            else
++                sample_bank0[capture_count] <= capture_quarter;
++        end
++    end
++
+     always @(posedge clk or negedge rst_n) begin
+         if (!rst_n) begin
+             line_y         <= 10'd0;
+@@ -63,10 +75,6 @@
+             peak_bank0     <= 8'd0;
+             peak_bank1     <= 8'd0;
+             display_peak   <= 8'd0;
+-            for (i = 0; i < SAMPLE_COUNT; i = i + 1) begin
+-                sample_bank0[i] <= 6'd0;
+-                sample_bank1[i] <= 6'd0;
+-            end
+         end else begin
+             de_q   <= de;
+             vs_q   <= vsync;
+@@ -85,10 +93,6 @@
+                 else            peak_bank1 <= 8'd0;
+             end else if (pcm_tap_valid && capture_count < SAMPLE_COUNT) begin
+                 if (decimate_count == 8'd0) begin
+-                    if (write_bank)
+-                        sample_bank1[capture_count] <= capture_quarter;
+-                    else
+-                        sample_bank0[capture_count] <= capture_quarter;
+                     capture_count  <= capture_count + 1'b1;
+                     decimate_count <= DECIMATE - 1;
+                     if (write_bank) begin

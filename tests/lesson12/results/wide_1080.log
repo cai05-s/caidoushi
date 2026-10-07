@@ -1,0 +1,2 @@
+PASS wide_1080 pixels=307200 sectors=4411 stalls=294179 cycles=9632674
+C:\Users\27348\Desktop\lab_ex5_i2s\tests\lesson12\tb_bmp_autofit.v:89: $finish called at 96326790000 (1ps)

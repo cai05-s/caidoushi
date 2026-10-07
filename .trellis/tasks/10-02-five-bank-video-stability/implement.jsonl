@@ -1,0 +1,4 @@
+﻿{"file":".trellis/spec/backend/hx4s20-board.md","reason":"canonical board controls, LED meanings and current pin roles"}
+{"file":".trellis/spec/backend/fpga-frame-cache.md","reason":"five-bank addresses, frame-boundary commit and reader error contracts"}
+{"file":".trellis/spec/backend/daynight-audio.md","reason":"preserve HDMI/audio and emergency priority while changing video read flow"}
+{"file":".trellis/tasks/10-01-night-kanon/info.md","reason":"current build/release baseline and frozen module interfaces"}

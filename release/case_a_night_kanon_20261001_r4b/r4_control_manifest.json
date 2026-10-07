@@ -1,0 +1,11 @@
+﻿{
+    "night_fpga_gain":  255,
+    "bit_sha256":  "428dfab7a4330520eb122145545bf1a68fbcea30f05538640d78ce42c77a7eb8",
+    "sw4_effect":  "none",
+    "board_tested":  false,
+    "simulation_run":  false,
+    "day_gain":  128,
+    "night_brightness":  154,
+    "day_brightness":  255,
+    "wav_sha256":  "3cfc23eedaa7cc899ae4de5dd9d47ef0d431edefa413715271ea3894959d43c2"
+}

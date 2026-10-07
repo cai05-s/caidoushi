@@ -1,0 +1,16 @@
+﻿{
+    "source":  "C:\\Users\\27348\\Desktop\\canon_44k1_16b_mono.wav",
+    "source_sha256":  "97debe08f8791b8d9f2d1f4d30bdd1fd956e6f9b5f1c1cdc143211de35fe48a4",
+    "output":  "KANON.WAV",
+    "output_sha256":  "ee21bde1c69c614aca62cf51bf9ddb80ea777fd6e6235d87461471d8f16ebd56",
+    "output_bytes":  27300058,
+    "format":  "PCM16LE stereo 48000 Hz",
+    "duration_seconds":  142.18739583333334,
+    "tf_root":  "E:\\",
+    "filename":  "KANON.WAV",
+    "board_bit":  "case_a_night_kanon_20261001.bit",
+    "board_bit_sha256":  "23af7e6111db7ab000ee917b2459c42c294aad433ca797f05e01f0f18025a40e",
+    "simulation_run":  false,
+    "hardware_downloaded":  false,
+    "board_tested":  false
+}

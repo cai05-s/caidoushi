@@ -1,0 +1,10 @@
+{
+  "host_tool_tests_passed": 4,
+  "static_elaboration_errors": 0,
+  "memory_domain_timing_passed": true,
+  "global_timing_closed": false,
+  "source_hashes_match": true,
+  "bit_hash_verified": true,
+  "rtl_simulation_run": false,
+  "board_tested": false
+}

@@ -1,0 +1,23 @@
+{
+  "parser": "11.0.0",
+  "elaboration": {
+    "baseline": {
+      "errors": 0,
+      "diagnostic_count": 2
+    },
+    "candidate": {
+      "errors": 0,
+      "diagnostic_count": 2
+    }
+  },
+  "accepted_format_hex": "0100020080bb000000ee020004001000",
+  "byte_index_cases": 4096,
+  "sticky_or_cases": 8192,
+  "whole_payload_cases": 10003,
+  "all_other_source_and_transitions_identical": true,
+  "baseline_sha256": "0e6c26eb23f56af2e4521bf16e3475b44243b8a3461ac8de6a17e155ae5a51c7",
+  "candidate_sha256": "fb8af2f9d2a0d38d34a6098cc3e038c7987e93a7bb7807e4fd95cf6fc9fa03d5",
+  "rtl_simulation_run": false,
+  "board_tested": false,
+  "limits": "Predicate algebra and source/elaboration checks; protocol review and TD build required separately."
+}

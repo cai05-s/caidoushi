@@ -1,0 +1,2 @@
+# Keep the pre-optimization baseline byte-for-byte, including mixed line endings.
+* -text

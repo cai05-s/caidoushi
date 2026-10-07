@@ -1,0 +1,164 @@
+{
+  "variant": "diagnostic",
+  "build_dir": "C:\\Users\\27348\\.codex_tmp\\five_bank_full_diag_20261002_r8",
+  "global_setup_ns": -6.565,
+  "global_hold_ns": 0.03,
+  "memory_domain": {
+    "group": "ext_mem_clk -> ext_mem_clk",
+    "setup_ns": 0.208,
+    "hold_ns": 0.03
+  },
+  "groups": [
+    {
+      "group": "sd_card_clk -> sd_card_clk",
+      "setup_ns": -2.013,
+      "hold_ns": 0.037
+    },
+    {
+      "group": "video_clk -> video_clk",
+      "setup_ns": 12.576,
+      "hold_ns": 0.094
+    },
+    {
+      "group": "ext_mem_clk -> ext_mem_clk",
+      "setup_ns": 0.208,
+      "hold_ns": 0.03
+    },
+    {
+      "group": "ext_mem_clk -> video_clk",
+      "setup_ns": 2.547,
+      "hold_ns": 0.244
+    },
+    {
+      "group": "video_clk -> ext_mem_clk",
+      "setup_ns": 1.5,
+      "hold_ns": 0.244
+    },
+    {
+      "group": "clk -> clk",
+      "setup_ns": 14.015,
+      "hold_ns": 0.465
+    },
+    {
+      "group": "hdmi_5x_clk -> hdmi_5x_clk",
+      "setup_ns": 3.606,
+      "hold_ns": 0.239
+    },
+    {
+      "group": "sd_card_clk -> video_clk",
+      "setup_ns": 4.867,
+      "hold_ns": 0.35
+    },
+    {
+      "group": "video_clk -> sd_card_clk",
+      "setup_ns": 0.341,
+      "hold_ns": 0.359
+    },
+    {
+      "group": "video_clk -> hdmi_5x_clk",
+      "setup_ns": 5.861,
+      "hold_ns": 0.39
+    },
+    {
+      "group": "ext_mem_clk -> sd_card_clk",
+      "setup_ns": -0.868,
+      "hold_ns": 0.244
+    },
+    {
+      "group": "sd_card_clk -> ext_mem_clk",
+      "setup_ns": -0.179,
+      "hold_ns": 0.244
+    },
+    {
+      "group": "sd_card_clk -> clk",
+      "setup_ns": 3.14,
+      "hold_ns": 0.519
+    },
+    {
+      "group": "clk -> video_clk",
+      "setup_ns": 14.487,
+      "hold_ns": 3.015
+    },
+    {
+      "group": "clk -> ext_mem_clk",
+      "setup_ns": -1.513,
+      "hold_ns": 3.015
+    },
+    {
+      "group": "clk -> hdmi_5x_clk",
+      "setup_ns": -1.54,
+      "hold_ns": 3.044
+    },
+    {
+      "group": "clk -> sd_card_clk",
+      "setup_ns": 4.607,
+      "hold_ns": 2.938
+    },
+    {
+      "group": "hdmi_5x_clk -> video_clk",
+      "setup_ns": 6.322,
+      "hold_ns": 0.514
+    },
+    {
+      "group": "ext_mem_clk -> sys_pll_m0/pll_inst.clkc[2]",
+      "setup_ns": -2.975,
+      "hold_ns": 3.874
+    },
+    {
+      "group": "sys_pll_m0/pll_inst.clkc[2] -> ext_mem_clk",
+      "setup_ns": -6.565,
+      "hold_ns": 8.43
+    }
+  ],
+  "remaining_negative_paths": [
+    {
+      "group": "sd_card_clk -> sd_card_clk",
+      "slack_ns": -2.013,
+      "start": "u_night_pcm_stream/u_wav/volume_size_reg[4]_syn_4.clk",
+      "end": "u_night_pcm_stream/u_wav/mux166_syn_37.mi[0]",
+      "check": "setup"
+    },
+    {
+      "group": "ext_mem_clk -> sd_card_clk",
+      "slack_ns": -0.868,
+      "start": "u_reset_mem/s2_reg_syn_4.clk",
+      "end": "frame_read_write_m0/u_cache_sd_reset/s2_reg_syn_4.sr",
+      "check": "recovery"
+    },
+    {
+      "group": "sd_card_clk -> ext_mem_clk",
+      "slack_ns": -0.179,
+      "start": "frame_read_write_m0/u_cache_sd_reset/s2_reg_syn_4.clk",
+      "end": "frame_read_write_m0/write_buf/asy_r_rst1_reg_syn_4.sr",
+      "check": "recovery"
+    },
+    {
+      "group": "clk -> ext_mem_clk",
+      "slack_ns": -1.513,
+      "start": "power_count_reg[0]_syn_4.clk",
+      "end": "u_reset_mem/s2_reg_syn_4.sr",
+      "check": "recovery"
+    },
+    {
+      "group": "clk -> hdmi_5x_clk",
+      "slack_ns": -1.54,
+      "start": "power_count_reg[0]_syn_4.clk",
+      "end": "u_reset_serial/s2_reg_syn_4.sr",
+      "check": "recovery"
+    },
+    {
+      "group": "ext_mem_clk -> sys_pll_m0/pll_inst.clkc[2]",
+      "slack_ns": -2.975,
+      "start": "U3/u2_ram/u2_wrrd/sdr_t_reg_syn_12.clk",
+      "end": "U3/sdram.dq[31]",
+      "check": "setup"
+    },
+    {
+      "group": "sys_pll_m0/pll_inst.clkc[2] -> ext_mem_clk",
+      "slack_ns": -6.565,
+      "start": "U3/sdram.dq[0]",
+      "end": "U3/sdram_syn_1.bpad",
+      "check": "setup"
+    }
+  ]
+}

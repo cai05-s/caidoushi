@@ -1,0 +1,20 @@
+{
+  "audio_manifest.json": "d5a3a27d55bf7db861db9628f1202f55ee73ab0f9a8dcafd5e700f6f11d3893e",
+  "build_five_bank.log": "f468211fed09dc25c84381490dc13dd8761b718eb04c0b33845e74c5f46ad8ab",
+  "build_five_bank.tcl": "6a58bd3fa8569a5a8be3ea0d49aa9aed5eb91c34a0472dd8a84c6cccbe500bcf",
+  "case_a_night_kanon_20261001_r5.bit": "a6dc572381869ddcdb4b944d5333b51b87e471c929f03b8bb407522826a98a8c",
+  "changed_source/src/user_source/hdl_source/hdmi_audio_route/media_hdmi_audio_bridge.v": "48d2c80a8d65725bb27bc92f1e22a7e6739d77c49f61cc66e0b4eae16429dcd8",
+  "changed_source/src/user_source/hdl_source/hdmi_audio_route/pcm_media_tone.v": "4f072747b61aac7e23578dd0032063edd5cb54511546f1eea9ffdac36fd9eb5f",
+  "changed_source/src/user_source/hdl_source/top_tf_hdmi_audio.v": "c3aebfd1b365ef258bb94be5238e9c4de9b7ff356a42d68004a95099c201df61",
+  "check_kanon_media.py": "54f84dfa6e5b5e8676c53c4d53bccd9c478f798f29f1c266dd79d0ccfa10b745",
+  "five_bank_phy.area": "74e7ab328826805cd7bb17e55282bf7cf633c737dae49e3d9b3580bef0f15761",
+  "five_bank_phy.ts": "f8cbe7fc135a8a3dece2aab70b55a70ee5b4fcb434678083679ba032cb632da7",
+  "five_bank_pr.timing": "cacf40bff4eab7462ed9f50c41e2d2b20602c8f7af9b26b3d54993fb0de6ce27",
+  "KANON.WAV": "3cfc23eedaa7cc899ae4de5dd9d47ef0d431edefa413715271ea3894959d43c2",
+  "manifest.json": "28f33b774fc79b3fb196b0433f039f73888e18e03dff43aa0fb59a3b4689e4f5",
+  "prepare_kanon.py": "803e108ac6a19390fe02cf921003615bae3d01374ed64c0c11485a5812047e36",
+  "SHA256.txt": "2b36ecdabcf10855e29a29004a172a585462496f543ab9c4f5fc1764c4693721",
+  "source_sha256.json": "7a4b8c0de1e282e1a6dc5337ffeb5396b6b75f2d14b778e82eb8957e3f9b64ae",
+  "verification.md": "53dff12fddf470d78f02cb81eefb987dbce74d42c3a564778bcf8a3b063f540f",
+  "上板测试说明.md": "bf5b7e5b3c32b6b61cc8811e997653860231962cc489a49729aeca9a91467e63"
+}

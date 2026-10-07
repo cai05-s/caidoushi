@@ -1,0 +1,19 @@
+{
+  "parser": "11.0.0",
+  "elaboration_errors": {
+    "baseline": 0,
+    "candidate": 0
+  },
+  "probe_byte_cases": 1536,
+  "signatures_exhausted": 65536,
+  "versions_exhausted": 65536,
+  "flags_exhausted": 65536,
+  "geometry_cases": 534288,
+  "boot_precedence_cases": 36864,
+  "all_other_source_identical": true,
+  "baseline_sha256": "e240279e54b39f0919c3a2239360eb37997b4aee8f3b7c857ea79995958a24c0",
+  "candidate_sha256": "b301ea98734e2d2967d5c5d95e71f45cc8392d38d00a348e4e301745df639b26",
+  "rtl_simulation_run": false,
+  "board_tested": false,
+  "limits": "Classification/branch algebra and source elaboration only; TD and physical FAT media checks required."
+}

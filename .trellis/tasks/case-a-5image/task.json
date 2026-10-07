@@ -1,0 +1,35 @@
+{
+  "id": "case-a-5image",
+  "name": "case-a-5image",
+  "title": "Case A five-image display and emergency insertion",
+  "description": "Five resident SDRAM frame banks: four normal images and one emergency image, safe rescan, cached switching and board validation.",
+  "status": "in_progress",
+  "dev_type": "embedded",
+  "priority": "P1",
+  "creator": "27348",
+  "assignee": "27348",
+  "createdAt": "2026-10-01",
+  "completedAt": null,
+  "branch": null,
+  "base_branch": null,
+  "worktree_path": null,
+  "commit": null,
+  "pr_url": null,
+  "subtasks": [],
+  "children": [
+    "10-01-sw-daynight-music"
+  ],
+  "parent": null,
+  "relatedFiles": [
+    "src/user_source/hdl_source/SD/sd_card_bmp.v",
+    "src/user_source/hdl_source/video_fade_overlay.v",
+    "src/user_source/hdl_source/top_tf_hdmi_audio.v",
+    "src/user_source/hdl_source/SD/frame_read_write.v",
+    "src/user_source/hdl_source/SD/frame_fifo_read.v",
+    "src/user_source/hdl_source/SD/frame_fifo_write.v",
+    "src/user_source/hdl_source/SD/video_timing_data.v",
+    "release/case_a_5bank_board_20261001_r5/"
+  ],
+  "notes": "Resumed session 01a0f4df-3f11-7581-ac5c-c0142f741180; final request changes to five resident banks. No simulation. See info.md and journal for build evidence; physical board validation remains pending.",
+  "meta": {}
+}

@@ -1,0 +1,59 @@
+{
+  "version": "stage24-board-20260930",
+  "device": "EG4S20BG256",
+  "status": "BOARD_TEST_ONLY",
+  "hardware_verified": false,
+  "bitstream": "lab_ex5_stage24_20260930.bit",
+  "bytes": 629624,
+  "sha256": "365c377dd49ea6d20c2f8d502a91ed4384bac55c7d70c16081f988ad4c21d7a5",
+  "build_workspace": "C:\\Users\\27348\\.codex_tmp\\stage24_td_20260930_r3",
+  "source_sha256": {
+    "src/user_source/hdl_source/top_tf_hdmi_audio.v": "004d14eec43cc39de5c9896a64573dfda425c815b2cd8a136f2129da6be4fdbb",
+    "src/user_source/hdl_source/SD/sd_card_bmp.v": "47041b4e8d1349dd24cd9649963bf218351216933729e4d43d3f074b1b2ff9af",
+    "src/user_source/hdl_source/SD/sd_card_top.v": "619ad1dd1882e838cc42ec15f7c1feb3d4450ed035a20249ec5ecd8503bd2d78",
+    "src/user_source/hdl_source/SD/frame_read_write.v": "4f1233e4b0a4af9d4d5d9d7511515d8c13850408572c74aedcad1ecc187a2432",
+    "src/user_source/hdl_source/SD/frame_fifo_write.v": "841f84e24a701a61fe079448ec9be67a4f7ba492d49f5c1a57d00a9c1b67af9b",
+    "src/user_source/hdl_source/SD/bmp_read.v": "1c13c6c982800f5dae85f620c864a0378fd00059afa1995b9850d6a49c5d0588",
+    "src/user_source/hdl_source/video_fade_overlay.v": "4a457d669904ef3d1a144d2475b567a9094cd97e1cbe2c16d97c61444118ae26",
+    "src/user_source/hdl_source/emergency_osd_overlay.v": "a03c8d1ab61b471133280debf51aadf9d950a112c5d2effc0e07f9300b5404d3",
+    "src/user_source/constraints_source/timing.sdc": "1d05cfa2ded5c682827943c35d0bbd34f238f0fc193faa444b5081d1f1f2b8db",
+    "src/user_source/constraints_source/pin.adc": "b5cf0318824c2e504b17c6826155d2398558d6ca1fd912f17e603851a0cd1741"
+  },
+  "setup_wns_ns": -6.565,
+  "hold_wns_ns": 0.004,
+  "timing_met": false,
+  "regression": [
+    {
+      "case": "emergency_keys",
+      "passed": true
+    },
+    {
+      "case": "emergency_overlay",
+      "passed": true
+    },
+    {
+      "case": "sd_recovery",
+      "passed": true
+    },
+    {
+      "case": "stage24_control",
+      "passed": true
+    },
+    {
+      "case": "frame_recovery",
+      "passed": true
+    }
+  ],
+  "media_regression_cases": 11,
+  "intra_clock_setup_wns_ns": {
+    "sd_card_clk": 0.106,
+    "video_clk": 20.965,
+    "ext_mem_clk": 1.38,
+    "hdmi_5x_clk": 4.015
+  },
+  "known_limits": [
+    "SDRAM interface timing remains unclosed",
+    "fourth scanned poster reused for emergency",
+    "no hardware or Flash programming performed"
+  ]
+}

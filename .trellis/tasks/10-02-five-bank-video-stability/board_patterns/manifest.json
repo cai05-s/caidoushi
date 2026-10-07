@@ -1,0 +1,27 @@
+[
+  {
+    "file": "1.BMP",
+    "bytes": 921654,
+    "sha256": "27e580422bb8fc1fa1bd32baa61b3b0d1192c3a172b20f8bfa17a9779b58cda3"
+  },
+  {
+    "file": "2.BMP",
+    "bytes": 921654,
+    "sha256": "a5349aa496712324d83318a9d37977818b692cbb2b8a8207b1a8b8a09cf76d7d"
+  },
+  {
+    "file": "3.BMP",
+    "bytes": 921654,
+    "sha256": "2eef9d82420557ee5972448ac49194bd7b825e03368e08b3f68194318d642053"
+  },
+  {
+    "file": "4.BMP",
+    "bytes": 921654,
+    "sha256": "958eb71b7568caa8e239afe13e2b88256fb05147fc67398dbe102c2f9ca037e5"
+  },
+  {
+    "file": "5.BMP",
+    "bytes": 921654,
+    "sha256": "0c6c04428bdda95f9c06770487fee4e82f40839548e6234aa27613599b65db73"
+  }
+]

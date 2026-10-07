@@ -1,0 +1,6 @@
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\IP\afifo_16_32_256.v:231: warning: Instantiating module ram_infer_wfifo_32_32_512 with dangling input port 14 (dib) floating.
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\SD\frame_read_write.v:131: warning: Port 20 (rdusedw) of frame_fifo_write expects 10 bits, got 9.
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\SD\frame_read_write.v:131:        : Padding 1 high bits of the port.
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\IP\afifo_32_16_256.v:231: warning: Instantiating module ram_infer_rfifo_32_32_512 with dangling input port 14 (dib) floating.
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\SD\frame_read_write.v:180: warning: Port 21 (wrusedw) of frame_fifo_read expects 10 bits, got 9.
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\SD\frame_read_write.v:180:        : Padding 1 high bits of the port.

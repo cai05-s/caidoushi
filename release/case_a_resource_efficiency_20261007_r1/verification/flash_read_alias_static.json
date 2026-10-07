@@ -1,0 +1,17 @@
+{
+  "parser": "11.0.0",
+  "elaboration_errors": {
+    "baseline": 0,
+    "candidate": 0
+  },
+  "record_vectors": 2258,
+  "predicate_cases": 18064,
+  "read_crc_bit_cases": 1011584,
+  "all_other_source_and_consumers_identical": true,
+  "store_and_spi_sources_identical": true,
+  "baseline_sha256": "52ab6a2906a05f6aee6e7fce6cd2715c63dd68b533c0b0c444ada595ddb6acef",
+  "candidate_sha256": "78d0f5caa1c53b7b22f1d7f739ce187d259e781f39d6b62cd8927fe25142f8dd",
+  "rtl_simulation_run": false,
+  "board_tested": false,
+  "limits": "Host algebra and elaboration; record lifetime separately reviewed; TD build and board persistence checks remain required."
+}

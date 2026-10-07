@@ -1,0 +1,18 @@
+{
+  "audio_manifest.json": "d5a3a27d55bf7db861db9628f1202f55ee73ab0f9a8dcafd5e700f6f11d3893e",
+  "build_five_bank.log": "bd9cb7669f343943ed2071c6191684cd6b0fb7e15bd977819a96d27d4296a01f",
+  "build_five_bank.tcl": "6b3e36afc2ce670416c3ba6701d637a24ba51e5bca2fbaca4d5530c40ae45f99",
+  "case_a_night_kanon_20261001_r7.bit": "26bae57638fba4c3fc593f5fa1bc02f8c2dc183518e858befc72dc3ff4526b7d",
+  "changed_source/src/user_source/hdl_source/include/global_def.v": "f0b5ab3f1d1ba6787f99621f2eb6f94c94026153f27463ea8d2373d9ce47c4d3",
+  "check_kanon_media.py": "54f84dfa6e5b5e8676c53c4d53bccd9c478f798f29f1c266dd79d0ccfa10b745",
+  "five_bank_phy.area": "c23941a3ab583900cf60733bec498e471a4373aa6251b0c74c0cdef39c679185",
+  "five_bank_phy.ts": "05dd410c47bf93b11096b809dc0035805c856f4d4d0f7ac02958ef25b86904c9",
+  "five_bank_pr.timing": "d31ce4f97c5ca78aca5e5a432e231d7e4ebb60706c55a049cede7af44fe93a6a",
+  "KANON.WAV": "3cfc23eedaa7cc899ae4de5dd9d47ef0d431edefa413715271ea3894959d43c2",
+  "manifest.json": "7539cc230636b31c180dd4819937a49d73cdb0e9bcb970d6efab6ff3e19a85d3",
+  "prepare_kanon.py": "803e108ac6a19390fe02cf921003615bae3d01374ed64c0c11485a5812047e36",
+  "SHA256.txt": "45a5d34cb645287d07b2c5febb0e12f8278c9c0999a6c7d846d72d0a392b1fea",
+  "source_sha256.json": "71c03b612a25dcf59dbd7f76d7d8897c3e27701c2a0d25b6dc49306e64bb60d4",
+  "verification.md": "3b25944fb73d20b06e01df62ce3167f5b95a8b203edaac2a8a4d03ea35a4096c",
+  "上板测试说明.md": "fb51ce90bc7cb7046783ffd123fa9829bd334c4f861529f9b9021e090a6ada9f"
+}

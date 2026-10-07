@@ -1,0 +1,121 @@
+--- baseline/src/user_source/hdl_source/SD/sd_fat32_wav.v
++++ candidate/src/user_source/hdl_source/SD/sd_fat32_wav.v
+@@ -65,8 +65,12 @@
+ 
+ assign req = (state == S_IO_REQ);
+ 
+-reg [15:0] bpb_bytes, bpb_reserved, bpb_root_entries;
+-reg [15:0] bpb_total16, bpb_fat16, bpb_flags, bpb_version, boot_signature;
++reg [15:0] bpb_reserved, bpb_total16;
++// Keep probe, signature and geometry failures separate: only a failed probe
++// may fall back to an MBR partition before S_GEOM0 validates FAT32 geometry.
++reg bpb_probe_mismatch, boot_signature_mismatch, bpb_geom_mismatch;
++reg bpb_fat_select_en;
++reg [3:0] bpb_active_fat;
+ reg [7:0] bpb_spc, bpb_fats;
+ reg [31:0] bpb_total32, bpb_fat32, bpb_root;
+ reg [5:0] mbr_index;
+@@ -210,9 +214,9 @@
+         raw_bytes <= 1; directory_stream <= 0;
+         pcm_valid <= 0; pcm_data <= 0; file_ready <= 0; error_code <= 0;
+         first_boot <= 1; boot_index <= 0;
+-        bpb_bytes <= 0; bpb_reserved <= 0; bpb_root_entries <= 0;
+-        bpb_total16 <= 0; bpb_fat16 <= 0; bpb_flags <= 0;
+-        bpb_version <= 0; boot_signature <= 0; bpb_spc <= 0; bpb_fats <= 0;
++        bpb_reserved <= 0; bpb_total16 <= 0;
++        bpb_probe_mismatch <= 1; boot_signature_mismatch <= 1; bpb_geom_mismatch <= 0;
++        bpb_fat_select_en <= 0; bpb_active_fat <= 0; bpb_spc <= 0; bpb_fats <= 0;
+         bpb_total32 <= 0; bpb_fat32 <= 0; bpb_root <= 0;
+         mbr_index <= 0; mbr_type <= 0; mbr_lba <= 0; mbr_size <= 0;
+         partition_lba <= 0; partition_size <= 0; partition_found <= 0;
+@@ -326,9 +330,9 @@
+             S_BOOT_BEGIN: begin
+                 raw_bytes <= 1; sector_pos <= 0; boot_index <= 0;
+                 mbr_index <= 0;
+-                bpb_bytes <= 0; bpb_reserved <= 0; bpb_root_entries <= 0;
+-                bpb_total16 <= 0; bpb_fat16 <= 0; bpb_flags <= 0;
+-                bpb_version <= 0; boot_signature <= 0;
++                bpb_reserved <= 0; bpb_total16 <= 0;
++                bpb_probe_mismatch <= 0; boot_signature_mismatch <= 0; bpb_geom_mismatch <= 0;
++                bpb_fat_select_en <= 0; bpb_active_fat <= 0;
+                 bpb_spc <= 0; bpb_fats <= 0;
+                 bpb_total32 <= 0; bpb_fat32 <= 0; bpb_root <= 0;
+                 mbr_type <= 0; mbr_lba <= 0; mbr_size <= 0;
+@@ -336,18 +340,14 @@
+             end
+             S_BOOT_BYTE: begin
+                 case (boot_index)
+-                    11: bpb_bytes[7:0] <= byte_value;
+-                    12: bpb_bytes[15:8] <= byte_value;
++                    11,17,18,22,23: if (byte_value != 0) bpb_probe_mismatch <= 1;
++                    12: if (byte_value != 8'h02) bpb_probe_mismatch <= 1;
+                     13: bpb_spc <= byte_value;
+                     14: bpb_reserved[7:0] <= byte_value;
+                     15: bpb_reserved[15:8] <= byte_value;
+                     16: bpb_fats <= byte_value;
+-                    17: bpb_root_entries[7:0] <= byte_value;
+-                    18: bpb_root_entries[15:8] <= byte_value;
+                     19: bpb_total16[7:0] <= byte_value;
+                     20: bpb_total16[15:8] <= byte_value;
+-                    22: bpb_fat16[7:0] <= byte_value;
+-                    23: bpb_fat16[15:8] <= byte_value;
+                     32: bpb_total32[7:0] <= byte_value;
+                     33: bpb_total32[15:8] <= byte_value;
+                     34: bpb_total32[23:16] <= byte_value;
+@@ -356,16 +356,18 @@
+                     37: bpb_fat32[15:8] <= byte_value;
+                     38: bpb_fat32[23:16] <= byte_value;
+                     39: bpb_fat32[31:24] <= byte_value;
+-                    40: bpb_flags[7:0] <= byte_value;
+-                    41: bpb_flags[15:8] <= byte_value;
+-                    42: bpb_version[7:0] <= byte_value;
+-                    43: bpb_version[15:8] <= byte_value;
++                    40: begin
++                        bpb_fat_select_en <= byte_value[7];
++                        bpb_active_fat <= byte_value[3:0];
++                        if ((byte_value & 8'h70) != 0) bpb_geom_mismatch <= 1;
++                    end
++                    41,42,43: if (byte_value != 0) bpb_geom_mismatch <= 1;
+                     44: bpb_root[7:0] <= byte_value;
+                     45: bpb_root[15:8] <= byte_value;
+                     46: bpb_root[23:16] <= byte_value;
+                     47: bpb_root[31:24] <= byte_value;
+-                    510: boot_signature[7:0] <= byte_value;
+-                    511: boot_signature[15:8] <= byte_value;
++                    510: if (byte_value != 8'h55) boot_signature_mismatch <= 1;
++                    511: if (byte_value != 8'haa) boot_signature_mismatch <= 1;
+                     default: begin end
+                 endcase
+                 if (first_boot && boot_index >= 9'd446 && boot_index < 9'd510) begin
+@@ -395,9 +397,8 @@
+                 else begin boot_index <= boot_index + 1'b1; state <= S_BYTE_ADDR; end
+             end
+             S_BOOT_CHECK: begin
+-                if (boot_signature != 16'haa55) fail(8'h40);
+-                else if (bpb_bytes == 16'd512 && bpb_root_entries == 0 &&
+-                         bpb_fat16 == 0 && good_cluster_size(bpb_spc))
++                if (boot_signature_mismatch) fail(8'h40);
++                else if (!bpb_probe_mismatch && good_cluster_size(bpb_spc))
+                     state <= S_GEOM0;
+                 else if (first_boot && partition_found && partition_lba != 0 &&
+                          partition_size != 0 &&
+@@ -410,8 +411,8 @@
+             S_GEOM0: begin
+                 if (bpb_reserved == 0 || (bpb_fats != 1 && bpb_fats != 2) ||
+                     bpb_fat32 == 0 || bpb_fat32 > 32'h00200000 ||
+-                    bpb_version != 0 || (bpb_flags & 16'hff70) != 0 ||
+-                    (bpb_flags[7] && bpb_flags[3:0] >= bpb_fats) ||
++                    bpb_geom_mismatch ||
++                    (bpb_fat_select_en && bpb_active_fat >= bpb_fats) ||
+                     (bpb_total16 != 0 && bpb_total32 != 0)) fail(8'h40);
+                 else begin
+                     volume_size <= bpb_total32 != 0 ? bpb_total32 : {16'd0,bpb_total16};
+@@ -452,7 +453,7 @@
+                 else begin
+                     cluster_count <= data_cluster_count[27:0];
+                     data_base <= volume_lba + metadata_size;
+-                    if (bpb_flags[7] && bpb_flags[0]) fat_base <= fat_base + fat_size;
++                    if (bpb_fat_select_en && bpb_active_fat[0]) fat_base <= fat_base + fat_size;
+                     state <= S_GEOM2;
+                 end
+             end

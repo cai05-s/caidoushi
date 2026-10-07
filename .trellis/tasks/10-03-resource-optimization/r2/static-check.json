@@ -1,0 +1,19 @@
+{
+  "parser": "11.0.0",
+  "static_elaboration_errors": 0,
+  "elaborated_sources": [
+    "player_settings_flash.v",
+    "w25q64_record_store.v",
+    "w25q64_preflight_reader.v",
+    "spi_byte_engine.v"
+  ],
+  "bit_positions_proven": 224,
+  "affine_basis_payloads": 225,
+  "total_payloads": 1227,
+  "payload_suffix_cases": 3681,
+  "reference": "binascii.crc_hqx, polynomial 0x1021, init 0xffff",
+  "changed_source_sha256": "52ab6a2906a05f6aee6e7fce6cd2715c63dd68b533c0b0c444ada595ddb6acef",
+  "rtl_simulation_run": false,
+  "board_tested": false,
+  "limits": "Source elaboration and arithmetic only; state/protocol reviewed separately."
+}

@@ -1,0 +1,16 @@
+{
+  "parser": "11.0.0",
+  "elaboration_errors": {
+    "baseline": 0,
+    "candidate": 0
+  },
+  "parameter_specializations_each": 60,
+  "write_guard_cases": 10240,
+  "full_capture_prefix_cases": 2079,
+  "all_other_control_and_display_source_identical": true,
+  "baseline_sha256": "d591fd359a5e91f74c80423e6c3f3ffe61c9ff43ef00ca77bc5389e6495d4771",
+  "candidate_sha256": "fc8eb969ce903fc9b1441831570a5e0327d4399b4842475c096c6d46279a29db",
+  "rtl_simulation_run": false,
+  "board_tested": false,
+  "limits": "Host invariants and elaboration only. Distributed RAM inference/resources and timing require TD; physical display requires board."
+}

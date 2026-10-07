@@ -1,0 +1,5 @@
+{"file": ".trellis/spec/backend/hx4s20-board.md", "reason": "Board constraints and current behavior"}
+{"file": ".trellis/spec/backend/daynight-audio.md", "reason": "PCM timing, gain and emergency contracts"}
+{"file": ".trellis/spec/backend/fpga-frame-cache.md", "reason": "Five-bank ownership, no RTL simulation, TD evidence"}
+{"file": ".trellis/spec/backend/flash-record-store.md", "reason": "Flash protocol, CRC and timeout invariants"}
+{"file": ".trellis/tasks/10-03-resource-optimization/feasibility-20261007.md", "reason": "Candidate analysis and historical failures"}

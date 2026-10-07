@@ -1,0 +1,4 @@
+{"file":".trellis/spec/backend/hx4s20-board.md","reason":"verify unchanged pins and new current roles"}
+{"file":".trellis/spec/backend/daynight-audio.md","reason":"PCM backpressure, mute and emergency"}
+{"file":".trellis/spec/backend/fpga-frame-cache.md","reason":"five-bank/rescan preservation"}
+{"file":".trellis/tasks/10-01-night-kanon/info.md","reason":"storage/FIFO/arbitration interface contract"}

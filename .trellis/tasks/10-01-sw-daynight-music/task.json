@@ -1,0 +1,32 @@
+{
+  "id": "sw-daynight-music",
+  "name": "sw-daynight-music",
+  "title": "Switch-controlled day/night music",
+  "description": "SW1 music enable, SW2 A/B, SW3/SW4 four scene levels, smooth transitions and independent emergency audio.",
+  "status": "in_progress",
+  "dev_type": "embedded",
+  "scope": null,
+  "package": null,
+  "priority": "P1",
+  "creator": "27348",
+  "assignee": "27348",
+  "createdAt": "2026-10-01",
+  "completedAt": null,
+  "branch": null,
+  "base_branch": null,
+  "worktree_path": null,
+  "commit": null,
+  "pr_url": null,
+  "subtasks": [],
+  "children": [],
+  "parent": "case-a-5image",
+  "relatedFiles": [
+    "src/user_source/hdl_source/top_tf_hdmi_audio.v",
+    "src/user_source/hdl_source/hdmi_audio_route/media_hdmi_audio_bridge.v",
+    "src/user_source/hdl_source/hdmi_audio_route/pcm_media_tone.v",
+    ".trellis/spec/backend/daynight-audio.md",
+    "release/case_a_daynight_music_20261001/"
+  ],
+  "notes": "RTL, independent review and TD R1 bit complete. No simulation. Hardware acceptance and global/SD timing closure remain pending; see info.md.",
+  "meta": {}
+}

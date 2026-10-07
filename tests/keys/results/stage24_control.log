@@ -1,0 +1,13 @@
+PASS dedicated KEY3 enters/exits without a card; held key acts once
+PASS KEY1/KEY2/KEY3 separation, startup autoplay, paused state restore
+PASS 100 emergency toggles settle to original normal poster
+PASS first bad poster retries once and skips to second
+PASS all-bad images stop after bounded attempts; KEY1 retries repaired media
+PASS KEY1 rescan rejects stale scan_done and accepts newly inserted media
+PASS failed partial scan followed by empty catalogue does not lock KEY1
+PASS incomplete pixel stream rejected before frame commit
+PASS SD reinitialization preserves frame/catalogue and emergency controls
+PASS lost transition request recovers without writing displayed buffer
+PASS stopped video preserves buffers; controls work and recovery follows frame return
+ALL STAGE24 CONTROL TESTS PASS
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\tests\keys\tb_stage24_control.v:211: $finish called at 287806000 (1ps)

@@ -1,0 +1,2 @@
+PASS cross_sector pixels=307200 sectors=2 stalls=333611 cycles=1195809
+C:\Users\27348\Desktop\lab_ex5_i2s\tests\lesson12\tb_bmp_autofit.v:89: $finish called at 11958140000 (1ps)

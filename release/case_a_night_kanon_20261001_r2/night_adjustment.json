@@ -1,0 +1,8 @@
+﻿{
+    "bit_sha256":  "0facd64d0c6e78107b9aeaca84d7c615b4dd67392ffc1910d3de5a79bd738928",
+    "wav_sha256":  "ee21bde1c69c614aca62cf51bf9ddb80ea777fd6e6235d87461471d8f16ebd56",
+    "night_brightness":  255,
+    "night_gain":  128,
+    "simulation_run":  false,
+    "board_tested":  false
+}

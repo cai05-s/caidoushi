@@ -1,0 +1,5 @@
+PASS absent card has bounded initialization and deselected SPI
+PASS missing token resets real SD chain and releases BMP drain
+PASS real SPI reinitialization and eight fresh pixels after missing token
+PASS mid-sector SPI stall recovery without stale pixels
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\tests\keys\tb_sd_recovery.v:150: $finish called at 1074176000 (1ps)

@@ -1,0 +1,2 @@
+PASS actual_FIFO partial frame interrupted, 44 stale words cleared, next 1024 words correct
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\tests\keys\tb_frame_recovery.v:109: $finish called at 140380000 (1ps)

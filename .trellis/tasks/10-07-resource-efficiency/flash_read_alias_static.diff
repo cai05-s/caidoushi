@@ -1,0 +1,59 @@
+--- r2/src/user_source/hdl_source/player_settings_flash.v
++++ r3/src/user_source/hdl_source/player_settings_flash.v
+@@ -23,7 +23,8 @@
+     reg any_valid,invalid_nonblank;
+     reg [31:0] newest_sequence,active_sequence,save_sequence;
+     reg [17:0] newest_settings,save_settings_q;
+-    reg [255:0] record,write_record;
++    reg [255:0] write_record;
++    reg read_failed;
+     reg [15:0] crc;
+     reg [7:0] bits_left;
+     reg pf_start,store_start,store_write;
+@@ -32,10 +33,14 @@
+     wire pf_done,pf_accepted,pf_error,store_done,store_error;
+     wire [3:0] pf_code,store_code;
+     wire [255:0] store_read_data;
++    // The store holds read_data while idle; no new request occurs throughout
++    // CHECK_INIT/CHECK_BITS/CHECK_DONE. Reuse that stable record in place.
++    wire [255:0] record=store_read_data;
+     wire pf_cs,pf_clk,pf_mosi,pf_wp,pf_hold,st_cs,st_clk,st_mosi,st_wp,st_hold;
+     // 记录在整个CRC计算期间保持不变，按255..32的顺序读取，省去224位移位副本。
+     wire [7:0] crc_bit_index = bits_left + 8'd31;
+-    wire crc_input_bit = (state == SAVE_BITS) ? write_record[crc_bit_index] : record[crc_bit_index];
++    wire crc_input_bit = (state == SAVE_BITS) ? write_record[crc_bit_index] :
++        (!read_failed && record[crc_bit_index]);
+     wire [15:0] crc_step={crc[14:0],1'b0} ^ ((crc[15]^crc_input_bit)?16'h1021:16'h0000);
+     wire [31:0] record_sequence={record[135:128],record[143:136],record[151:144],record[159:152]};
+     wire [17:0] record_settings={3'd0,record[160],record[169:168],record[178:176],
+@@ -44,8 +49,10 @@
+         record[215:208]==32 && record[207:200]<=4 && record[199:192]<=4 &&
+         record[191:184]<=4 && record[183:176]<=4 && record[175:168]<=3 &&
+         record[167:160]<=1 && record[127:32]==0 && record[15:0]==16'ha55a;
+-    wire record_good=fields_good && {record[23:16],record[31:24]}==crc;
+-    wire record_blank=&record;
++    // Failed reads previously supplied an all-zero record: always invalid,
++    // never blank, with zero input bits for the complete CRC traversal.
++    wire record_good=!read_failed && fields_good && {record[23:16],record[31:24]}==crc;
++    wire record_blank=!read_failed && (&record);
+     wire [31:0] sequence_delta=record_sequence-newest_sequence;
+     wire record_newer=record_sequence!=newest_sequence && !sequence_delta[31];
+     wire [23:0] slot_address=24'h7f0000+{slot,12'd0};
+@@ -94,7 +101,7 @@
+             slot<=0;active_slot<=0;newest_slot<=0;any_valid<=0;invalid_nonblank<=0;
+             newest_sequence<=0;active_sequence<=0;save_sequence<=0;
+             newest_settings<=DEFAULTS;save_settings_q<=DEFAULTS;
+-            record<=0;write_record<=0;crc<=16'hffff;bits_left<=0;
++            read_failed<=0;write_record<=0;crc<=16'hffff;bits_left<=0;
+             pf_start<=0;store_start<=0;store_write<=0;store_address<=24'h7f0000;
+             load_done<=0;load_valid<=0;loaded_settings<=DEFAULTS;
+             save_done<=0;save_ok<=0;error_code<=0;
+@@ -112,7 +119,7 @@
+                     store_write<=0;store_start<=1;state<=READ_WAIT;
+                 end
+                 READ_WAIT:if(store_done) begin
+-                    record<=store_error?256'd0:store_read_data;
++                    read_failed<=store_error;
+                     if(store_error) error_code<=8'h71;
+                     state<=CHECK_INIT;
+                 end

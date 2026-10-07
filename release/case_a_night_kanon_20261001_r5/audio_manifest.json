@@ -1,0 +1,12 @@
+{
+  "artifact": "KANON.WAV",
+  "sha256": "3cfc23eedaa7cc899ae4de5dd9d47ef0d431edefa413715271ea3894959d43c2",
+  "channels": 2,
+  "sample_rate": 48000,
+  "sample_width_bytes": 2,
+  "frames": 6824995,
+  "duration_seconds": 142.18739583333334,
+  "size_bytes": 27300058,
+  "source_normalization_gain": 2.3,
+  "copied_to_tf_this_session": false
+}

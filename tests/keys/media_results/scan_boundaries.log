@@ -1,0 +1,2 @@
+PASS scan_boundaries scenarios=5
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\tests\lesson12\tb_bmp_scan.v:113: $finish called at 36670000 (1ps)

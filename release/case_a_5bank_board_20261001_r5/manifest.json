@@ -1,0 +1,143 @@
+{
+  "artifact": "case_a_5bank_20261001.bit",
+  "sha256": "25c6e2eddf4572e13fb09cac3312ba6214e51ba1611588afcf39a670565f5d32",
+  "build_dir": "C:\\Users\\27348\\.codex_tmp\\case_a_5bank_td_20261001_r5",
+  "build_complete": true,
+  "timing_closed": false,
+  "global_setup_ns": -6.565,
+  "global_hold_ns": 0.004,
+  "clock_groups": [
+    {
+      "group": "sd_card_clk -> sd_card_clk",
+      "setup_ns": -0.17,
+      "hold_ns": 0.021
+    },
+    {
+      "group": "video_clk -> video_clk",
+      "setup_ns": 12.275,
+      "hold_ns": 0.075
+    },
+    {
+      "group": "ext_mem_clk -> ext_mem_clk",
+      "setup_ns": 0.132,
+      "hold_ns": 0.004
+    },
+    {
+      "group": "clk -> clk",
+      "setup_ns": 15.005,
+      "hold_ns": 0.329
+    },
+    {
+      "group": "hdmi_5x_clk -> hdmi_5x_clk",
+      "setup_ns": 3.26,
+      "hold_ns": 0.346
+    },
+    {
+      "group": "sd_card_clk -> video_clk",
+      "setup_ns": 7.526,
+      "hold_ns": 0.253
+    },
+    {
+      "group": "video_clk -> hdmi_5x_clk",
+      "setup_ns": 6.429,
+      "hold_ns": 0.359
+    },
+    {
+      "group": "ext_mem_clk -> sd_card_clk",
+      "setup_ns": -0.169,
+      "hold_ns": 0.244
+    },
+    {
+      "group": "sd_card_clk -> ext_mem_clk",
+      "setup_ns": 0.84,
+      "hold_ns": 0.244
+    },
+    {
+      "group": "video_clk -> ext_mem_clk",
+      "setup_ns": 6.487,
+      "hold_ns": 0.244
+    },
+    {
+      "group": "ext_mem_clk -> video_clk",
+      "setup_ns": 6.196,
+      "hold_ns": 0.351
+    },
+    {
+      "group": "sd_card_clk -> clk",
+      "setup_ns": 5.743,
+      "hold_ns": 0.173
+    },
+    {
+      "group": "clk -> video_clk",
+      "setup_ns": 13.29,
+      "hold_ns": 2.27
+    },
+    {
+      "group": "video_clk -> sd_card_clk",
+      "setup_ns": 7.928,
+      "hold_ns": 0.696
+    },
+    {
+      "group": "clk -> hdmi_5x_clk",
+      "setup_ns": -2.745,
+      "hold_ns": 3.031
+    },
+    {
+      "group": "clk -> ext_mem_clk",
+      "setup_ns": -2.844,
+      "hold_ns": 3.358
+    },
+    {
+      "group": "clk -> sd_card_clk",
+      "setup_ns": 2.693,
+      "hold_ns": 3.642
+    },
+    {
+      "group": "hdmi_5x_clk -> video_clk",
+      "setup_ns": 3.769,
+      "hold_ns": 2.256
+    },
+    {
+      "group": "ext_mem_clk -> sys_pll_m0/pll_inst.clkc[2]",
+      "setup_ns": -2.92,
+      "hold_ns": 3.874
+    },
+    {
+      "group": "sys_pll_m0/pll_inst.clkc[2] -> ext_mem_clk",
+      "setup_ns": -6.565,
+      "hold_ns": 8.43
+    }
+  ],
+  "resources": {
+    "lut": {
+      "used": 7295,
+      "available": 19600
+    },
+    "reg": {
+      "used": 4378,
+      "available": 19600
+    },
+    "bram": {
+      "used": 16,
+      "available": 64
+    },
+    "dsp": {
+      "used": 10,
+      "available": 29
+    }
+  },
+  "changed_rtl": [
+    "src/user_source/hdl_source/SD/frame_fifo_read.v",
+    "src/user_source/hdl_source/SD/frame_fifo_write.v",
+    "src/user_source/hdl_source/SD/frame_read_write.v",
+    "src/user_source/hdl_source/SD/sd_card_bmp.v",
+    "src/user_source/hdl_source/SD/video_timing_data.v",
+    "src/user_source/hdl_source/top_tf_hdmi_audio.v",
+    "src/user_source/hdl_source/video_fade_overlay.v"
+  ],
+  "source_hashes_match": true,
+  "simulation_run": false,
+  "hardware_downloaded": false,
+  "flash_programmed": false,
+  "board_tested": false
+}

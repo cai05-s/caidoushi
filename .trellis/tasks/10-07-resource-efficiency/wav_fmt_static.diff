@@ -1,0 +1,92 @@
+--- baseline/src/user_source/hdl_source/SD/sd_fat32_wav.v
++++ candidate/src/user_source/hdl_source/SD/sd_fat32_wav.v
+@@ -95,8 +95,7 @@
+ reg [3:0] field_index;
+ reg [31:0] riff_tag, riff_size, wave_tag, riff_end;
+ reg [31:0] chunk_tag, chunk_size, skip_remaining;
+-reg [15:0] fmt_format, fmt_channels, fmt_align, fmt_bits;
+-reg [31:0] fmt_rate, fmt_byte_rate;
++reg fmt_mismatch;
+ reg fmt_seen;
+ reg [31:0] data_size, data_remaining, data_file_position;
+ reg [27:0] data_cluster;
+@@ -118,6 +117,25 @@
+             9: short_name_byte=8'h41; // A
+             10: short_name_byte=8'h56; // V
+             default: short_name_byte=8'h20;
++        endcase
++    end
++endfunction
++
++// The supported PCM format is fixed. Retain only the comparison result,
++// rather than storing all 16 bytes until S_FMT_CHECK.
++function [7:0] pcm_format_byte;
++    input [3:0] index;
++    begin
++        case (index)
++            0: pcm_format_byte=8'h01;  // PCM
++            2: pcm_format_byte=8'h02;  // stereo
++            4: pcm_format_byte=8'h80;  // 48000 = 0x0000bb80
++            5: pcm_format_byte=8'hbb;
++            9: pcm_format_byte=8'hee;  // 192000 = 0x0002ee00
++            10: pcm_format_byte=8'h02;
++            12: pcm_format_byte=8'h04; // block alignment
++            14: pcm_format_byte=8'h10; // 16 bits/sample
++            default: pcm_format_byte=8'h00;
+         endcase
+     end
+ endfunction
+@@ -171,8 +189,7 @@
+         file_size <= 0; file_position <= 0; field_index <= 0;
+         riff_tag <= 0; riff_size <= 0; wave_tag <= 0; riff_end <= 0;
+         chunk_tag <= 0; chunk_size <= 0; skip_remaining <= 0;
+-        fmt_format <= 0; fmt_channels <= 0; fmt_align <= 0; fmt_bits <= 0;
+-        fmt_rate <= 0; fmt_byte_rate <= 0; fmt_seen <= 0;
++        fmt_mismatch <= 1; fmt_seen <= 0;
+         data_size <= 0; data_remaining <= 0; data_file_position <= 0;
+         data_cluster <= 0; data_cluster_sector <= 0; data_sector_pos <= 0;
+         pcm_index <= 0; pcm_partial <= 0;
+@@ -590,8 +607,7 @@
+                 end else if (chunk_tag == 32'h20746d66) begin // fmt
+                     if (chunk_size < 16) fail(8'h42);
+                     else begin
+-                        field_index <= 0; fmt_format <= 0; fmt_channels <= 0;
+-                        fmt_rate <= 0; fmt_byte_rate <= 0; fmt_align <= 0; fmt_bits <= 0;
++                        field_index <= 0; fmt_mismatch <= 0;
+                         skip_remaining <= chunk_size-32'd16+{31'd0,chunk_size[0]};
+                         byte_return <= S_FMT_BYTE; state <= S_BYTE_ADDR;
+                     end
+@@ -601,31 +617,12 @@
+                 end
+             end
+             S_FMT_BYTE: begin
+-                case (field_index)
+-                    0: fmt_format[7:0] <= byte_value;
+-                    1: fmt_format[15:8] <= byte_value;
+-                    2: fmt_channels[7:0] <= byte_value;
+-                    3: fmt_channels[15:8] <= byte_value;
+-                    4: fmt_rate[7:0] <= byte_value;
+-                    5: fmt_rate[15:8] <= byte_value;
+-                    6: fmt_rate[23:16] <= byte_value;
+-                    7: fmt_rate[31:24] <= byte_value;
+-                    8: fmt_byte_rate[7:0] <= byte_value;
+-                    9: fmt_byte_rate[15:8] <= byte_value;
+-                    10: fmt_byte_rate[23:16] <= byte_value;
+-                    11: fmt_byte_rate[31:24] <= byte_value;
+-                    12: fmt_align[7:0] <= byte_value;
+-                    13: fmt_align[15:8] <= byte_value;
+-                    14: fmt_bits[7:0] <= byte_value;
+-                    15: fmt_bits[15:8] <= byte_value;
+-                    default: begin end
+-                endcase
++                if (byte_value != pcm_format_byte(field_index)) fmt_mismatch <= 1;
+                 if (field_index == 15) state <= S_FMT_CHECK;
+                 else begin field_index <= field_index+1'b1; state <= S_BYTE_ADDR; end
+             end
+             S_FMT_CHECK: begin
+-                if (fmt_format != 1 || fmt_channels != 2 || fmt_rate != 48000 ||
+-                    fmt_byte_rate != 192000 || fmt_align != 4 || fmt_bits != 16)
++                if (fmt_mismatch)
+                     fail(8'h42);
+                 else begin fmt_seen <= 1; state <= S_SKIP; end
+             end

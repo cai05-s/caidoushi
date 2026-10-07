@@ -1,0 +1,15 @@
+PASS debounce and short/long separation
+PASS emergency entry, normal navigation suppression, short exit and restore
+PASS held key triggers once, release is consumed, long exit works
+PASS queued navigation and emergency cancel while transition busy
+PASS exit/reenter during load preserves original normal image
+PASS reentry after restore request is consumed preserves normal snapshot
+PASS successful normal navigation after failed restore refreshes snapshot
+PASS emergency load timeout and short-press recovery
+PASS valid emergency poster can bypass failed initial normal poster
+PASS 1/2/3-image configurations remain responsive without emergency poster
+PASS empty card ignores playback and emergency requests
+PASS invalid emergency BMP recovery
+PASS simultaneous emergency/next/autoplay arbitration
+ALL KEY TESTS PASS
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\tests\keys\tb_emergency_keys.v:261: $finish called at 524456000 (1ps)

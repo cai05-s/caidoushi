@@ -1,0 +1,16 @@
+{
+  "parser": "11.0.0",
+  "static_elaboration_errors": 0,
+  "verilog_signed_constant_cases": 256,
+  "pcm_values_checked": 65536,
+  "quotient_range": [
+    -32,
+    31
+  ],
+  "default_bank_bits_before": 512,
+  "default_bank_bits_after": 384,
+  "changed_source_sha256": "eda1a4a3082175d1daa5f7d780b75fd2ecb83e4db4d92eb66ffb70fed2bc1713",
+  "rtl_simulation_run": false,
+  "board_tested": false,
+  "limits": "Constant elaboration and arithmetic; capture/bank/peak invariants reviewed separately."
+}

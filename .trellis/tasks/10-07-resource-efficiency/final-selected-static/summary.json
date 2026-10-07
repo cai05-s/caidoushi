@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "jobs": [
+    {
+      "name": "frame-cache",
+      "script": "C:\\Users\\27348\\Desktop\\\u5d4c\u5165\u5f0f\u82af\u7247\u8bbe\u8ba1\u7ade\u8d5bFPGA\\lab_ex5_i2s\\lab_ex5_i2s\\lab_ex5_i2s\\tools\\check_frame_cache_static.py",
+      "script_sha256": "8bb1adac519553f207b865f8444d5072f1228c1b70ce59f18652b6bda8c4bdbf",
+      "report": "C:\\Users\\27348\\Desktop\\\u5d4c\u5165\u5f0f\u82af\u7247\u8bbe\u8ba1\u7ade\u8d5bFPGA\\lab_ex5_i2s\\lab_ex5_i2s\\lab_ex5_i2s\\.trellis\\tasks\\10-07-resource-efficiency\\final-selected-static\\frame-cache.json",
+      "report_sha256": "7ff3c8891f2644ffcaf7b0e44c88499b326aec6c5edec79b6554fdd4aa197a6f",
+      "source_root_override": "C:\\Users\\27348\\.codex_tmp\\resource_efficiency_20261007_r5_tags",
+      "status": "PASS"
+    },
+    {
+      "name": "waveform-quantization",
+      "script": "C:\\Users\\27348\\Desktop\\\u5d4c\u5165\u5f0f\u82af\u7247\u8bbe\u8ba1\u7ade\u8d5bFPGA\\lab_ex5_i2s\\lab_ex5_i2s\\lab_ex5_i2s\\tools\\check_waveform_resource_static.py",
+      "script_sha256": "f874377ef420723281ff2ee35a02d0d72c37fe795308eac6112280eda6f9a054",
+      "report": "C:\\Users\\27348\\Desktop\\\u5d4c\u5165\u5f0f\u82af\u7247\u8bbe\u8ba1\u7ade\u8d5bFPGA\\lab_ex5_i2s\\lab_ex5_i2s\\lab_ex5_i2s\\.trellis\\tasks\\10-07-resource-efficiency\\final-selected-static\\waveform-quantization.json",
+      "report_sha256": "df0db04a4ff5a00e60dab52ff0a359d566fac92062cdf0fdcf791f4e97fa3c94",
+      "source_root_override": "C:\\Users\\27348\\.codex_tmp\\resource_efficiency_20261007_r5_tags",
+      "status": "PASS"
+    },
+    {
+      "name": "flash-record",
+      "script": "C:\\Users\\27348\\Desktop\\\u5d4c\u5165\u5f0f\u82af\u7247\u8bbe\u8ba1\u7ade\u8d5bFPGA\\lab_ex5_i2s\\lab_ex5_i2s\\lab_ex5_i2s\\tools\\check_flash_resource_static.py",
+      "script_sha256": "1858db42dc2c120296c9ce72fc8d080279a391c6c781da3d38a93d3623a49f75",
+      "report": "C:\\Users\\27348\\Desktop\\\u5d4c\u5165\u5f0f\u82af\u7247\u8bbe\u8ba1\u7ade\u8d5bFPGA\\lab_ex5_i2s\\lab_ex5_i2s\\lab_ex5_i2s\\.trellis\\tasks\\10-07-resource-efficiency\\final-selected-static\\flash-record.json",
+      "report_sha256": "c6960d616883f733cc537e47a25fc37265e92beeb071e9d771de74c639e0d377",
+      "source_root_override": "C:\\Users\\27348\\.codex_tmp\\resource_efficiency_20261007_r5_tags",
+      "status": "PASS"
+    },
+    {
+      "name": "flash-crc",
+      "script": "C:\\Users\\27348\\Desktop\\\u5d4c\u5165\u5f0f\u82af\u7247\u8bbe\u8ba1\u7ade\u8d5bFPGA\\lab_ex5_i2s\\lab_ex5_i2s\\lab_ex5_i2s\\tools\\check_settings_crc_static.py",
+      "script_sha256": "43cc1f4103de202bdeb773820661ece31702071e8966e1d81815f1ddccde7459",
+      "report": "C:\\Users\\27348\\Desktop\\\u5d4c\u5165\u5f0f\u82af\u7247\u8bbe\u8ba1\u7ade\u8d5bFPGA\\lab_ex5_i2s\\lab_ex5_i2s\\lab_ex5_i2s\\.trellis\\tasks\\10-07-resource-efficiency\\final-selected-static\\flash-crc.json",
+      "report_sha256": "a6f0dfeb151f29b5993bd650a950f2c44499acbdac0b4f5be44a8011653b20b7",
+      "source_root_override": "C:\\Users\\27348\\.codex_tmp\\resource_efficiency_20261007_r5_tags",
+      "status": "PASS"
+    },
+    {
+      "name": "hdmi-packet",
+      "script": "C:\\Users\\27348\\Desktop\\\u5d4c\u5165\u5f0f\u82af\u7247\u8bbe\u8ba1\u7ade\u8d5bFPGA\\lab_ex5_i2s\\lab_ex5_i2s\\lab_ex5_i2s\\.trellis\\tasks\\10-07-resource-efficiency\\check_hdmi_packet_static.py",
+      "script_sha256": "23b0c736e625e67cef60b4ec32aa4f4248bae4d011062d5cf80212b4a38848ad",
+      "report": "C:\\Users\\27348\\Desktop\\\u5d4c\u5165\u5f0f\u82af\u7247\u8bbe\u8ba1\u7ade\u8d5bFPGA\\lab_ex5_i2s\\lab_ex5_i2s\\lab_ex5_i2s\\.trellis\\tasks\\10-07-resource-efficiency\\final-selected-static\\hdmi-packet.json",
+      "report_sha256": "03cd045c152bbc39152ede0708303d4689d17083a932569dffb5b27fee22b8cc",
+      "source_root_override": "C:\\Users\\27348\\.codex_tmp\\resource_efficiency_20261007_r5_tags",
+      "status": "PASS"
+    }
+  ],
+  "source_manifest_sha256": "64a13482245de8e79cc25233706c6c7054735b278503906c3ab5f56d438d82f5",
+  "source_files_verified_before_and_after": 99,
+  "rtl_simulation_run": false,
+  "board_tested": false,
+  "limits": "Static elaboration, arithmetic and source checks only; frame baseline intentionally starts at reviewed R4, while full comparison separately protects original board/IP constraints."
+}

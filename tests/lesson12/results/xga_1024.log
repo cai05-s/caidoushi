@@ -1,0 +1,2 @@
+PASS xga_1024 pixels=307200 sectors=3361 stalls=394760 cycles=7472305
+C:\Users\27348\Desktop\lab_ex5_i2s\tests\lesson12\tb_bmp_autofit.v:89: $finish called at 74723100000 (1ps)

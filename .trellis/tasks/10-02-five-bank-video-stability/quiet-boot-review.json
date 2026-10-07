@@ -1,0 +1,9 @@
+{
+  "changed_rtl": [
+    "src/user_source/hdl_source/top_tf_hdmi_audio.v",
+    "src/user_source/hdl_source/SD/sd_card_bmp.v"
+  ],
+  "review": "UI signal only; initial cache state, reader/writer bridge, audio, pins and timing constraints unchanged. Boot flag clears after cache completion/failure; later refresh prompts use the existing synchronized/frame-latched path.",
+  "rtl_simulation_run": false,
+  "board_tested": false
+}

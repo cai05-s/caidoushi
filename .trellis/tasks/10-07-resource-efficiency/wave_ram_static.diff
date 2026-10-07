@@ -1,0 +1,56 @@
+--- r1/src/user_source/hdl_source/promax_audio_waveform.v
++++ r2/src/user_source/hdl_source/promax_audio_waveform.v
+@@ -29,8 +29,8 @@
+     // 显示只使用高8位有符号值除以4的结果；提前保留向零取整的6位商。
+     wire signed [5:0] capture_quarter = pcm_tap_left[15:10] +
+         ((pcm_tap_left[15] && (|pcm_tap_left[9:8])) ? 6'd1 : 6'd0);
+-    reg [5:0] sample_bank0 [0:SAMPLE_COUNT-1];
+-    reg [5:0] sample_bank1 [0:SAMPLE_COUNT-1];
++    (* ram_style = "dram" *) reg [5:0] sample_bank0 [0:SAMPLE_COUNT-1];
++    (* ram_style = "dram" *) reg [5:0] sample_bank1 [0:SAMPLE_COUNT-1];
+     reg       write_bank;
+     reg       display_bank;
+     reg       display_valid;
+@@ -49,7 +49,19 @@
+ 
+     wire frame_start = vs_q && !vsync;
+ 
+-    integer i;
++    // Unreset distributed RAM keeps the asynchronous display read unchanged.
++    // display_valid masks RAM until a complete bank has been captured; the
++    // write bank is always opposite the displayed bank, including after swap.
++    always @(posedge clk) begin
++        if (rst_n && !frame_start && pcm_tap_valid &&
++            capture_count < SAMPLE_COUNT && decimate_count == 8'd0) begin
++            if (write_bank)
++                sample_bank1[capture_count] <= capture_quarter;
++            else
++                sample_bank0[capture_count] <= capture_quarter;
++        end
++    end
++
+     always @(posedge clk or negedge rst_n) begin
+         if (!rst_n) begin
+             line_y         <= 10'd0;
+@@ -63,10 +75,6 @@
+             peak_bank0     <= 8'd0;
+             peak_bank1     <= 8'd0;
+             display_peak   <= 8'd0;
+-            for (i = 0; i < SAMPLE_COUNT; i = i + 1) begin
+-                sample_bank0[i] <= 6'd0;
+-                sample_bank1[i] <= 6'd0;
+-            end
+         end else begin
+             de_q   <= de;
+             vs_q   <= vsync;
+@@ -85,10 +93,6 @@
+                 else            peak_bank1 <= 8'd0;
+             end else if (pcm_tap_valid && capture_count < SAMPLE_COUNT) begin
+                 if (decimate_count == 8'd0) begin
+-                    if (write_bank)
+-                        sample_bank1[capture_count] <= capture_quarter;
+-                    else
+-                        sample_bank0[capture_count] <= capture_quarter;
+                     capture_count  <= capture_count + 1'b1;
+                     decimate_count <= DECIMATE - 1;
+                     if (write_bank) begin

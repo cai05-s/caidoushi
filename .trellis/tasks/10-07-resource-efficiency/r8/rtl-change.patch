@@ -1,0 +1,141 @@
+--- baseline/src/user_source/hdl_source/SD/bmp_read.v
++++ candidate/src/user_source/hdl_source/SD/bmp_read.v
+@@ -44,6 +44,34 @@
+         ERR_COMPRESSION = 8'h35, ERR_OFFSET = 8'h36,
+         ERR_LENGTH = 8'h37, ERR_IO = 8'h38, ERR_DIB = 8'h39;
+     localparam integer LINE_ADDR_BITS = (MAX_DIM > 1) ? $clog2(MAX_DIM) : 1;
++    // Only post-validation geometry is compacted. Preserve legacy widths for
++    // parameter combinations outside the positive 16-bit geometry domain.
++    localparam COMPACT_GEOMETRY = FRAME_WIDTH >= 1 && FRAME_WIDTH <= 65535 &&
++        FRAME_HEIGHT >= 1 && FRAME_HEIGHT <= 65535 && MAX_DIM >= 1 && MAX_DIM <= 65535;
++    localparam integer X_BITS = COMPACT_GEOMETRY ?
++        (($clog2(FRAME_WIDTH+1) > 0) ? $clog2(FRAME_WIDTH+1) : 1) : 16;
++    localparam integer Y_BITS = COMPACT_GEOMETRY ?
++        (($clog2(FRAME_HEIGHT+1) > 0) ? $clog2(FRAME_HEIGHT+1) : 1) : 16;
++    localparam integer SOURCE_BITS = COMPACT_GEOMETRY ?
++        (($clog2(MAX_DIM+1) > 0) ? $clog2(MAX_DIM+1) : 1) : 16;
++    localparam integer ROW_BITS = COMPACT_GEOMETRY ? LINE_ADDR_BITS : 16;
++
++    function integer scale_step_bound;
++        input integer maximum, primary_frame, other_frame;
++        reg [63:0] direct_bound, cross_bound, bound;
++        begin
++            direct_bound = maximum / primary_frame;
++            cross_bound = (64'd2 * maximum) / other_frame;
++            bound = (direct_bound > cross_bound) ? direct_bound : cross_bound;
++            scale_step_bound = (bound > maximum) ? maximum : bound;
++        end
++    endfunction
++    localparam integer X_STEP_BOUND = COMPACT_GEOMETRY ?
++        scale_step_bound(MAX_DIM, FRAME_WIDTH, FRAME_HEIGHT) : 65535;
++    localparam integer Y_STEP_BOUND = COMPACT_GEOMETRY ?
++        scale_step_bound(MAX_DIM, FRAME_HEIGHT, FRAME_WIDTH) : 65535;
++    localparam integer X_STEP_BITS = ($clog2(X_STEP_BOUND+1) > 0) ? $clog2(X_STEP_BOUND+1) : 1;
++    localparam integer Y_STEP_BITS = ($clog2(Y_STEP_BOUND+1) > 0) ? $clog2(Y_STEP_BOUND+1) : 1;
+ 
+     reg [4:0] state, sector_return_state;
+     reg [9:0] sector_count;
+@@ -64,17 +92,31 @@
+     reg top_down, width_limited;
+     reg [15:0] row_stride;
+     reg [31:0] row_byte_offset, fetch_pos;
+-    reg [15:0] fit_width, fit_height, x_offset, y_offset;
+-    reg [15:0] out_x, out_y, source_x, source_y, file_row;
+-    reg [15:0] x_step, y_step, x_remainder, y_remainder, x_error, y_error;
+-    wire [16:0] x_error_sum = {1'b0, x_error} + {1'b0, x_remainder};
+-    wire [16:0] y_error_sum = {1'b0, y_error} + {1'b0, y_remainder};
+-    reg [16:0] image_x_end, image_y_end;
++    reg [X_BITS-1:0] fit_width, x_offset, out_x, x_remainder, x_error;
++    reg [Y_BITS-1:0] fit_height, y_offset, out_y, y_remainder, y_error;
++    reg [SOURCE_BITS-1:0] source_x, source_y;
++    reg [ROW_BITS-1:0] file_row;
++    reg [X_STEP_BITS-1:0] x_step;
++    reg [Y_STEP_BITS-1:0] y_step;
++    wire [X_BITS:0] x_error_sum = {1'b0, x_error} + {1'b0, x_remainder};
++    wire [Y_BITS:0] y_error_sum = {1'b0, y_error} + {1'b0, y_remainder};
++    reg [X_BITS:0] image_x_end;
++    reg [Y_BITS:0] image_y_end;
+     wire row_in_image = out_y >= y_offset && out_y < image_y_end;
+     wire pixel_in_image = row_in_image && out_x >= x_offset && out_x < image_x_end;
+ 
+     reg line_valid;
+-    reg [15:0] cached_row, capture_x;
++    reg [ROW_BITS-1:0] cached_row, capture_x;
++    wire [LINE_ADDR_BITS-1:0] line_capture_address, line_source_address;
++    generate
++        if (COMPACT_GEOMETRY) begin : compact_line_address
++            assign line_capture_address = capture_x;
++            assign line_source_address = source_x;
++        end else begin : legacy_line_address
++            assign line_capture_address = capture_x[LINE_ADDR_BITS-1:0];
++            assign line_source_address = source_x[LINE_ADDR_BITS-1:0];
++        end
++    endgenerate
+     reg [1:0] channel;
+     reg [7:0] blue_hold, green_hold;
+     reg [8:0] sector_read_address;
+@@ -167,9 +209,9 @@
+         if (state == ST_BYTE_WAIT)
+             sector_read_data <= sector_memory[sector_read_address];
+         if (state == ST_BYTE_DATA && channel == 2'd2)
+-            line_memory[capture_x[LINE_ADDR_BITS-1:0]] <= {sector_read_data, green_hold, blue_hold};
++            line_memory[line_capture_address] <= {sector_read_data, green_hold, blue_hold};
+         if (state == ST_PIXEL && pixel_in_image)
+-            line_read_data <= line_memory[source_x[LINE_ADDR_BITS-1:0]];
++            line_read_data <= line_memory[line_source_address];
+     end
+ 
+     always @(posedge clk or posedge rst) begin
+@@ -311,16 +353,16 @@
+                 ST_DIV_WAIT: if (div_done) begin
+                     case (div_operation)
+                         0: begin
+-                            if (width_limited) fit_height <= (div_quotient == 0) ? 16'd1 : div_quotient[15:0];
+-                            else fit_width <= (div_quotient == 0) ? 16'd1 : div_quotient[15:0];
++                            if (width_limited) fit_height <= (div_quotient == 0) ? 16'd1 : div_quotient[Y_BITS-1:0];
++                            else fit_width <= (div_quotient == 0) ? 16'd1 : div_quotient[X_BITS-1:0];
+                             state <= ST_STEP_X;
+                         end
+                         1: begin
+-                            x_step <= div_quotient[15:0]; x_remainder <= div_remainder[15:0];
++                            x_step <= div_quotient[X_STEP_BITS-1:0]; x_remainder <= div_remainder[X_BITS-1:0];
+                             state <= ST_STEP_Y;
+                         end
+                         default: begin
+-                            y_step <= div_quotient[15:0]; y_remainder <= div_remainder[15:0];
++                            y_step <= div_quotient[Y_STEP_BITS-1:0]; y_remainder <= div_remainder[Y_BITS-1:0];
+                             x_offset <= (FRAME_WIDTH - fit_width) >> 1;
+                             y_offset <= (FRAME_HEIGHT - fit_height) >> 1;
+                             out_x <= 0; out_y <= 0; source_x <= 0; source_y <= 0; x_error <= 0; y_error <= 0;
+@@ -329,11 +371,11 @@
+                     endcase
+                 end
+                 ST_STEP_X: begin
+-                    div_numerator <= {16'd0, image_width}; div_denominator <= {16'd0, fit_width};
++                    div_numerator <= {16'd0, image_width}; div_denominator <= {{(32-X_BITS){1'b0}}, fit_width};
+                     div_operation <= 1; div_start <= 1; state <= ST_DIV_WAIT;
+                 end
+                 ST_STEP_Y: begin
+-                    div_numerator <= {16'd0, image_height}; div_denominator <= {16'd0, fit_height};
++                    div_numerator <= {16'd0, image_height}; div_denominator <= {{(32-Y_BITS){1'b0}}, fit_height};
+                     div_operation <= 2; div_start <= 1; state <= ST_DIV_WAIT;
+                 end
+                 ST_ACK_HIGH: if (ack_sync[1]) begin write_req <= 0; state <= ST_ACK_LOW; end
+@@ -392,7 +434,7 @@
+                             source_x <= source_x + x_step + 1'b1;
+                             x_error <= x_error_sum - {1'b0, fit_width};
+                         end else begin
+-                            source_x <= source_x + x_step; x_error <= x_error_sum[15:0];
++                            source_x <= source_x + x_step; x_error <= x_error_sum[X_BITS-1:0];
+                         end
+                     end
+                     if (out_x == FRAME_WIDTH - 1) begin
+@@ -402,7 +444,7 @@
+                                 source_y <= source_y + y_step + 1'b1;
+                                 y_error <= y_error_sum - {1'b0, fit_height};
+                             end else begin
+-                                source_y <= source_y + y_step; y_error <= y_error_sum[15:0];
++                                source_y <= source_y + y_step; y_error <= y_error_sum[Y_BITS-1:0];
+                             end
+                         end
+                         if (out_y == FRAME_HEIGHT - 1) state <= ST_IDLE;

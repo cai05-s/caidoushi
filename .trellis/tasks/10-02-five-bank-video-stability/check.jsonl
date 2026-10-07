@@ -1,0 +1,4 @@
+﻿{"file":".trellis/spec/backend/hx4s20-board.md","reason":"verify no board pin or LED-role drift"}
+{"file":".trellis/spec/backend/fpga-frame-cache.md","reason":"verify FIFO, bank, error and no-simulation contracts"}
+{"file":".trellis/spec/backend/daynight-audio.md","reason":"verify audio and switch behavior remains unchanged"}
+{"file":".trellis/tasks/10-02-five-bank-video-stability/prd.md","reason":"verify implementation and acceptance criteria"}

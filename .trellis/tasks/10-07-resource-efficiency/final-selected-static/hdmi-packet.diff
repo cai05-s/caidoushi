@@ -1,0 +1,109 @@
+--- r3/src/user_source/hdl_source/hdmi_audio_route/hdmi_audio_sample_packetizer.v
++++ r4/src/user_source/hdl_source/hdmi_audio_route/hdmi_audio_sample_packetizer.v
+@@ -12,14 +12,13 @@
+     output reg  [23:0]        packet_header,
+     output wire [7:0]         packet_header_ecc,
+     output reg  [223:0]       packet_body,
+-    output wire [31:0]        packet_body_ecc,
++    output reg  [31:0]        packet_body_ecc,
+     output reg  [7:0]         packet_frame_base
+ );
+     reg [1:0] collect_count;
+     reg [7:0] next_audio_frame_base;
+-    reg signed [15:0] left0, left1, left2;
+-    reg signed [15:0] right0, right1, right2;
+-    wire [7:0] ecc0, ecc1, ecc2, ecc3;
++    wire [55:0] current_subpacket;
++    wire [7:0] current_subpacket_ecc;
+ 
+     assign sample_ready = !packet_valid;
+ 
+@@ -55,22 +54,17 @@
+         end
+     endfunction
+ 
++    // Fill one subpacket per accepted stereo sample. The downstream scheduler
++    // observes the payload only when all four slots have made packet_valid.
++    assign current_subpacket = make_subpacket(sample_left, sample_right,
++        next_audio_frame_base + {6'd0, collect_count});
++
+     hdmi_bch8 #(.DATA_BYTES(3)) u_header_bch (
+         .data(packet_header), .ecc(packet_header_ecc)
+     );
+-    hdmi_bch8 #(.DATA_BYTES(7)) u_body0_bch (
+-        .data(packet_body[55:0]), .ecc(ecc0)
++    hdmi_bch8 #(.DATA_BYTES(7)) u_body_bch (
++        .data(current_subpacket), .ecc(current_subpacket_ecc)
+     );
+-    hdmi_bch8 #(.DATA_BYTES(7)) u_body1_bch (
+-        .data(packet_body[111:56]), .ecc(ecc1)
+-    );
+-    hdmi_bch8 #(.DATA_BYTES(7)) u_body2_bch (
+-        .data(packet_body[167:112]), .ecc(ecc2)
+-    );
+-    hdmi_bch8 #(.DATA_BYTES(7)) u_body3_bch (
+-        .data(packet_body[223:168]), .ecc(ecc3)
+-    );
+-    assign packet_body_ecc = {ecc3, ecc2, ecc1, ecc0};
+ 
+     always @(posedge clk or negedge rst_n) begin
+         if (!rst_n) begin
+@@ -78,32 +72,27 @@
+             packet_valid <= 1'b0;
+             packet_header <= 24'd0;
+             packet_body <= 224'd0;
++            packet_body_ecc <= 32'd0;
+             packet_frame_base <= 8'd0;
+             next_audio_frame_base <= 8'd0;
+-            left0 <= 16'sd0;
+-            left1 <= 16'sd0;
+-            left2 <= 16'sd0;
+-            right0 <= 16'sd0;
+-            right1 <= 16'sd0;
+-            right2 <= 16'sd0;
+         end else if (packet_valid) begin
+             if (packet_ready)
+                 packet_valid <= 1'b0;
+         end else if (sample_valid) begin
+             case (collect_count)
+                 2'd0: begin
+-                    left0 <= sample_left;
+-                    right0 <= sample_right;
++                    packet_body[55:0] <= current_subpacket;
++                    packet_body_ecc[7:0] <= current_subpacket_ecc;
+                     collect_count <= 2'd1;
+                 end
+                 2'd1: begin
+-                    left1 <= sample_left;
+-                    right1 <= sample_right;
++                    packet_body[111:56] <= current_subpacket;
++                    packet_body_ecc[15:8] <= current_subpacket_ecc;
+                     collect_count <= 2'd2;
+                 end
+                 2'd2: begin
+-                    left2 <= sample_left;
+-                    right2 <= sample_right;
++                    packet_body[167:112] <= current_subpacket;
++                    packet_body_ecc[23:16] <= current_subpacket_ecc;
+                     collect_count <= 2'd3;
+                 end
+                 default: begin
+@@ -113,16 +102,8 @@
+                                       {(next_audio_frame_base == 0) ?
+                                             8'h10 : 8'h00,
+                                        8'h0f, 8'h02};
+-                    packet_body <= {
+-                        make_subpacket(sample_left, sample_right,
+-                                       next_audio_frame_base + 8'd3),
+-                        make_subpacket(left2, right2,
+-                                       next_audio_frame_base + 8'd2),
+-                        make_subpacket(left1, right1,
+-                                       next_audio_frame_base + 8'd1),
+-                        make_subpacket(left0, right0,
+-                                       next_audio_frame_base)
+-                    };
++                    packet_body[223:168] <= current_subpacket;
++                    packet_body_ecc[31:24] <= current_subpacket_ecc;
+                     packet_frame_base <= next_audio_frame_base;
+                     packet_valid <= 1'b1;
+                     collect_count <= 2'd0;

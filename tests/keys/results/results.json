@@ -1,0 +1,22 @@
+[
+  {
+    "case": "emergency_keys",
+    "passed": true
+  },
+  {
+    "case": "emergency_overlay",
+    "passed": true
+  },
+  {
+    "case": "sd_recovery",
+    "passed": true
+  },
+  {
+    "case": "stage24_control",
+    "passed": true
+  },
+  {
+    "case": "frame_recovery",
+    "passed": true
+  }
+]

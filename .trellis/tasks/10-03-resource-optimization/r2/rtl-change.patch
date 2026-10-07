@@ -1,0 +1,55 @@
+--- baseline/src/user_source/hdl_source/player_settings_flash.v
++++ optimized/src/user_source/hdl_source/player_settings_flash.v
+@@ -24,7 +24,6 @@
+     reg [31:0] newest_sequence,active_sequence,save_sequence;
+     reg [17:0] newest_settings,save_settings_q;
+     reg [255:0] record,write_record;
+-    reg [223:0] crc_shift;
+     reg [15:0] crc;
+     reg [7:0] bits_left;
+     reg pf_start,store_start,store_write;
+@@ -34,7 +33,10 @@
+     wire [3:0] pf_code,store_code;
+     wire [255:0] store_read_data;
+     wire pf_cs,pf_clk,pf_mosi,pf_wp,pf_hold,st_cs,st_clk,st_mosi,st_wp,st_hold;
+-    wire [15:0] crc_step={crc[14:0],1'b0} ^ ((crc[15]^crc_shift[223])?16'h1021:16'h0000);
++    // 记录在整个CRC计算期间保持不变，按255..32的顺序读取，省去224位移位副本。
++    wire [7:0] crc_bit_index = bits_left + 8'd31;
++    wire crc_input_bit = (state == SAVE_BITS) ? write_record[crc_bit_index] : record[crc_bit_index];
++    wire [15:0] crc_step={crc[14:0],1'b0} ^ ((crc[15]^crc_input_bit)?16'h1021:16'h0000);
+     wire [31:0] record_sequence={record[135:128],record[143:136],record[151:144],record[159:152]};
+     wire [17:0] record_settings={3'd0,record[160],record[169:168],record[178:176],
+         record[186:184],record[194:192],record[202:200]};
+@@ -92,7 +94,7 @@
+             slot<=0;active_slot<=0;newest_slot<=0;any_valid<=0;invalid_nonblank<=0;
+             newest_sequence<=0;active_sequence<=0;save_sequence<=0;
+             newest_settings<=DEFAULTS;save_settings_q<=DEFAULTS;
+-            record<=0;write_record<=0;crc_shift<=0;crc<=16'hffff;bits_left<=0;
++            record<=0;write_record<=0;crc<=16'hffff;bits_left<=0;
+             pf_start<=0;store_start<=0;store_write<=0;store_address<=24'h7f0000;
+             load_done<=0;load_valid<=0;loaded_settings<=DEFAULTS;
+             save_done<=0;save_ok<=0;error_code<=0;
+@@ -114,9 +116,9 @@
+                     if(store_error) error_code<=8'h71;
+                     state<=CHECK_INIT;
+                 end
+-                CHECK_INIT:begin crc_shift<=record[255:32];crc<=16'hffff;bits_left<=224;state<=CHECK_BITS;end
++                CHECK_INIT:begin crc<=16'hffff;bits_left<=224;state<=CHECK_BITS;end
+                 CHECK_BITS:begin
+-                    crc<=crc_step;crc_shift<={crc_shift[222:0],1'b0};bits_left<=bits_left-1'b1;
++                    crc<=crc_step;bits_left<=bits_left-1'b1;
+                     if(bits_left==1) state<=CHECK_DONE;
+                 end
+                 CHECK_DONE:begin
+@@ -151,9 +153,9 @@
+                         write_record<=make_record(save_settings,active_sequence+1'b1);state<=SAVE_INIT;
+                     end
+                 end
+-                SAVE_INIT:begin crc_shift<=write_record[255:32];crc<=16'hffff;bits_left<=224;state<=SAVE_BITS;end
++                SAVE_INIT:begin crc<=16'hffff;bits_left<=224;state<=SAVE_BITS;end
+                 SAVE_BITS:begin
+-                    crc<=crc_step;crc_shift<={crc_shift[222:0],1'b0};bits_left<=bits_left-1'b1;
++                    crc<=crc_step;bits_left<=bits_left-1'b1;
+                     if(bits_left==1) state<=SAVE_CRC;
+                 end
+                 SAVE_CRC:begin write_record[31:16]<={crc[7:0],crc[15:8]};state<=SAVE_START;end

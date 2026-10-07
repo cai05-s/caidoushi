@@ -1,0 +1,4 @@
+{"file":".trellis/spec/backend/hx4s20-board.md","reason":"canonical board controls and pins"}
+{"file":".trellis/spec/backend/daynight-audio.md","reason":"baseline PCM and emergency contract; PRD supersedes night source"}
+{"file":".trellis/spec/backend/fpga-frame-cache.md","reason":"preserve resident image and SD timing contracts"}
+{"file":".trellis/tasks/10-01-night-kanon/info.md","reason":"frozen module interfaces and coordinated ownership"}

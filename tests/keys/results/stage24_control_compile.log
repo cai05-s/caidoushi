@@ -1,0 +1,10 @@
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\SD\sd_card_top.v:2: warning: timescale for sd_card_top inherited from another file.
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\SD\bmp_read.v:1: ...: The inherited timescale is here.
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\SD\sd_card_cmd.v:2: warning: timescale for sd_card_cmd inherited from another file.
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\SD\bmp_read.v:1: ...: The inherited timescale is here.
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\SD\sd_card_sec_read_write.v:2: warning: timescale for sd_card_sec_read_write inherited from another file.
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\SD\bmp_read.v:1: ...: The inherited timescale is here.
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\SD\spi_master.v:2: warning: timescale for spi_master inherited from another file.
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\SD\bmp_read.v:1: ...: The inherited timescale is here.
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\video_fade_overlay.v:1: warning: timescale for video_fade_overlay inherited from another file.
+C:\Users\27348\Desktop\lab_ex5_i2s\lab_ex5_i2s\src\user_source\hdl_source\SD\bmp_read.v:1: ...: The inherited timescale is here.

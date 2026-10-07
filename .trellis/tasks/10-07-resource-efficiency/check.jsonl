@@ -1,0 +1,4 @@
+{"file": ".trellis/spec/backend/daynight-audio.md", "reason": "Audio preservation"}
+{"file": ".trellis/spec/backend/fpga-frame-cache.md", "reason": "Cache and CDC invariants"}
+{"file": ".trellis/spec/backend/flash-record-store.md", "reason": "Persistence invariants"}
+{"file": ".trellis/tasks/10-07-resource-efficiency/prd.md", "reason": "Acceptance and scope"}

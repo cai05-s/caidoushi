@@ -1,0 +1,297 @@
+{
+  "baseline": {
+    "build_dir": "C:\\Users\\27348\\.codex_tmp\\resource_opt_20261003_baseline",
+    "resources": {
+      "gate": {
+        "lut": 14439,
+        "reg": 8848,
+        "bram": 32,
+        "dsp": 9
+      },
+      "routed": {
+        "lut": 15138,
+        "reg": 8895,
+        "bram": 32,
+        "dsp": 9
+      }
+    },
+    "global_setup_ns": -5.565,
+    "global_hold_ns": 0.005,
+    "clock_groups": {
+      "sd_card_clk -> sd_card_clk": {
+        "setup_ns": -1.158,
+        "hold_ns": 0.024
+      },
+      "clk -> clk": {
+        "setup_ns": 3.153,
+        "hold_ns": 0.046
+      },
+      "video_clk -> video_clk": {
+        "setup_ns": 7.153,
+        "hold_ns": 0.035
+      },
+      "ext_mem_clk -> ext_mem_clk": {
+        "setup_ns": -0.232,
+        "hold_ns": 0.095
+      },
+      "hdmi_5x_clk -> hdmi_5x_clk": {
+        "setup_ns": 2.265,
+        "hold_ns": 0.223
+      },
+      "sd_card_clk -> video_clk": {
+        "setup_ns": 4.621,
+        "hold_ns": 0.26
+      },
+      "ext_mem_clk -> video_clk": {
+        "setup_ns": 1.509,
+        "hold_ns": 0.252
+      },
+      "video_clk -> sd_card_clk": {
+        "setup_ns": 3.627,
+        "hold_ns": 0.253
+      },
+      "clk -> video_clk": {
+        "setup_ns": 11.717,
+        "hold_ns": 1.85
+      },
+      "video_clk -> hdmi_5x_clk": {
+        "setup_ns": 6.386,
+        "hold_ns": 0.479
+      },
+      "video_clk -> ext_mem_clk": {
+        "setup_ns": 2.792,
+        "hold_ns": 0.244
+      },
+      "ext_mem_clk -> sd_card_clk": {
+        "setup_ns": -0.618,
+        "hold_ns": 0.244
+      },
+      "sd_card_clk -> ext_mem_clk": {
+        "setup_ns": -0.021,
+        "hold_ns": 0.253
+      },
+      "clk -> sd_card_clk": {
+        "setup_ns": 1.809,
+        "hold_ns": 1.966
+      },
+      "sd_card_clk -> clk": {
+        "setup_ns": 1.322,
+        "hold_ns": 0.005
+      },
+      "video_clk -> clk": {
+        "setup_ns": 12.103,
+        "hold_ns": 2.083
+      },
+      "clk -> ext_mem_clk": {
+        "setup_ns": -2.837,
+        "hold_ns": 3.126
+      },
+      "clk -> hdmi_5x_clk": {
+        "setup_ns": -2.544,
+        "hold_ns": 2.908
+      },
+      "hdmi_5x_clk -> video_clk": {
+        "setup_ns": 6.091,
+        "hold_ns": 0.677
+      },
+      "ext_mem_clk -> sys_pll_m0/pll_inst.clkc[2]": {
+        "setup_ns": -3.964,
+        "hold_ns": 4.874
+      },
+      "sys_pll_m0/pll_inst.clkc[2] -> ext_mem_clk": {
+        "setup_ns": -5.565,
+        "hold_ns": 7.43
+      }
+    },
+    "bit_sha256": "775df4967930cf17e634fa98f8a8838bae7326809806a114569c9fb23cca0d6d",
+    "warning_lines": [
+      "HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed",
+      "HDL-5007 WARNING: concatenation with an unsized literal will be treated as 32 bits in ../user_source/hdl_source/include/sdr_init_ref.enc.v(47)",
+      "HDL-5007 WARNING: concatenation with an unsized literal will be treated as 32 bits in ../user_source/hdl_source/include/sdr_wrrd.enc.v(283)",
+      "HDL-5317 WARNING: input port '**' is not connected on this instance in ../user_source/hdl_source/include/sdr_as_ram.enc.v(17)",
+      "HDL-5317 WARNING: input port 'dib[31]' is not connected on this instance in ../user_source/hdl_source/ip/afifo_16_32_256.v(231)",
+      "HDL-5317 WARNING: input port 'dib[31]' is not connected on this instance in ../user_source/hdl_source/ip/afifo_32_16_256.v(231)",
+      "HDL-5373 WARNING: identifier 'auto_cnt' is used before its declaration in ../user_source/hdl_source/SD/sd_card_bmp.v(95)",
+      "HDL-5373 WARNING: identifier 'sd_reset_n' is used before its declaration in ../user_source/hdl_source/top_tf_hdmi_audio.v(94)",
+      "HDL-5373 WARNING: identifier 'sd_reset_n' is used before its declaration in ../user_source/hdl_source/top_tf_hdmi_audio.v(95)",
+      "HDL-7225 CRITICAL-WARNING: 'sys_reset_n' is already implicitly declared on line 92 in ../user_source/hdl_source/top_tf_hdmi_audio.v(208)",
+      "PHY-5079 CRITICAL-WARNING: Marked 1 clock net(s) utilize the local routing resources. Please check log message and the sinks of clock nets.",
+      "PHY-7002 CRITICAL-WARNING: Instance U3/sdram location (12, 12) is not honored. Cell's initial location is not legal at the beginning of ECO placement, and will be moved during placement. Please verify user location constraints through the adc file.",
+      "PHY-7002 CRITICAL-WARNING: Instance U3/sdram location (164, 288) is not honored. Cell's initial location is not legal at the beginning of ECO placement, and will be moved during placement. Please verify user location constraints through the adc file.",
+      "RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        ",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[0]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[1]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[2]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[3]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[4]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[5]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[6]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[7]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[8]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[9]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"frame_read_write_m0/read_buf/ram_inst/ramread0_syn_4\" in ../user_source/hdl_source/ip/afifo_32_16_256.v(822) / pin \"bea[0]\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"frame_read_write_m0/read_buf/ram_inst/ramread0_syn_4\" in ../user_source/hdl_source/ip/afifo_32_16_256.v(822) / pin \"beb[0]\"",
+      "SYN-5013 WARNING: Undriven net: model \"top\" / net \"U3/u2_ram/u2_wrrd/Sdr_init_ref_ba[0]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0)",
+      "SYN-5013 WARNING: Undriven net: model \"top\" / net \"U3/u2_ram/u2_wrrd/Sdr_init_ref_ba[1]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0)",
+      "SYN-5025 WARNING: Using 0 for all undriven pins and nets",
+      "SYN-6562 WARNING: The init value of \"frame_read_write_m0/read_buf/ram_inst/ramread0_syn_4(../user_source/hdl_source/ip/afifo_32_16_256.v(822))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"frame_read_write_m0/write_buf/ram_inst/ramread0_syn_4(../user_source/hdl_source/ip/afifo_16_32_256.v(822))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"sd_card_bmp_m0/bmp_read_m0/ramread0_syn_4(../user_source/hdl_source/SD/bmp_read.v(168))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"sd_card_bmp_m0/bmp_read_m0/ramread1_syn_4(../user_source/hdl_source/SD/bmp_read.v(172))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"u_night_pcm_stream/ramread0_syn_4(../user_source/hdl_source/hdmi_audio_route/night_pcm_stream.v(187))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"u_night_pcm_stream/u_wav/ramread0_syn_4(../user_source/hdl_source/SD/sd_fat32_wav.v(63))\" will be ignored since gate eram_init is set to off",
+      "SYN-6577 WARNING: The clock signal \"U3/u2_ram/SDRAM_CLK\" is added with the synthetic instruction (keep/mark_debug/dont_touch/max_fanout), which may create additional logic on this net"
+    ]
+  },
+  "optimized": {
+    "build_dir": "C:\\Users\\27348\\.codex_tmp\\resource_opt_20261003_r1",
+    "resources": {
+      "gate": {
+        "lut": 14293,
+        "reg": 8607,
+        "bram": 32,
+        "dsp": 9
+      },
+      "routed": {
+        "lut": 14908,
+        "reg": 8648,
+        "bram": 32,
+        "dsp": 9
+      }
+    },
+    "global_setup_ns": -5.565,
+    "global_hold_ns": 0.011,
+    "clock_groups": {
+      "sd_card_clk -> sd_card_clk": {
+        "setup_ns": -1.129,
+        "hold_ns": 0.038
+      },
+      "video_clk -> video_clk": {
+        "setup_ns": 7.337,
+        "hold_ns": 0.03
+      },
+      "clk -> clk": {
+        "setup_ns": 1.116,
+        "hold_ns": 0.178
+      },
+      "ext_mem_clk -> ext_mem_clk": {
+        "setup_ns": -0.211,
+        "hold_ns": 0.011
+      },
+      "hdmi_5x_clk -> hdmi_5x_clk": {
+        "setup_ns": 3.604,
+        "hold_ns": 0.167
+      },
+      "sd_card_clk -> video_clk": {
+        "setup_ns": 4.11,
+        "hold_ns": 0.244
+      },
+      "ext_mem_clk -> video_clk": {
+        "setup_ns": 2.663,
+        "hold_ns": 0.359
+      },
+      "video_clk -> sd_card_clk": {
+        "setup_ns": 1.905,
+        "hold_ns": 0.435
+      },
+      "clk -> video_clk": {
+        "setup_ns": 11.625,
+        "hold_ns": 1.859
+      },
+      "video_clk -> hdmi_5x_clk": {
+        "setup_ns": 5.71,
+        "hold_ns": 0.369
+      },
+      "video_clk -> ext_mem_clk": {
+        "setup_ns": 2.463,
+        "hold_ns": 0.244
+      },
+      "ext_mem_clk -> sd_card_clk": {
+        "setup_ns": -0.645,
+        "hold_ns": 0.244
+      },
+      "sd_card_clk -> ext_mem_clk": {
+        "setup_ns": -0.432,
+        "hold_ns": 0.244
+      },
+      "clk -> sd_card_clk": {
+        "setup_ns": 3.325,
+        "hold_ns": 2.145
+      },
+      "sd_card_clk -> clk": {
+        "setup_ns": 0.943,
+        "hold_ns": 0.094
+      },
+      "video_clk -> clk": {
+        "setup_ns": 11.743,
+        "hold_ns": 0.879
+      },
+      "clk -> ext_mem_clk": {
+        "setup_ns": -2.446,
+        "hold_ns": 3.757
+      },
+      "clk -> hdmi_5x_clk": {
+        "setup_ns": -2.296,
+        "hold_ns": 3.639
+      },
+      "hdmi_5x_clk -> video_clk": {
+        "setup_ns": 6.641,
+        "hold_ns": 0.292
+      },
+      "ext_mem_clk -> sys_pll_m0/pll_inst.clkc[2]": {
+        "setup_ns": -3.964,
+        "hold_ns": 4.874
+      },
+      "sys_pll_m0/pll_inst.clkc[2] -> ext_mem_clk": {
+        "setup_ns": -5.565,
+        "hold_ns": 7.43
+      }
+    },
+    "bit_sha256": "c9c2945bea8f638d477f63b50c939239e68214de710b45f2fb2817c4d4a83d12",
+    "warning_lines": [
+      "HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed",
+      "HDL-5007 WARNING: concatenation with an unsized literal will be treated as 32 bits in ../user_source/hdl_source/include/sdr_init_ref.enc.v(47)",
+      "HDL-5007 WARNING: concatenation with an unsized literal will be treated as 32 bits in ../user_source/hdl_source/include/sdr_wrrd.enc.v(283)",
+      "HDL-5317 WARNING: input port '**' is not connected on this instance in ../user_source/hdl_source/include/sdr_as_ram.enc.v(17)",
+      "HDL-5317 WARNING: input port 'dib[31]' is not connected on this instance in ../user_source/hdl_source/ip/afifo_16_32_256.v(231)",
+      "HDL-5317 WARNING: input port 'dib[31]' is not connected on this instance in ../user_source/hdl_source/ip/afifo_32_16_256.v(231)",
+      "HDL-5373 WARNING: identifier 'auto_cnt' is used before its declaration in ../user_source/hdl_source/SD/sd_card_bmp.v(95)",
+      "HDL-5373 WARNING: identifier 'sd_reset_n' is used before its declaration in ../user_source/hdl_source/top_tf_hdmi_audio.v(94)",
+      "HDL-5373 WARNING: identifier 'sd_reset_n' is used before its declaration in ../user_source/hdl_source/top_tf_hdmi_audio.v(95)",
+      "HDL-7225 CRITICAL-WARNING: 'sys_reset_n' is already implicitly declared on line 92 in ../user_source/hdl_source/top_tf_hdmi_audio.v(208)",
+      "PHY-5079 CRITICAL-WARNING: Marked 1 clock net(s) utilize the local routing resources. Please check log message and the sinks of clock nets.",
+      "PHY-7002 CRITICAL-WARNING: Instance U3/sdram location (12, 12) is not honored. Cell's initial location is not legal at the beginning of ECO placement, and will be moved during placement. Please verify user location constraints through the adc file.",
+      "PHY-7002 CRITICAL-WARNING: Instance U3/sdram location (164, 288) is not honored. Cell's initial location is not legal at the beginning of ECO placement, and will be moved during placement. Please verify user location constraints through the adc file.",
+      "RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        ",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[0]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[1]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[2]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[3]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[4]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[5]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[6]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[7]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[8]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"U3/u2_ram/u2_wrrd/Sdr_rd_dout_reg[9]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0) / pin \"clk\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"frame_read_write_m0/read_buf/ram_inst/ramread0_syn_4\" in ../user_source/hdl_source/ip/afifo_32_16_256.v(822) / pin \"bea[0]\"",
+      "SYN-5011 WARNING: Undriven pin: model \"top\" / inst \"frame_read_write_m0/read_buf/ram_inst/ramread0_syn_4\" in ../user_source/hdl_source/ip/afifo_32_16_256.v(822) / pin \"beb[0]\"",
+      "SYN-5013 WARNING: Undriven net: model \"top\" / net \"U3/u2_ram/u2_wrrd/Sdr_init_ref_ba[0]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0)",
+      "SYN-5013 WARNING: Undriven net: model \"top\" / net \"U3/u2_ram/u2_wrrd/Sdr_init_ref_ba[1]\" in ../user_source/hdl_source/include/sdr_wrrd.enc.v(0)",
+      "SYN-5025 WARNING: Using 0 for all undriven pins and nets",
+      "SYN-6562 WARNING: The init value of \"frame_read_write_m0/read_buf/ram_inst/ramread0_syn_4(../user_source/hdl_source/ip/afifo_32_16_256.v(822))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"frame_read_write_m0/write_buf/ram_inst/ramread0_syn_4(../user_source/hdl_source/ip/afifo_16_32_256.v(822))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"sd_card_bmp_m0/bmp_read_m0/ramread0_syn_4(../user_source/hdl_source/SD/bmp_read.v(168))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"sd_card_bmp_m0/bmp_read_m0/ramread1_syn_4(../user_source/hdl_source/SD/bmp_read.v(172))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"u_night_pcm_stream/ramread0_syn_4(../user_source/hdl_source/hdmi_audio_route/night_pcm_stream.v(187))\" will be ignored since gate eram_init is set to off",
+      "SYN-6562 WARNING: The init value of \"u_night_pcm_stream/u_wav/ramread0_syn_4(../user_source/hdl_source/SD/sd_fat32_wav.v(63))\" will be ignored since gate eram_init is set to off",
+      "SYN-6577 WARNING: The clock signal \"U3/u2_ram/SDRAM_CLK\" is added with the synthetic instruction (keep/mark_debug/dont_touch/max_fanout), which may create additional logic on this net"
+    ]
+  },
+  "changed_sources": [
+    "src/user_source/hdl_source/w25q64_record_store.v"
+  ],
+  "source_files_verified_per_build": 102,
+  "new_warning_lines": [],
+  "rtl_simulation_run": false,
+  "hardware_tested": false
+}

@@ -1,0 +1,450 @@
+{
+  "parser": "11.0.0",
+  "elaboration_errors": 0,
+  "parameter_specializations_each": 27,
+  "elaborated_widths": [
+    {
+      "parameters": [
+        640,
+        480,
+        4096
+      ],
+      "widths": {
+        "x": 10,
+        "y": 9,
+        "source": 13,
+        "row": 12,
+        "qx": 5,
+        "qy": 4
+      }
+    },
+    {
+      "parameters": [
+        1,
+        1,
+        1
+      ],
+      "widths": {
+        "x": 1,
+        "y": 1,
+        "source": 1,
+        "row": 1,
+        "qx": 1,
+        "qy": 1
+      }
+    },
+    {
+      "parameters": [
+        1,
+        2,
+        2
+      ],
+      "widths": {
+        "x": 1,
+        "y": 2,
+        "source": 2,
+        "row": 1,
+        "qx": 2,
+        "qy": 2
+      }
+    },
+    {
+      "parameters": [
+        2,
+        1,
+        2
+      ],
+      "widths": {
+        "x": 2,
+        "y": 1,
+        "source": 2,
+        "row": 1,
+        "qx": 2,
+        "qy": 2
+      }
+    },
+    {
+      "parameters": [
+        2,
+        3,
+        4
+      ],
+      "widths": {
+        "x": 2,
+        "y": 2,
+        "source": 3,
+        "row": 2,
+        "qx": 2,
+        "qy": 3
+      }
+    },
+    {
+      "parameters": [
+        3,
+        2,
+        7
+      ],
+      "widths": {
+        "x": 2,
+        "y": 2,
+        "source": 3,
+        "row": 3,
+        "qx": 3,
+        "qy": 3
+      }
+    },
+    {
+      "parameters": [
+        17,
+        13,
+        31
+      ],
+      "widths": {
+        "x": 5,
+        "y": 4,
+        "source": 5,
+        "row": 5,
+        "qx": 3,
+        "qy": 2
+      }
+    },
+    {
+      "parameters": [
+        640,
+        480,
+        1
+      ],
+      "widths": {
+        "x": 10,
+        "y": 9,
+        "source": 1,
+        "row": 1,
+        "qx": 1,
+        "qy": 1
+      }
+    },
+    {
+      "parameters": [
+        320,
+        240,
+        4096
+      ],
+      "widths": {
+        "x": 9,
+        "y": 8,
+        "source": 13,
+        "row": 12,
+        "qx": 6,
+        "qy": 5
+      }
+    },
+    {
+      "parameters": [
+        1920,
+        1080,
+        4096
+      ],
+      "widths": {
+        "x": 11,
+        "y": 11,
+        "source": 13,
+        "row": 12,
+        "qx": 3,
+        "qy": 3
+      }
+    },
+    {
+      "parameters": [
+        65535,
+        65535,
+        65535
+      ],
+      "widths": {
+        "x": 16,
+        "y": 16,
+        "source": 16,
+        "row": 16,
+        "qx": 2,
+        "qy": 2
+      }
+    },
+    {
+      "parameters": [
+        1,
+        65535,
+        65535
+      ],
+      "widths": {
+        "x": 1,
+        "y": 16,
+        "source": 16,
+        "row": 16,
+        "qx": 16,
+        "qy": 16
+      }
+    },
+    {
+      "parameters": [
+        65535,
+        1,
+        65535
+      ],
+      "widths": {
+        "x": 16,
+        "y": 1,
+        "source": 16,
+        "row": 16,
+        "qx": 16,
+        "qy": 16
+      }
+    },
+    {
+      "parameters": [
+        1,
+        1,
+        65535
+      ],
+      "widths": {
+        "x": 1,
+        "y": 1,
+        "source": 16,
+        "row": 16,
+        "qx": 16,
+        "qy": 16
+      }
+    },
+    {
+      "parameters": [
+        32768,
+        32767,
+        32768
+      ],
+      "widths": {
+        "x": 16,
+        "y": 15,
+        "source": 16,
+        "row": 15,
+        "qx": 2,
+        "qy": 2
+      }
+    },
+    {
+      "parameters": [
+        1024,
+        512,
+        8192
+      ],
+      "widths": {
+        "x": 11,
+        "y": 10,
+        "source": 14,
+        "row": 13,
+        "qx": 6,
+        "qy": 5
+      }
+    },
+    {
+      "parameters": [
+        640,
+        480,
+        65535
+      ],
+      "widths": {
+        "x": 10,
+        "y": 9,
+        "source": 16,
+        "row": 16,
+        "qx": 9,
+        "qy": 8
+      }
+    },
+    {
+      "parameters": [
+        0,
+        480,
+        4096
+      ],
+      "widths": {
+        "x": 16,
+        "y": 16,
+        "source": 16,
+        "row": 16,
+        "qx": 16,
+        "qy": 16
+      }
+    },
+    {
+      "parameters": [
+        -1,
+        480,
+        4096
+      ],
+      "widths": {
+        "x": 16,
+        "y": 16,
+        "source": 16,
+        "row": 16,
+        "qx": 16,
+        "qy": 16
+      }
+    },
+    {
+      "parameters": [
+        65536,
+        480,
+        4096
+      ],
+      "widths": {
+        "x": 16,
+        "y": 16,
+        "source": 16,
+        "row": 16,
+        "qx": 16,
+        "qy": 16
+      }
+    },
+    {
+      "parameters": [
+        640,
+        0,
+        4096
+      ],
+      "widths": {
+        "x": 16,
+        "y": 16,
+        "source": 16,
+        "row": 16,
+        "qx": 16,
+        "qy": 16
+      }
+    },
+    {
+      "parameters": [
+        640,
+        -1,
+        4096
+      ],
+      "widths": {
+        "x": 16,
+        "y": 16,
+        "source": 16,
+        "row": 16,
+        "qx": 16,
+        "qy": 16
+      }
+    },
+    {
+      "parameters": [
+        640,
+        65536,
+        4096
+      ],
+      "widths": {
+        "x": 16,
+        "y": 16,
+        "source": 16,
+        "row": 16,
+        "qx": 16,
+        "qy": 16
+      }
+    },
+    {
+      "parameters": [
+        640,
+        480,
+        0
+      ],
+      "widths": {
+        "x": 16,
+        "y": 16,
+        "source": 16,
+        "row": 16,
+        "qx": 16,
+        "qy": 16
+      }
+    },
+    {
+      "parameters": [
+        640,
+        480,
+        -1
+      ],
+      "widths": {
+        "x": 16,
+        "y": 16,
+        "source": 16,
+        "row": 16,
+        "qx": 16,
+        "qy": 16
+      }
+    },
+    {
+      "parameters": [
+        640,
+        480,
+        65536
+      ],
+      "widths": {
+        "x": 16,
+        "y": 16,
+        "source": 16,
+        "row": 16,
+        "qx": 16,
+        "qy": 16
+      }
+    },
+    {
+      "parameters": [
+        640,
+        480,
+        65537
+      ],
+      "widths": {
+        "x": 16,
+        "y": 16,
+        "source": 16,
+        "row": 16,
+        "qx": 16,
+        "qy": 16
+      }
+    }
+  ],
+  "diagnostic_categories": {
+    "baseline": {
+      "DiagCode(ConstantConversion)": 10,
+      "DiagCode(ArithOpMismatch)": 4,
+      "DiagCode(SignCompare)": 4,
+      "DiagCode(RangeOOB)": 2,
+      "DiagCode(WidthTruncate)": 4,
+      "DiagCode(UnconnectedInputPort)": 459,
+      "DiagCode(UnconnectedOutputPort)": 405
+    },
+    "candidate": {
+      "DiagCode(SignConversion)": 5,
+      "DiagCode(WidthTruncate)": 54,
+      "DiagCode(SignCompare)": 5,
+      "DiagCode(WidthExpand)": 9,
+      "DiagCode(RangeOOB)": 2,
+      "DiagCode(ConstantConversion)": 10,
+      "DiagCode(ArithOpMismatch)": 10,
+      "DiagCode(UnconnectedInputPort)": 459,
+      "DiagCode(UnconnectedOutputPort)": 405
+    }
+  },
+  "default_dimension_pairs": 16777216,
+  "default_maxima": {
+    "qx": 17,
+    "qy": 12,
+    "rx": 639,
+    "ry": 479
+  },
+  "generic_dimension_pairs": 3527,
+  "recurrence_positions": 18912,
+  "all_other_header_fsm_ram_handshake_source_identical": true,
+  "fallback_original_widths_and_address_slices_preserved": true,
+  "baseline_sha256": "1c13c6c982800f5dae85f620c864a0378fd00059afa1995b9850d6a49c5d0588",
+  "candidate_sha256": "25a4052e010ae48a62b3df64cf5f5798099b330cfb3a23c29e27d31fbd40c499",
+  "rtl_simulation_run": false,
+  "board_tested": false,
+  "limits": "Geometry/recurrence algebra and semantic elaboration only; source identity preserves stall/abort control. TD resources/timing and physical image checks required."
+}

@@ -1,0 +1,100 @@
+[
+  {
+    "name": "small_320",
+    "source": [
+      320,
+      240
+    ],
+    "fit": [
+      640,
+      480
+    ],
+    "seconds": 27.3,
+    "result": "PASS small_320 pixels=307200 sectors=691 stalls=366053 cycles=2336068\nC:\\Users\\27348\\Desktop\\lab_ex5_i2s\\lab_ex5_i2s\\tests\\lesson12\\tb_bmp_autofit.v:89: $finish called at 23360730000 (1ps)"
+  },
+  {
+    "name": "wide_1080",
+    "source": [
+      1920,
+      1080
+    ],
+    "fit": [
+      640,
+      360
+    ],
+    "seconds": 120.58,
+    "result": "PASS wide_1080 pixels=307200 sectors=4411 stalls=298939 cycles=9637794\nC:\\Users\\27348\\Desktop\\lab_ex5_i2s\\lab_ex5_i2s\\tests\\lesson12\\tb_bmp_autofit.v:89: $finish called at 96377990000 (1ps)"
+  },
+  {
+    "name": "odd_top_down",
+    "source": [
+      641,
+      479
+    ],
+    "fit": [
+      640,
+      478
+    ],
+    "seconds": 58.12,
+    "result": "PASS odd_top_down pixels=307200 sectors=1797 stalls=292515 cycles=4897698\nC:\\Users\\27348\\Desktop\\lab_ex5_i2s\\lab_ex5_i2s\\tests\\lesson12\\tb_bmp_autofit.v:89: $finish called at 48977030000 (1ps)"
+  },
+  {
+    "name": "extended_offset",
+    "source": [
+      800,
+      600
+    ],
+    "fit": [
+      640,
+      480
+    ],
+    "seconds": 72.97,
+    "result": "PASS extended_offset pixels=307200 sectors=2370 stalls=297131 cycles=5897111\nC:\\Users\\27348\\Desktop\\lab_ex5_i2s\\lab_ex5_i2s\\tests\\lesson12\\tb_bmp_autofit.v:89: $finish called at 58971160000 (1ps)"
+  },
+  {
+    "name": "maximum_width",
+    "source": [
+      4096,
+      1
+    ],
+    "fit": [
+      640,
+      1
+    ],
+    "seconds": 11.05,
+    "result": "PASS maximum_width pixels=307200 sectors=25 stalls=250275 cycles=915926\nC:\\Users\\27348\\Desktop\\lab_ex5_i2s\\lab_ex5_i2s\\tests\\lesson12\\tb_bmp_autofit.v:89: $finish called at 9159310000 (1ps)"
+  },
+  {
+    "name": "maximum_height",
+    "source": [
+      1,
+      4096
+    ],
+    "fit": [
+      1,
+      480
+    ],
+    "seconds": 11.2,
+    "result": "PASS maximum_height pixels=307200 sectors=34 stalls=253539 cycles=892079\nC:\\Users\\27348\\Desktop\\lab_ex5_i2s\\lab_ex5_i2s\\tests\\lesson12\\tb_bmp_autofit.v:89: $finish called at 8920840000 (1ps)"
+  },
+  {
+    "name": "short_length",
+    "result": "PASS short_length pixels=0 sectors=1 stalls=0 cycles=520\nC:\\Users\\27348\\Desktop\\lab_ex5_i2s\\lab_ex5_i2s\\tests\\lesson12\\tb_bmp_autofit.v:89: $finish called at 5250000 (1ps)"
+  },
+  {
+    "name": "invalid_dib",
+    "result": "PASS invalid_dib pixels=0 sectors=1 stalls=0 cycles=520\nC:\\Users\\27348\\Desktop\\lab_ex5_i2s\\lab_ex5_i2s\\tests\\lesson12\\tb_bmp_autofit.v:89: $finish called at 5250000 (1ps)"
+  },
+  {
+    "name": "overflow_dib",
+    "result": "PASS overflow_dib pixels=0 sectors=1 stalls=0 cycles=520\nC:\\Users\\27348\\Desktop\\lab_ex5_i2s\\lab_ex5_i2s\\tests\\lesson12\\tb_bmp_autofit.v:89: $finish called at 5250000 (1ps)"
+  },
+  {
+    "name": "scan_boundaries",
+    "result": "PASS scan_boundaries scenarios=5\nC:\\Users\\27348\\Desktop\\lab_ex5_i2s\\lab_ex5_i2s\\tests\\lesson12\\tb_bmp_scan.v:113: $finish called at 36670000 (1ps)"
+  },
+  {
+    "name": "frame_write_ready",
+    "result": "PASS actual_FIFO frames=2 words=2048 stalled_write_cycles=1872\nC:\\Users\\27348\\Desktop\\lab_ex5_i2s\\lab_ex5_i2s\\tests\\lesson12\\tb_frame_write_ready.v:85: $finish called at 68030000 (1ps)"
+  }
+]
