@@ -117,7 +117,8 @@ module sd_card_bmp #(
     wire [7:0] core_sec_data;
     reg scan_start_pulse, load_start_pulse;
     reg [1:0] scan_start_guard;
-    reg [31:0] load_sector, img_sector0, img_sector1, img_sector2, img_sector3, img_sector4;
+    wire [31:0] load_sector;
+    reg [31:0] img_sector0, img_sector1, img_sector2, img_sector3, img_sector4;
     reg [2:0] img_found_count, img_idx, load_idx;
     reg auto_play_en, emergency_mode, emergency_source_sensor, emergency_req_pending, normal_resume_pending;
     reg next_req_pending, load_busy, load_abort;
@@ -198,6 +199,9 @@ module sd_card_bmp #(
             default: sector_lut = img_sector0;
         endcase
     endfunction
+    // load_idx 已寄存；bmp_read 只在 load_start 拍采样，此时 img_sector* 不变。
+    // 不把 choose_load 优先链串到 32 位扇区选择器上。
+    assign load_sector = sector_lut(load_idx);
     function [2:0] choose_image;
         input [1:0] start_idx;
         input [3:0] eligible;
@@ -228,7 +232,7 @@ module sd_card_bmp #(
         input [2:0] idx;
         input fresh_attempt;
         begin
-            load_idx <= idx; load_sector <= sector_lut(idx);
+            load_idx <= idx;
             write_buf_idx <= idx; bank_valid[idx] <= 0;
             load_start_pulse <= 1; load_busy <= 1;
             source_done_seen <= 0; write_done_seen <= 0;
@@ -257,7 +261,7 @@ module sd_card_bmp #(
             img_sector0 <= 0; img_sector1 <= 0; img_sector2 <= 0; img_sector3 <= 0; img_sector4 <= 0;
             rescan_pending <= 0; cache_active <= 1; commit_hard <= 0; display_commit_toggle <= 0;
             rescan_accepted <= 0;
-            load_sector <= 0; img_idx <= 0; load_idx <= 0;
+            img_idx <= 0; load_idx <= 0;
             write_buf_idx <= 0; disp_buf_idx <= 0;
             auto_play_en <= AUTO_PLAY_ON_BOOT != 0; auto_cnt <= 0;
             emergency_mode <= 0; emergency_source_sensor <= 0;

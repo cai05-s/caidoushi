@@ -40,7 +40,9 @@ localparam [7:0]
     S_CHUNK_BEGIN=24, S_CHUNK_BYTE=25, S_CHUNK_CHECK=26,
     S_FMT_BYTE=27, S_FMT_CHECK=28, S_SKIP=29, S_SKIP_BYTE=30,
     S_PCM_NEXT=31, S_PCM_BYTE=32, S_PCM_HOLD=33,
-    S_ERROR=34, S_GEOM1B=35;
+    S_ERROR=34, S_GEOM1B=35,
+    S_GEOM1C=36, S_GEOM2B=37, S_DIR_PRE=38, S_FAT_PRE=39, S_CHUNK_PRE=40,
+    S_RIFF_PRE=41;
 
 reg [7:0] state;
 reg [5:0] io_return, byte_return, seek_return;
@@ -79,8 +81,10 @@ reg [32:0] volume_end, partition_end;
 reg [31:0] data_base, cluster_offset;
 reg [7:0] sectors_per_cluster;
 reg [2:0] cluster_shift;
-wire [31:0] data_cluster_count = data_sectors_q >> cluster_shift;
 reg [27:0] cluster_count, max_cluster, current_cluster;
+// Registered results of the *_PRE states; each *_CHECK decodes only flags.
+reg geom_bad, dir_end, dir_hit, dir_cluster_bad, dir_size_bad;
+reg fat_eoc, fat_bad, chain_wrap, chunk_too_big, riff_bad, pos_bad;
 reg [6:0] cluster_sector;
 reg [27:0] chain_hops, chain_anchor, chain_power, chain_length;
 reg [12:0] directory_sectors;
@@ -220,6 +224,10 @@ always @(posedge clk or posedge rst) begin
         fat_size <= 0; fat_base <= 0; volume_end <= 0; partition_end <= 0;
         data_base <= 0; cluster_offset <= 0; sectors_per_cluster <= 0;
         cluster_shift <= 0; cluster_count <= 0; max_cluster <= 0;
+        geom_bad <= 0; dir_end <= 0; dir_hit <= 0;
+        dir_cluster_bad <= 0; dir_size_bad <= 0;
+        fat_eoc <= 0; fat_bad <= 0; chain_wrap <= 0; chunk_too_big <= 0;
+        riff_bad <= 0; pos_bad <= 0;
         current_cluster <= 0; cluster_sector <= 0; chain_hops <= 0;
         chain_anchor <= 0; chain_power <= 1; chain_length <= 0;
         directory_sectors <= 0; fat_index <= 0; fat_value <= 0;
@@ -305,16 +313,20 @@ always @(posedge clk or posedge rst) begin
                 if (sector_pos == 10'd512) begin
                     if (raw_bytes) fail(8'h43);
                     else state <= S_ADVANCE;
-                end else if (!raw_bytes && !directory_stream &&
-                    (file_position >= file_size ||
-                     (!file_ready && file_position >= 32'd1048576)))
-                    fail(8'h42);
-                else begin
+                end else begin
+                    // The file bound is registered and acted on in the RAM
+                    // latency cycle; a rejected address is never consumed.
+                    pos_bad <= !raw_bytes && !directory_stream &&
+                        (file_position >= file_size ||
+                         (!file_ready && file_position >= 32'd1048576));
                     ram_addr <= sector_pos[8:0];
                     state <= S_BYTE_WAIT;
                 end
             end
-            S_BYTE_WAIT: state <= S_BYTE_DONE;
+            S_BYTE_WAIT: begin
+                if (pos_bad) fail(8'h42);
+                else state <= S_BYTE_DONE;
+            end
             S_BYTE_DONE: begin
                 byte_value <= ram_q;
                 sector_pos <= sector_pos + 1'b1;
@@ -436,34 +448,45 @@ always @(posedge clk or posedge rst) begin
             S_GEOM1: begin
                 volume_end <= {1'b0,volume_lba} + {1'b0,volume_size};
                 partition_end <= {1'b0,partition_lba} + {1'b0,partition_size};
-                if (volume_size <= metadata_size) fail(8'h40);
-                else begin
-                    // Split the 32-bit subtraction from the shift/limit logic.
-                    // This removes the long subtract+shift+compare path from
-                    // one SD-clock cycle without changing the FAT geometry.
-                    data_sectors_q <= volume_size - metadata_size;
-                    state <= S_GEOM1B;
-                end
+                // Split the 32-bit subtraction from the shift/limit logic.
+                // This removes the long subtract+shift+compare path from
+                // one SD-clock cycle without changing the FAT geometry.
+                geom_bad <= volume_size <= metadata_size;
+                data_sectors_q <= volume_size - metadata_size;
+                state <= S_GEOM1B;
             end
             S_GEOM1B: begin
+                // Register the barrel shift; S_GEOM1C compares the result.
+                if (geom_bad) fail(8'h40);
+                else begin
+                    data_sectors_q <= data_sectors_q >> cluster_shift;
+                    state <= S_GEOM1C;
+                end
+            end
+            S_GEOM1C: begin
                 // The upper bound is checked before narrowing to 28 bits.
-                if (data_cluster_count > 32'h0fffffee)
+                if (data_sectors_q > 32'h0fffffee)
                         fail(8'h40);
                 else begin
-                    cluster_count <= data_cluster_count[27:0];
+                    cluster_count <= data_sectors_q[27:0];
                     data_base <= volume_lba + metadata_size;
                     if (bpb_flags[7] && bpb_flags[0]) fat_base <= fat_base + fat_size;
                     state <= S_GEOM2;
                 end
             end
             S_GEOM2: begin
-                if (volume_end > 33'h100000000 ||
+                // 33-bit geometry checks are registered for S_GEOM2B.
+                geom_bad <= volume_end > 33'h100000000 ||
                     (!first_boot && (volume_end > partition_end || volume_size > partition_size)) ||
                     cluster_count < 28'd65525 ||
                     ({1'b0,cluster_count}+29'd2) > ({1'b0,fat_size} << 7) ||
-                    bpb_root < 2 || bpb_root > {4'd0,cluster_count}+32'd1)
-                    fail(8'h40);
-                else begin max_cluster <= cluster_count+1'b1; state <= S_GEOM3; end
+                    bpb_root < 2 || bpb_root > {4'd0,cluster_count}+32'd1;
+                max_cluster <= cluster_count+1'b1;
+                state <= S_GEOM2B;
+            end
+            S_GEOM2B: begin
+                if (geom_bad) fail(8'h40);
+                else state <= S_GEOM3;
             end
             S_GEOM3: begin
                 current_cluster <= bpb_root[27:0]; cluster_sector <= 0;
@@ -505,16 +528,24 @@ always @(posedge clk or posedge rst) begin
                     31: directory_size[31:24] <= byte_value;
                     default: begin end
                 endcase
-                if (directory_index == 31) state <= S_DIR_CHECK;
+                if (directory_index == 31) state <= S_DIR_PRE;
                 else begin directory_index <= directory_index+1'b1; state <= S_BYTE_ADDR; end
             end
+            S_DIR_PRE: begin
+                dir_end <= directory_first == 0;
+                dir_hit <= directory_match && directory_first != 8'he5 &&
+                           (directory_attr & 8'h18) == 0;
+                dir_cluster_bad <= directory_cluster < 2 ||
+                                   directory_cluster > {4'd0,max_cluster};
+                dir_size_bad <= directory_size < 44 || directory_size >= 32'h40000000;
+                state <= S_DIR_CHECK;
+            end
             S_DIR_CHECK: begin
-                if (directory_first == 0) fail(8'h41);
-                else if (directory_match && directory_first != 8'he5 &&
-                         (directory_attr & 8'h18) == 0) begin
-                    if (directory_cluster < 2 || directory_cluster > {4'd0,max_cluster})
+                if (dir_end) fail(8'h41);
+                else if (dir_hit) begin
+                    if (dir_cluster_bad)
                         fail(8'h43);
-                    else if (directory_size < 44 || directory_size >= 32'h40000000)
+                    else if (dir_size_bad)
                         fail(8'h42);
                     else begin
                         current_cluster <= directory_cluster[27:0]; cluster_sector <= 0;
@@ -554,23 +585,29 @@ always @(posedge clk or posedge rst) begin
                     3: fat_value[31:24] <= byte_value;
                     default: begin end
                 endcase
-                if (fat_index == 3) state <= S_FAT_CHECK;
+                if (fat_index == 3) state <= S_FAT_PRE;
                 else begin fat_index <= fat_index+1'b1; state <= S_BYTE_ADDR; end
             end
+            S_FAT_PRE: begin
+                fat_eoc <= fat_value[27:0] >= 28'hffffff8;
+                fat_bad <= fat_value[27:0] < 2 || fat_value[27:0] > max_cluster ||
+                           fat_value[27:0] == current_cluster ||
+                           fat_value[27:0] == chain_anchor || chain_hops >= cluster_count;
+                chain_wrap <= chain_length+28'd1 == chain_power;
+                state <= S_FAT_CHECK;
+            end
             S_FAT_CHECK: begin
-                if (fat_value[27:0] >= 28'hffffff8) begin
+                if (fat_eoc) begin
                     if (directory_stream) fail(8'h41);
                     else fail(8'h43);
-                end else if (fat_value[27:0] < 2 || fat_value[27:0] > max_cluster ||
-                             fat_value[27:0] == current_cluster ||
-                             fat_value[27:0] == chain_anchor || chain_hops >= cluster_count)
+                end else if (fat_bad)
                     fail(8'h43);
                 else begin
                     current_cluster <= fat_value[27:0]; cluster_sector <= 0;
                     chain_hops <= chain_hops+1'b1;
                 // Brent cycle detection adds no second FAT read or table.
                 // Directory/file byte bounds also limit all traversals.
-                if (chain_length+28'd1 == chain_power) begin
+                if (chain_wrap) begin
                     chain_anchor <= fat_value[27:0]; chain_length <= 0;
                     if (!chain_power[27]) chain_power <= chain_power << 1;
                 end else chain_length <= chain_length+1'b1;
@@ -593,17 +630,22 @@ always @(posedge clk or posedge rst) begin
                     7: riff_size[31:24] <= byte_value;
                     default: begin end
                 endcase
-                if (field_index == 11) state <= S_RIFF_CHECK;
+                if (field_index == 11) state <= S_RIFF_PRE;
                 else begin field_index <= field_index+1'b1; state <= S_BYTE_ADDR; end
             end
+            S_RIFF_PRE: begin
+                riff_bad <= riff_mismatch ||
+                    riff_size < 36 || {1'b0,riff_size}+33'd8 > {1'b0,file_size};
+                riff_end <= riff_size+32'd8;
+                state <= S_RIFF_CHECK;
+            end
             S_RIFF_CHECK: begin
-                if (riff_mismatch ||
-                    riff_size < 36 || {1'b0,riff_size}+33'd8 > {1'b0,file_size})
-                    fail(8'h42);
-                else begin riff_end <= riff_size+32'd8; state <= S_CHUNK_BEGIN; end
+                if (riff_bad) fail(8'h42);
+                else state <= S_CHUNK_BEGIN;
             end
             S_CHUNK_BEGIN: begin
-                if (file_position > riff_end-32'd8) fail(8'h42);
+                // riff_end-8 == riff_size: S_RIFF_PRE rejects any wrapping size.
+                if (file_position > riff_size) fail(8'h42);
                 else begin
                     field_index <= 0; chunk_size <= 0;
                     chunk_data_mismatch <= 0; chunk_fmt_mismatch <= 0;
@@ -622,13 +664,17 @@ always @(posedge clk or posedge rst) begin
                     7: chunk_size[31:24] <= byte_value;
                     default: begin end
                 endcase
-                if (field_index == 7) state <= S_CHUNK_CHECK;
+                if (field_index == 7) state <= S_CHUNK_PRE;
                 else begin field_index <= field_index+1'b1; state <= S_BYTE_ADDR; end
             end
-            S_CHUNK_CHECK: begin
+            S_CHUNK_PRE: begin
                 // 33-bit addition rejects a wrapping size plus odd-byte pad.
-                if ({1'b0,chunk_size}+{32'd0,chunk_size[0]} >
-                    {1'b0,riff_end}-{1'b0,file_position}) fail(8'h42);
+                chunk_too_big <= {1'b0,chunk_size}+{32'd0,chunk_size[0]} >
+                                 {1'b0,riff_end}-{1'b0,file_position};
+                state <= S_CHUNK_CHECK;
+            end
+            S_CHUNK_CHECK: begin
+                if (chunk_too_big) fail(8'h42);
                 else if (!chunk_data_mismatch) begin // data
                     if (!fmt_seen || chunk_size == 0 || chunk_size[1:0] != 0)
                         fail(8'h42);

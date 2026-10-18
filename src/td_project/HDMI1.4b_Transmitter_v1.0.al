@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Project Version="3" Minor="2" Path="C:/Users/27348/Desktop/lab_ex5_i2s/lab_ex5_i2s/src/td_project">
+<Project Version="3" Minor="2" Path="E:/Hello world/lab_ex5_i2s(1)/lab_ex5_i2s/src/td_project">
     <Project_Created_Time></Project_Created_Time>
     <TD_Version>6.2.168116</TD_Version>
     <Name>HDMI1.4b_Transmitter_v1.0</Name>

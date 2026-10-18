@@ -74,3 +74,26 @@ rename_clock -name {hdmi_5x_clk} -source [get_ports {clk}] -master_clock {clk} [
 #    setup/hold 检查，避免布线后的 hold fix 在这里插 buffer。
 # ------------------------------------------------------------
 set_false_path -to [get_regs {emergency_sys_sync[0] valid_sys_sync[0] error_sys_sync[0]}]
+
+# ------------------------------------------------------------
+# 9. 复位同步器（异步置位、同步释放）
+#    reset_sync 的 s1/s2、afifo 内部 asy_*_rst0/1、frame_read_write 的
+#    *_release_* 移位链，其异步复位端的跨域 recovery 检查无意义：释放沿由
+#    链本身在目标时钟域重新同步。按实例名匹配，不覆盖 sync_2ff 数据同步器。
+# ------------------------------------------------------------
+set_false_path -to [get_regs {u_reset_*/s1 u_reset_*/s2 frame_read_write_m0/u_cache_*_reset/s1 frame_read_write_m0/u_cache_*_reset/s2 */u_src_reset/s1 */u_src_reset/s2 */u_dst_reset/s1 */u_dst_reset/s2}]
+set_false_path -to [get_regs {*/asy_r_rst0 */asy_r_rst1 */asy_w_rst0 */asy_w_rst1}]
+set_false_path -to [get_regs {frame_read_write_m0/write_release_sd[*] frame_read_write_m0/read_release_pix[*] frame_read_write_m0/read_release_mem[*]}]
+
+# ------------------------------------------------------------
+# 10. 内嵌 SDRAM 硬核接口（EG_PHY_SDRAM_2M_32）
+#     clkc[2] 相对 ext_mem_clk 相移 3ns，再经 SDRAM 时钟焊盘延时，TD 模型中
+#     读写两方向单周期合计缺口 9.5ns > 8ns 周期，任何相位都无法单周期满足。
+#     按 IP 隔一拍收发建模：setup 2 / hold 1。该关系基于板上 SDRAM 读写
+#     正常的实测行为，加密 IP 源码无法核实，修改相位或 IP 后必须重新上板。
+# ------------------------------------------------------------
+rename_clock -name {sdram_clk} -source [get_ports {clk}] -master_clock {clk} [get_pins {sys_pll_m0/pll_inst.clkc[2]}]
+set_multicycle_path -setup -from [get_clocks {sdram_clk}] -to [get_clocks {ext_mem_clk}] 2
+set_multicycle_path -hold  -from [get_clocks {sdram_clk}] -to [get_clocks {ext_mem_clk}] 1
+set_multicycle_path -setup -from [get_clocks {ext_mem_clk}] -to [get_clocks {sdram_clk}] 2
+set_multicycle_path -hold  -from [get_clocks {ext_mem_clk}] -to [get_clocks {sdram_clk}] 1
